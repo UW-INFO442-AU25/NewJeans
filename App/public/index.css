@@ -1,0 +1,432 @@
+/* GLOBAL RESETS AND VARIABLES */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Colors */
+    --color-dark: rgba(24, 24, 24, 1);
+    --color-secondary: rgba(118, 118, 118, 1);
+    --color-primary: rgba(29, 58, 77, 1);
+    --color-light-background: rgba(251, 248, 240, 1);
+    --color-white: rgba(254, 254, 254, 1);
+    
+    /* Fonts */
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    font-size: 14px;
+    font-family: var(--font-body);
+    background-color: var(--color-white);
+}
+
+.page-container {
+    width: 100%;
+}
+
+.section-header {
+    margin-bottom: 48px;
+}
+
+.section-header.centered {
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-subtitle {
+    color: var(--color-secondary);
+    font-size: 18px;
+    font-family: var(--font-body);
+    margin-bottom: 8px;
+}
+
+.section-title {
+    color: var(--color-dark);
+    font-family: var(--font-display);
+    font-size: 32px;
+}
+
+
+/* 1. HERO SECTION */
+.hero-section {
+    position: relative;
+    padding: 128px 128px 128px 128px;
+    height: 700px;
+    background-color: #333;
+    /* This path works for Firebase Hosting if:
+       main.css is in /public/css/
+       Image is in /public/images/
+    */
+    background-image: url("../images/v249_4533.png");
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+}
+
+.content-wrapper {
+    position: relative;
+    left: 64px;
+    width: 60%;
+}
+
+.hero-content {
+    margin-bottom: 48px;
+}
+
+.hero-title {
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-weight: Regular;
+    font-size: 64px;
+    margin-bottom: 24px;
+}
+
+.hero-subtitle {
+    color: var(--color-secondary);
+    font-family: var(--font-body);
+    font-weight: Regular;
+    font-size: 18px;
+    max-width: 504px;
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    width: 593px;
+    height: 56px;
+}
+
+.search-input-field {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    background-color: rgba(244, 244, 244, 1);
+    border-radius: 6px;
+    padding: 0 20px;
+}
+
+.search-input {
+    border: none;
+    background: transparent;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: var(--color-dark);
+    width: 100%;
+    padding: 0 10px;
+    outline: none;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    background: transparent;
+}
+
+.search-button {
+    width: 89px; 
+    height: 56px; 
+    background-color: var(--color-primary); 
+    border-radius: 6px;
+    margin-left: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 2. FEATURED EMPLOYERS SECTION */
+.featured-employers-section {
+    padding: 64px 128px;
+}
+
+.employer-logos {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-placeholder {
+    flex-grow: 1;
+    min-width: 150px;
+    height: 200px;
+    background: var(--color-light-background);
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-secondary);
+    font-family: var(--font-body);
+}
+
+
+/* 3. HOW IT WORKS SECTION */
+.how-it-works-section {
+    background-color: var(--color-light-background);
+    padding: 64px 128px;
+}
+
+.step-cards-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.step-card {
+    flex-basis: 25%;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.step-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-primary);
+    border-radius: 999px;
+    margin: 0 auto 12px auto;
+}
+
+.step-title {
+    color: var(--color-dark);
+    font-family: var(--font-display);
+    font-weight: Medium;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.step-description {
+    color: var(--color-secondary);
+    font-family: var(--font-body);
+    font-size: 14px;
+}
+
+
+/* 4. EMPOWERING CAREER SECTION */
+.empowering-career-section {
+    padding: 64px 128px;
+}
+
+.feature-cards-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.feature-card {
+    flex-basis: 33.33%;
+    background: var(--color-white);
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-primary);
+    border-radius: 999px;
+    margin-bottom: 16px;
+}
+
+.feature-title {
+    color: var(--color-dark);
+    font-family: var(--font-display);
+    font-weight: Medium;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.feature-description {
+    color: var(--color-secondary);
+    font-family: var(--font-body);
+    font-size: 14px;
+}
+
+
+/* 5. CALL TO ACTION (CTA) SECTION */
+.cta-employer-section {
+    padding: 64px 128px;
+}
+
+.cta-content-box {
+    background-color: var(--color-light-background);
+    border-radius: 8px;
+    padding: 64px 128px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cta-text-group {
+    max-width: 710px;
+}
+
+.cta-title {
+    color: var(--color-dark);
+    font-family: var(--font-display);
+    font-weight: Medium;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.cta-description {
+    color: var(--color-secondary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    max-width: 710px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.cta-button {
+    width: 159px;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-body);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cta-button.primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.cta-button.secondary {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+
+/* 6. FOOTER */
+.site-footer {
+    background-color: var(--color-white);
+    padding: 64px 128px;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.footer-text {
+    color: var(--color-dark);
+    font-family: var(--font-body);
+    font-weight: Bold;
+    font-size: 24px;
+}
+
+
+/* MEDIA QUERIES for Responsiveness */
+
+/* Tablet View: Screens smaller than 1024px */
+@media (max-width: 1024px) {
+    .hero-section,
+    .featured-employers-section,
+    .how-it-works-section,
+    .empowering-career-section,
+    .cta-employer-section,
+    .site-footer {
+        padding-left: 64px;
+        padding-right: 64px;
+    }
+    
+    .step-cards-container {
+        flex-wrap: wrap;
+    }
+
+    .step-card {
+        flex-basis: 48%;
+        margin-bottom: 20px;
+    }
+    
+    .feature-cards-container {
+        flex-wrap: wrap; 
+    }
+    
+    .feature-card {
+        flex-basis: 48%;
+        margin-bottom: 20px;
+    }
+    
+    .cta-content-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px;
+    }
+    
+    .cta-text-group {
+        margin-bottom: 20px;
+    }
+    
+    .cta-description {
+        margin: 0 auto;
+    }
+    
+    .hero-title {
+        font-size: 48px;
+    }
+}
+
+/* Mobile View: Screens smaller than 768px */
+@media (max-width: 768px) {
+    .hero-section,
+    .featured-employers-section,
+    .how-it-works-section,
+    .empowering-career-section,
+    .cta-employer-section,
+    .site-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .content-wrapper {
+        left: 0;
+        width: 100%;
+    }
+    
+    .hero-title {
+        font-size: 36px;
+    }
+    
+    .search-bar-container {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+    
+    .search-input-field {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .search-button {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .step-card {
+        flex-basis: 100%;
+    }
+    
+    .feature-card {
+        flex-basis: 100%;
+    }
+}
