@@ -1,14 +1,18 @@
 import React from "react";
-import JobDashboard from "./components/JobDashboard"; // Make sure this path is correct
+import LandingPage from "./components/LandingPage";
+import JobDashboard from "./components/JobDashboard";
 
 function App() {
   return (
-    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
-      <h1>Hello, NewJeans!</h1>
-      <p>Your React app is running.</p>
-      
-      {/* Add the Job Application Tracker */}
-      <JobDashboard />
+    <div>
+      <LandingPage />
+      <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
+        <h1>Hello, NewJeans!</h1>
+        <p>Your React app is running.</p>
+
+        {/* Add the Job Application Tracker */}
+        <JobDashboard />
+      </div>
     </div>
   );
 }
