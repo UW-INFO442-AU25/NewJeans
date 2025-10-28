@@ -1,3 +1,4 @@
+import 
 /* GLOBAL RESETS AND VARIABLES */
 * {
     box-sizing: border-box;
@@ -26,6 +27,7 @@ body {
 
 .page-container {
     width: 100%;
+    /* Use padding on sections instead of margin on the container */
 }
 
 .section-header {
@@ -56,24 +58,21 @@ body {
 /* 1. HERO SECTION */
 .hero-section {
     position: relative;
-    padding: 128px 128px 128px 128px;
-    height: 700px;
-    background-color: #333;
-    /* This path works for Firebase Hosting if:
-       main.css is in /public/css/
-       Image is in /public/images/
-    */
-    background-image: url("../images/thumbnail_edwin-andrade-4V1dC_eoCWG-unsplash.jpg");
+    padding: 128px 128px 128px 128px; /* Standard section padding */
+    height: 700px; /* Keeping the height for the hero visual impact */
+    background-color: #333; /* Dark fallback */
+    background-image: url("../images/v249_4533.png"); /* The image from v249_4533 */
     background-size: cover;
     background-position: center center;
     display: flex;
-    align-items: center;
+    align-items: center; /* Vertically center content */
 }
 
 .content-wrapper {
+    /* Align content to the left side of the hero section */
     position: relative;
     left: 64px;
-    width: 60%;
+    width: 60%; /* Limit content width */
 }
 
 .hero-content {
@@ -81,7 +80,7 @@ body {
 }
 
 .hero-title {
-    color: var(--color-white);
+    color: var(--color-white); /* Changed to white for contrast on dark background */
     font-family: var(--font-display);
     font-weight: Regular;
     font-size: 64px;
@@ -125,24 +124,20 @@ body {
 }
 
 .search-icon {
+    /* Placeholder for an actual icon */
     width: 24px;
     height: 24px;
     background: transparent;
+    /* You would typically use an SVG or font icon here */
 }
 
 .search-button {
+    /* Placeholder for the search button (v249_4539) */
     width: 89px; 
     height: 56px; 
     background-color: var(--color-primary); 
     border-radius: 6px;
     margin-left: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-white);
-    font-family: var(--font-body);
-    font-weight: bold;
-    cursor: pointer;
 }
 
 /* 2. FEATURED EMPLOYERS SECTION */
@@ -153,13 +148,13 @@ body {
 .employer-logos {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    /* This section was not detailed enough to make responsive, 
+       so placeholders are kept simple */
 }
 
 .logo-placeholder {
-    flex-grow: 1;
-    min-width: 150px;
-    height: 200px;
+    width: 25%; /* Example width for flexibility */
+    height: 200px; /* Example height */
     background: var(--color-light-background);
     border: 1px solid #ddd;
     display: flex;
@@ -183,9 +178,9 @@ body {
 }
 
 .step-card {
-    flex-basis: 25%;
+    flex-basis: 25%; /* Distribute space evenly among 4 cards */
     text-align: center;
-    padding: 0 10px;
+    padding: 0 10px; /* Small inner padding */
 }
 
 .step-icon {
@@ -193,7 +188,8 @@ body {
     height: 48px;
     background-color: var(--color-primary);
     border-radius: 999px;
-    margin: 0 auto 12px auto;
+    margin: 0 auto 12px auto; /* Center the icon */
+    /* Placeholder for an actual icon */
 }
 
 .step-title {
@@ -227,7 +223,7 @@ body {
     background: var(--color-white);
     padding: 16px;
     border-radius: 8px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* Reduced shadow opacity for cleaner look */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -349,11 +345,11 @@ body {
     }
     
     .step-cards-container {
-        flex-wrap: wrap;
+        flex-wrap: wrap; /* Wrap cards */
     }
 
     .step-card {
-        flex-basis: 48%;
+        flex-basis: 48%; /* Two cards per row */
         margin-bottom: 20px;
     }
     
@@ -362,12 +358,12 @@ body {
     }
     
     .feature-card {
-        flex-basis: 48%;
+        flex-basis: 48%; /* Two cards per row */
         margin-bottom: 20px;
     }
     
     .cta-content-box {
-        flex-direction: column;
+        flex-direction: column; /* Stack content and buttons */
         text-align: center;
         padding: 40px;
     }
@@ -398,7 +394,7 @@ body {
     }
     
     .content-wrapper {
-        left: 0;
+        left: 0; /* Remove fixed left margin */
         width: 100%;
     }
     
@@ -423,10 +419,10 @@ body {
     }
     
     .step-card {
-        flex-basis: 100%;
+        flex-basis: 100%; /* Single card per row */
     }
     
     .feature-card {
-        flex-basis: 100%;
+        flex-basis: 100%; /* Single card per row */
     }
 }

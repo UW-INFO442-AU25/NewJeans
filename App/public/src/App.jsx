@@ -3,7 +3,7 @@ import React from "react";
 function App() {
   return (
     <div className="desktop-container">
-      <div className="content-max-width">
+      <div className="background-overlay">
         <nav className="navigation-bar">
           <div className="nav-inner">
             <div className="nav-left">
@@ -154,7 +154,7 @@ function App() {
         </section>
 
         <section className="tools-section">
-          <div className="tools-header">
+          <div className="tools-header centered-text">
             <div className="section-label">Empowering Your Career</div>
             <h2 className="section-title centered">We provide the tools and information you need to navigate visa sponsorship with confidence</h2>
           </div>
@@ -216,7 +216,47 @@ function App() {
         </section>
 
         <footer className="footer">
-          <div className="footer-text">Footer</div>
+          <div className="footer-container">
+            <div className="footer-grid">
+              <div className="footer-column">
+                <div className="logo">VisaPath</div>
+                <div className="footer-paragraph">
+                  <p className="footer-desc">Connecting international students with U.S. employers who sponsor work visas.</p>
+                </div>
+              </div>
+              <div className="footer-column footer-column-students">
+                <div className="footer-heading">
+                  <h5 className="footer-heading-text">Students</h5>
+                </div>
+                <div className="footer-list">
+                  <div className="footer-list-item">
+                    <a href="#" className="footer-link">Job Board</a>
+                  </div>
+                  <div className="footer-list-item">
+                    <a href="#" className="footer-link">Employer Board</a>
+                  </div>
+                  <div className="footer-list-item">
+                    <a href="#" className="footer-link">Visa Resources</a>
+                  </div>
+                </div>
+              </div>
+              <div className="footer-column footer-column-employers">
+                <div className="footer-heading">
+                  <h5 className="footer-heading-text">Employers</h5>
+                </div>
+                <div className="footer-list">
+                  <div className="footer-list-item">
+                    <a href="#" className="footer-link">Post a Job</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="footer-copyright">
+              <div className="footer-copyright-paragraph">
+                <p className="footer-copyright-text">© 2025 VisaPath. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
         </footer>
       </div>
     </div>
