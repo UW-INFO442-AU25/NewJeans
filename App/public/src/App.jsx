@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import JobBoard from "./JobBoard";
 import Profile from "./Profile";
+import JobDescription from "./JobDescription";
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -17,12 +18,20 @@ function App() {
     setCurrentPage('profile');
   };
 
+  const navigateToJobDescription = () => {
+    setCurrentPage('job-description');
+  };
+
   if (currentPage === 'job-board') {
-    return <JobBoard onNavigateHome={navigateToHome} />;
+    return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} />;
   }
 
   if (currentPage === 'profile') {
     return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} />;
+  }
+
+  if (currentPage === 'job-description') {
+    return <JobDescription onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} />;
   }
 
   return (

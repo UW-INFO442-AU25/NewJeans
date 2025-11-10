@@ -1,7 +1,7 @@
 import React from 'react';
 import './JobBoard.css';
 
-function JobBoard({ onNavigateHome }) {
+function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
   return (
     <div className="job-board-container">
       <nav className="navigation-bar">
@@ -215,7 +215,7 @@ function JobBoard({ onNavigateHome }) {
           <div className="jobs-list">
             {[1, 2, 3, 4, 5, 6].map((index) => (
               <div key={index} className="job-card">
-                <div className="job-card-content">
+                <div className="job-card-content" onClick={onNavigateToJobDescription} style={{ cursor: 'pointer' }}>
                   <div className="job-header">
                     <img className="job-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/bb386d0f70a4874d89b7e6518aebbfdace2c5878?width=190" alt="" />
                     <div className="job-info">
