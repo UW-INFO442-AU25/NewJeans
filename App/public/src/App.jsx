@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import JobBoard from "./JobBoard";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const navigateToJobBoard = () => {
+    setCurrentPage('job-board');
+  };
+
+  const navigateToHome = () => {
+    setCurrentPage('home');
+  };
+
+  if (currentPage === 'job-board') {
+    return <JobBoard onNavigateHome={navigateToHome} />;
+  }
+
   return (
     <div className="desktop-container">
       <div className="background-overlay">
         <nav className="navigation-bar">
           <div className="nav-inner">
             <div className="nav-left">
-              <div className="logo">VisaPath</div>
+              <div className="logo" style={{ cursor: 'pointer' }}>Visa<span style={{ fontWeight: 900 }}>Path</span></div>
               <div className="nav-links-desktop">
-                <div className="nav-link">
+                <div className="nav-link" onClick={navigateToJobBoard} style={{ cursor: 'pointer' }}>
                   <div className="link-text">Job Board</div>
                 </div>
               </div>
@@ -66,7 +81,7 @@ function App() {
               <h2 className="section-title">Top companies actively sponsoring international talent</h2>
             </div>
             <div className="section-header-button">
-              <button className="btn-primary">See All</button>
+              <button className="btn-primary" onClick={navigateToJobBoard}>See All</button>
             </div>
           </div>
           <div className="company-cards">
@@ -219,7 +234,7 @@ function App() {
           <div className="footer-container">
             <div className="footer-grid">
               <div className="footer-column">
-                <div className="logo">VisaPath</div>
+                <div className="logo">Visa<span style={{ fontWeight: 900 }}>Path</span></div>
                 <div className="footer-paragraph">
                   <p className="footer-desc">Connecting international students with U.S. employers who sponsor work visas.</p>
                 </div>
@@ -230,13 +245,13 @@ function App() {
                 </div>
                 <div className="footer-list">
                   <div className="footer-list-item">
-                    <a href="#" className="footer-link">Job Board</a>
+                    <div className="footer-link" onClick={navigateToJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
                   </div>
                   <div className="footer-list-item">
-                    <a href="#" className="footer-link">Employer Board</a>
+                    <div className="footer-link">Employer Board</div>
                   </div>
                   <div className="footer-list-item">
-                    <a href="#" className="footer-link">Visa Resources</a>
+                    <div className="footer-link">Visa Resources</div>
                   </div>
                 </div>
               </div>

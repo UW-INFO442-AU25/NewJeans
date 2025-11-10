@@ -65,7 +65,7 @@ body {
 
 .logo {
   color: #1D3A4D;
-  font: 900 24px/26px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font: 400 24px/26px Inter, -apple-system, Roboto, Helvetica, sans-serif;
   transition: color 0.3s ease;
 }
 
