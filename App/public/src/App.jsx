@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import JobBoard from "./JobBoard";
+import Profile from "./Profile";
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -12,8 +13,16 @@ function App() {
     setCurrentPage('home');
   };
 
+  const navigateToProfile = () => {
+    setCurrentPage('profile');
+  };
+
   if (currentPage === 'job-board') {
     return <JobBoard onNavigateHome={navigateToHome} />;
+  }
+
+  if (currentPage === 'profile') {
+    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} />;
   }
 
   return (
@@ -30,7 +39,7 @@ function App() {
               </div>
             </div>
             <div className="nav-right">
-              <div className="nav-link">
+              <div className="nav-link" onClick={navigateToProfile} style={{ cursor: 'pointer' }}>
                 <div className="link-text">Log in</div>
               </div>
               <div className="nav-button-wrapper">

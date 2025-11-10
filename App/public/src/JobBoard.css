@@ -4,6 +4,7 @@
   flex-direction: column;
   background: #FEFEFE;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .main-content {
@@ -422,22 +423,39 @@
     width: 100%;
     border-right: none;
     border-bottom: 1px solid #B7B7B7;
+    padding: 24px 16px;
+  }
+
+  .filter-header {
+    width: 100%;
+  }
+
+  .filter-group-header {
+    width: 100%;
+  }
+
+  .checkbox-item {
+    width: 100%;
+  }
+
+  .salary-slider-wrapper {
+    width: 100%;
+  }
+
+  .salary-slider-track {
+    width: 100%;
   }
 
   .main-search-bar {
     width: 100%;
   }
+
+  .job-card {
+    padding: 20px 24px;
+  }
 }
 
-@media (max-width: 640px) {
-  .sidebar {
-    padding: 16px;
-  }
-
-  .search-section {
-    padding: 16px;
-  }
-
+@media (max-width: 768px) {
   .job-card {
     flex-direction: column;
     gap: 16px;
@@ -454,7 +472,140 @@
     height: auto;
   }
 
+  .job-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .job-logo {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+  }
+
+  .job-role {
+    font-size: 24px;
+  }
+
   .job-details-grid {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .job-detail {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .sidebar {
+    padding: 16px;
+  }
+
+  .filter-header {
+    width: 100%;
+  }
+
+  .filter-divider {
+    width: 100%;
+  }
+
+  .search-section {
+    padding: 16px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .main-search-bar {
+    height: 48px;
+  }
+
+  .search-description {
+    font-size: 14px;
+  }
+
+  .job-card {
+    padding: 16px;
+  }
+
+  .job-logo {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    min-height: 70px;
+  }
+
+  .job-role {
+    font-size: 20px;
+    word-wrap: break-word;
+  }
+
+  .job-company {
+    font-size: 14px;
+    word-wrap: break-word;
+  }
+
+  .job-detail-text {
+    font-size: 13px;
+    word-wrap: break-word;
+  }
+
+  .job-badge {
+    font-size: 11px;
+    padding: 3px 12px;
+  }
+
+  .apply-btn {
+    width: auto;
+    flex: 1;
+  }
+
+  .bookmark-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .view-more {
+    padding: 32px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 18px;
+  }
+
+  .job-logo {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .job-role {
+    font-size: 18px;
+  }
+
+  .job-company {
+    font-size: 13px;
+  }
+
+  .sidebar {
+    padding: 12px;
+  }
+
+  .filter-title {
+    font-size: 14px;
+  }
+
+  .filter-group-title {
+    font-size: 14px;
+  }
+
+  .checkbox-label {
+    font-size: 11px;
   }
 }
