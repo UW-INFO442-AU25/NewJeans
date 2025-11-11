@@ -42,13 +42,8 @@ body {
   display: flex;
   width: 100%;
   height: 80px;
-<<<<<<< HEAD
-  padding: 23px 16px;
-  justify-content: center; /* center inner wrapper */
-=======
   padding: 24px 128px;
   justify-content: center;
->>>>>>> 2c5d62273433117c3689010bb74c6c157e73950e
   align-items: center;
   border-bottom: 1px solid #B7B7B7;
   background-color: #FEFEFE;
@@ -61,12 +56,7 @@ body {
 
 .nav-inner {
   display: flex;
-<<<<<<< HEAD
   width: 100%;
-  max-width: none; /* allow full-width stretch */
-=======
-  max-width: 100%;
->>>>>>> 2c5d62273433117c3689010bb74c6c157e73950e
   justify-content: space-between;
   align-items: center;
   padding: 0 16px; /* consistent horizontal gutter */

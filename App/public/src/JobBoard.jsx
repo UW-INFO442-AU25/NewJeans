@@ -216,11 +216,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
               <div key={index} className="job-card">
                 <div className="job-card-content" onClick={onNavigateToJobDescription} style={{ cursor: 'pointer' }}>
                   <div className="job-header">
-<<<<<<< HEAD
-                    <img className="job-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/8d21d9c52c0bf24a42bddaffbfa1dd59c0948119?width=202" alt="" />
-=======
                     <img className="job-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/e83b21893337804f974f8a34f903748129405d9e?width=190" alt="" />
->>>>>>> 2c5d62273433117c3689010bb74c6c157e73950e
                     <div className="job-info">
                       <div className="job-info-text">
                         <div className="job-role">{index === 1 ? "Intern, Innovation - Designer (Spring 2026)" : "Role"}</div>
