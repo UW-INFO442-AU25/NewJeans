@@ -1,11 +1,11 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import './JobBoard.css';
 import NavBar from './components/NavBar';
 import jobs from './data/jobs.json';
 import JobCard from './components/JobCard';
 import SearchBar from './components/SearchBar';
 
-function JobBoard({ onNavigateHome, onNavigateToJobDescription, initialSearchQuery = '' }) {
+function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfile, initialSearchQuery = '' }) {
   const [visaFilters, setVisaFilters] = useState([]); // e.g. ['H-1B']
   const [locationQuery, setLocationQuery] = useState('');
   const [remoteOnly, setRemoteOnly] = useState(false);
@@ -105,6 +105,98 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription, initialSearchQue
     else setSalaryMax(salaryMin);
   };
 
+  const [activeHandle, setActiveHandle] = useState(null); // 'min' | 'max' | null
+
+  const pctFor = (value) => {
+    const min = salaryBounds.overallMin;
+    const max = salaryBounds.overallMax;
+    if (max === min) return 0;
+    return ((value - min) / (max - min)) * 100;
+  };
+
+  const selectedRangeStyle = {
+    left: `${pctFor(salaryMin)}%`,
+    width: `${Math.max(0, pctFor(salaryMax) - pctFor(salaryMin))}%`,
+  };
+
+  // Make each range input cover a non-overlapping portion of the track so both can receive pointer events
+  const minInputStyle = {
+    left: '0%',
+    width: `${pctFor(salaryMax)}%`,
+  };
+
+  const dualRangeRef = useRef(null);
+
+  // Drag handling implemented by listening to pointer moves on window. This avoids
+  // native input target/z-index problems and lets us pick the nearest handle on start.
+  const dragState = useRef({});
+
+  const valueForClientX = (clientX) => {
+    const el = dualRangeRef.current;
+    if (!el) return salaryBounds.overallMin;
+    const rect = el.getBoundingClientRect();
+    const relativeX = Math.max(0, Math.min(rect.width, clientX - rect.left));
+    const pct = relativeX / (rect.width || 1);
+    const min = salaryBounds.overallMin;
+    const max = salaryBounds.overallMax;
+    const v = Math.round(min + pct * (max - min));
+    return v;
+  };
+
+  const onDragMove = (clientX) => {
+    const v = valueForClientX(clientX);
+    if (dragState.current.handle === 'min') setSalaryMinSafe(v);
+    else if (dragState.current.handle === 'max') setSalaryMaxSafe(v);
+  };
+
+  const endDrag = () => {
+    dragState.current = {};
+    setActiveHandle(null);
+    window.removeEventListener('mousemove', mouseMove);
+    window.removeEventListener('mouseup', mouseUp);
+    window.removeEventListener('touchmove', touchMove);
+    window.removeEventListener('touchend', touchEnd);
+  };
+
+  const mouseMove = (e) => onDragMove(e.clientX);
+  const touchMove = (e) => { if (e.touches && e.touches[0]) { e.preventDefault(); onDragMove(e.touches[0].clientX); } };
+  const mouseUp = () => endDrag();
+  const touchEnd = () => endDrag();
+
+  const startDrag = (clientX) => {
+    const el = dualRangeRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const relativeX = clientX - rect.left;
+    const pct = (relativeX / (rect.width || 1)) * 100;
+    const minPct = pctFor(salaryMin);
+    const maxPct = pctFor(salaryMax);
+    const distToMin = Math.abs(pct - minPct);
+    const distToMax = Math.abs(pct - maxPct);
+    const handle = distToMin <= distToMax ? 'min' : 'max';
+    dragState.current = { handle };
+    setActiveHandle(handle);
+    // start listening
+    window.addEventListener('mousemove', mouseMove);
+    window.addEventListener('mouseup', mouseUp);
+    window.addEventListener('touchmove', touchMove, { passive: false });
+    window.addEventListener('touchend', touchEnd);
+  };
+
+  // cleanup listeners on unmount
+  useEffect(() => {
+    return () => {
+      try {
+        window.removeEventListener('mousemove', mouseMove);
+        window.removeEventListener('mouseup', mouseUp);
+        window.removeEventListener('touchmove', touchMove);
+        window.removeEventListener('touchend', touchEnd);
+      } catch (e) {
+        // ignore
+      }
+    };
+  }, []);
+
   // Helper: check if any attribute of the job (including nested arrays/objects)
   // contains the query string (case-insensitive).
   const jobMatchesQuery = (job, q) => {
@@ -162,6 +254,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription, initialSearchQue
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={null}
+        onNavigateProfile={onNavigateProfile}
       />
 
       <div className="main-content">
@@ -269,61 +362,72 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription, initialSearchQue
 
             <div className="filter-group">
               <div className="filter-group-header">
-                <div className="filter-group-title">Industry</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Technology</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Finance</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Engineering</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Healthcare</div>
-              </label>
-            </div>
-
-            <div className="filter-divider"></div>
-
-            <div className="filter-group">
-              <div className="filter-group-header">
                 <div className="filter-group-title">Salary</div>
                 <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div className="salary-slider-wrapper">
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                  <div className="salary-label">Min: ${salaryMin.toLocaleString()}</div>
-                  <div className="salary-label">Max: ${salaryMax.toLocaleString()}</div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, alignItems: 'center', gap: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div className="salary-label">Min:</div>
+                    <input
+                      type="number"
+                      className="salary-input"
+                      value={salaryMin}
+                      onChange={(e) => setSalaryMinSafe(e.target.value)}
+                      style={{ width: 120 }}
+                      aria-label="Minimum salary input"
+                    />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div className="salary-label">Max:</div>
+                    <input
+                      type="number"
+                      className="salary-input"
+                      value={salaryMax}
+                      onChange={(e) => setSalaryMaxSafe(e.target.value)}
+                      style={{ width: 120 }}
+                      aria-label="Maximum salary input"
+                    />
+                  </div>
                 </div>
-                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+
+                <div
+                  className="dual-range"
+                  ref={dualRangeRef}
+                  onMouseDown={(e) => startDrag(e.clientX)}
+                  onTouchStart={(e) => { if (e.touches && e.touches[0]) { startDrag(e.touches[0].clientX); } }}
+                >
+                  <div className="salary-slider-track" />
+                  <div className="salary-slider-range" style={selectedRangeStyle} />
+
                   <input
                     type="range"
+                    className={`range-input range-min ${activeHandle === 'min' ? 'active' : ''}`}
                     min={salaryBounds.overallMin}
                     max={salaryBounds.overallMax}
                     value={salaryMin}
                     onChange={(e) => setSalaryMinSafe(e.target.value)}
+                    onMouseDown={() => setActiveHandle('min')}
+                    onMouseUp={() => setActiveHandle(null)}
+                    onTouchStart={() => setActiveHandle('min')}
+                    onTouchEnd={() => setActiveHandle(null)}
                     aria-label="Minimum salary"
-                    style={{ flex: 1 }}
                   />
+
                   <input
                     type="range"
+                    className={`range-input range-max ${activeHandle === 'max' ? 'active' : ''}`}
                     min={salaryBounds.overallMin}
                     max={salaryBounds.overallMax}
                     value={salaryMax}
                     onChange={(e) => setSalaryMaxSafe(e.target.value)}
+                    onMouseDown={() => setActiveHandle('max')}
+                    onMouseUp={() => setActiveHandle(null)}
+                    onTouchStart={() => setActiveHandle('max')}
+                    onTouchEnd={() => setActiveHandle(null)}
                     aria-label="Maximum salary"
-                    style={{ flex: 1 }}
                   />
                 </div>
               </div>

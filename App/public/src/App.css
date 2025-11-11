@@ -618,7 +618,6 @@ body {
   flex: 1 0 0;
   align-self: stretch;
   border-radius: 16px;
-  border: 1px solid #B7B7B7;
   background: linear-gradient(135deg, #FBF8F0 0%, #F4F1E8 100%);
   padding: 64px 32px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
