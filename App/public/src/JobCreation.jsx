@@ -190,55 +190,55 @@ function JobCreation({ onNavigateHome }) {
             
             <div className="preview-content">
               <div className="preview-job-card">
-                <div className="preview-job-header">
-                  <img className="preview-company-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/5ddb6a2b36ad941f39478740b91d80ccfb061e77?width=202" alt="Company Logo" />
-                  <div className="preview-job-info">
-                    <div className="preview-job-text">
+                <div className="preview-top-row">
+                  <div className="preview-left">
+                    <img className="preview-company-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/5ddb6a2b36ad941f39478740b91d80ccfb061e77?width=202" alt="Company Logo" />
+                    <div className="preview-job-info">
                       <div className="preview-job-title">Intern, Innovation - Designer (Spring 2026)</div>
                       <div className="preview-company-name">Delta Air Lines</div>
-                    </div>
-                    <div className="preview-visa-badges">
-                      <span className="preview-visa-badge">H-1B</span>
+                      <div className="preview-visa-badges">
+                        <span className="preview-visa-badge">H-1B</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="preview-job-details-grid">
-                    <div className="preview-detail-item">
+                  <div className="preview-job-actions">
+                    <button className="preview-bookmark-btn">
                       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M9 16.5C12 13.5 15 10.8137 15 7.5C15 4.18629 12.3137 1.5 9 1.5C5.68629 1.5 3 4.18629 3 7.5C3 10.8137 6 13.5 9 16.5Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M3.75 5.85C3.75 4.58988 3.75 3.95982 3.99524 3.47852C4.21095 3.05516 4.55516 2.71095 4.97852 2.49524C5.45982 2.25 6.08988 2.25 7.35 2.25H10.65C11.9101 2.25 12.5402 2.25 13.0215 2.49524C13.4448 2.71095 13.789 3.05516 14.0048 3.47852C14.25 3.95982 14.25 4.58988 14.25 5.85V15.75L9 12.75L3.75 15.75V5.85Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      <div className="preview-detail-text">Location</div>
-                    </div>
-                    <div className="preview-detail-item">
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clipPath="url(#clip0_607_14433)">
-                          <path d="M12.75 10.8752V8.62099C12.75 8.48638 12.75 8.41908 12.7295 8.35966C12.7114 8.30711 12.6818 8.25925 12.6429 8.21954C12.5989 8.17463 12.5387 8.14453 12.4183 8.08433L9 6.37517M3 7.12517V12.2301C3 12.5091 3 12.6485 3.04351 12.7706C3.08198 12.8786 3.14468 12.9763 3.22678 13.0562C3.31966 13.1467 3.44645 13.2048 3.70001 13.321L8.50001 15.521C8.68394 15.6053 8.7759 15.6475 8.87171 15.6641C8.9566 15.6788 9.0434 15.6788 9.12829 15.6641C9.2241 15.6475 9.31606 15.6053 9.49999 15.521L14.3 13.321C14.5535 13.2048 14.6803 13.1467 14.7732 13.0562C14.8553 12.9763 14.918 12.8786 14.9565 12.7706C15 12.6485 15 12.5091 15 12.2301V7.12517M1.5 6.37517L8.73167 2.75933C8.83006 2.71014 8.87925 2.68554 8.93085 2.67586C8.97655 2.66729 9.02345 2.66729 9.06915 2.67586C9.12075 2.68554 9.16994 2.71014 9.26833 2.75933L16.5 6.37517L9.26833 9.99101C9.16994 10.0402 9.12075 10.0648 9.06915 10.0745C9.02345 10.0831 8.97655 10.0831 8.93085 10.0745C8.87925 10.0648 8.83006 10.0402 8.73167 9.99101L1.5 6.37517Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </g>
-                        <defs><clipPath id="clip0_607_14433"><rect width="18" height="18" fill="white"/></clipPath></defs>
-                      </svg>
-                      <div className="preview-detail-text">Years of Experience</div>
-                    </div>
-                    <div className="preview-detail-item">
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.75 15.75V10.2C6.75 9.78001 6.75 9.56999 6.83175 9.40956C6.90365 9.26843 7.01839 9.1537 7.15951 9.08179C7.31994 9.00005 7.52996 9.00005 7.95 9.00005H10.05C10.47 9.00005 10.6801 9.00005 10.8405 9.08179C10.9816 9.1537 11.0963 9.26843 11.1683 9.40956C11.25 9.56999 11.25 9.78001 11.25 10.2V15.75M8.26327 2.07306L3.17654 6.0294C2.83652 6.29387 2.6665 6.4261 2.54402 6.5917C2.43552 6.73839 2.3547 6.90365 2.30552 7.07935C2.25 7.2777 2.25 7.49308 2.25 7.92385V13.35C2.25 14.1901 2.25 14.6102 2.41349 14.931C2.5573 15.2133 2.78677 15.4427 3.06901 15.5866C3.38988 15.75 3.80992 15.75 4.65 15.75H13.35C14.1901 15.75 14.6101 15.75 14.931 15.5866C15.2132 15.4427 15.4427 15.2133 15.5865 14.931C15.75 14.6102 15.75 14.1901 15.75 13.35V7.92385C15.75 7.49308 15.75 7.2777 15.6945 7.07935C15.6453 6.90365 15.5645 6.73839 15.456 6.5917C15.3335 6.4261 15.1635 6.29387 14.8235 6.02941L9.73673 2.07306C9.47324 1.86812 9.34149 1.76565 9.19601 1.72626C9.06765 1.69151 8.93235 1.69151 8.80399 1.72626C8.65851 1.76565 8.52677 1.86812 8.26327 2.07306Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <div className="preview-detail-text">Remote</div>
-                    </div>
-                    <div className="preview-detail-item">
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.5 12C4.5 13.6569 5.84315 15 7.5 15H10.5C12.1569 15 13.5 13.6569 13.5 12C13.5 10.3431 12.1569 9 10.5 9H7.5C5.84315 9 4.5 7.65685 4.5 6C4.5 4.34315 5.84315 3 7.5 3H10.5C12.1569 3 13.5 4.34315 13.5 6M9 1.5V16.5" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <div className="preview-detail-text">Salary</div>
-                    </div>
+                    </button>
+                    <button className="preview-apply-btn">Apply</button>
                   </div>
                 </div>
-                <div className="preview-job-actions">
-                  <button className="preview-bookmark-btn">
+                <div className="preview-job-details-grid">
+                  <div className="preview-detail-item">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.75 5.85C3.75 4.58988 3.75 3.95982 3.99524 3.47852C4.21095 3.05516 4.55516 2.71095 4.97852 2.49524C5.45982 2.25 6.08988 2.25 7.35 2.25H10.65C11.9101 2.25 12.5402 2.25 13.0215 2.49524C13.4448 2.71095 13.789 3.05516 14.0048 3.47852C14.25 3.95982 14.25 4.58988 14.25 5.85V15.75L9 12.75L3.75 15.75V5.85Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M9 16.5C12 13.5 15 10.8137 15 7.5C15 4.18629 12.3137 1.5 9 1.5C5.68629 1.5 3 4.18629 3 7.5C3 10.8137 6 13.5 9 16.5Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                  </button>
-                  <button className="preview-apply-btn">Apply</button>
+                    <div className="preview-detail-text">Location</div>
+                  </div>
+                  <div className="preview-detail-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clipPath="url(#clip0_607_14433)">
+                        <path d="M12.75 10.8752V8.62099C12.75 8.48638 12.75 8.41908 12.7295 8.35966C12.7114 8.30711 12.6818 8.25925 12.6429 8.21954C12.5989 8.17463 12.5387 8.14453 12.4183 8.08433L9 6.37517M3 7.12517V12.2301C3 12.5091 3 12.6485 3.04351 12.7706C3.08198 12.8786 3.14468 12.9763 3.22678 13.0562C3.31966 13.1467 3.44645 13.2048 3.70001 13.321L8.50001 15.521C8.68394 15.6053 8.7759 15.6475 8.87171 15.6641C8.9566 15.6788 9.0434 15.6788 9.12829 15.6641C9.2241 15.6475 9.31606 15.6053 9.49999 15.521L14.3 13.321C14.5535 13.2048 14.6803 13.1467 14.7732 13.0562C14.8553 12.9763 14.918 12.8786 14.9565 12.7706C15 12.6485 15 12.5091 15 12.2301V7.12517M1.5 6.37517L8.73167 2.75933C8.83006 2.71014 8.87925 2.68554 8.93085 2.67586C8.97655 2.66729 9.02345 2.66729 9.06915 2.67586C9.12075 2.68554 9.16994 2.71014 9.26833 2.75933L16.5 6.37517L9.26833 9.99101C9.16994 10.0402 9.12075 10.0648 9.06915 10.0745C9.02345 10.0831 8.97655 10.0831 8.93085 10.0745C8.87925 10.0648 8.83006 10.0402 8.73167 9.99101L1.5 6.37517Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </g>
+                      <defs><clipPath id="clip0_607_14433"><rect width="18" height="18" fill="white"/></clipPath></defs>
+                    </svg>
+                    <div className="preview-detail-text">Years of Experience</div>
+                  </div>
+                  <div className="preview-detail-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.75 15.75V10.2C6.75 9.78001 6.75 9.56999 6.83175 9.40956C6.90365 9.26843 7.01839 9.1537 7.15951 9.08179C7.31994 9.00005 7.52996 9.00005 7.95 9.00005H10.05C10.47 9.00005 10.6801 9.00005 10.8405 9.08179C10.9816 9.1537 11.0963 9.26843 11.1683 9.40956C11.25 9.56999 11.25 9.78001 11.25 10.2V15.75M8.26327 2.07306L3.17654 6.0294C2.83652 6.29387 2.6665 6.4261 2.54402 6.5917C2.43552 6.73839 2.3547 6.90365 2.30552 7.07935C2.25 7.2777 2.25 7.49308 2.25 7.92385V13.35C2.25 14.1901 2.25 14.6102 2.41349 14.931C2.5573 15.2133 2.78677 15.4427 3.06901 15.5866C3.38988 15.75 3.80992 15.75 4.65 15.75H13.35C14.1901 15.75 14.6101 15.75 14.931 15.5866C15.2132 15.4427 15.4427 15.2133 15.5865 14.931C15.75 14.6102 15.75 14.1901 15.75 13.35V7.92385C15.75 7.49308 15.75 7.2777 15.6945 7.07935C15.6453 6.90365 15.5645 6.73839 15.456 6.5917C15.3335 6.4261 15.1635 6.29387 14.8235 6.02941L9.73673 2.07306C9.47324 1.86812 9.34149 1.76565 9.19601 1.72626C9.06765 1.69151 8.93235 1.69151 8.80399 1.72626C8.65851 1.76565 8.52677 1.86812 8.26327 2.07306Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <div className="preview-detail-text">Remote</div>
+                  </div>
+                  <div className="preview-detail-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4.5 12C4.5 13.6569 5.84315 15 7.5 15H10.5C12.1569 15 13.5 13.6569 13.5 12C13.5 10.3431 12.1569 9 10.5 9H7.5C5.84315 9 4.5 7.65685 4.5 6C4.5 4.34315 5.84315 3 7.5 3H10.5C12.1569 3 13.5 4.34315 13.5 6M9 1.5V16.5" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <div className="preview-detail-text">Salary</div>
+                  </div>
                 </div>
               </div>
 

@@ -398,21 +398,41 @@
 .preview-job-card {
   display: flex;
   padding: 32px;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: stretch;
   align-self: stretch;
   border-radius: 8px;
   border: 1px solid #B7B7B7;
   background: #FEFEFE;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.preview-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: nowrap;
+  align-self: stretch;
+}
+
+.preview-left {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .preview-job-header {
   display: flex;
-  height: 173px;
+  height: auto;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  flex: 1 0 0;
+  flex: 1 1 600px;
+  min-width: 260px;
 }
 
 .preview-company-logo {
@@ -423,9 +443,9 @@
 
 .preview-job-info {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
-  align-self: stretch;
+  gap: 8px;
 }
 
 .preview-job-text {
@@ -442,6 +462,7 @@
   font-size: 32px;
   font-weight: 700;
   line-height: normal;
+  overflow-wrap: anywhere;
 }
 
 .preview-company-name {
@@ -477,11 +498,11 @@
 .preview-job-details-grid {
   display: grid;
   row-gap: 8px;
-  column-gap: 8px;
-  flex: 1 0 0;
+  column-gap: 24px;
+  flex: 1 1 auto;
   align-self: stretch;
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 8px;
 }
 
 .preview-detail-item {
@@ -507,6 +528,8 @@
   justify-content: space-between;
   align-items: flex-end;
   align-self: stretch;
+  flex: 0 0 auto;
+  min-width: 100px;
 }
 
 .preview-bookmark-btn {
@@ -529,9 +552,8 @@
 
 .preview-apply-btn {
   display: flex;
-  width: 68px;
   height: 40px;
-  padding: 6px 12px;
+  padding: 6px 20px;
   justify-content: center;
   align-items: center;
   gap: 6px;
@@ -545,6 +567,8 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: auto;
+  min-width: 100px;
 }
 
 .preview-apply-btn:hover {

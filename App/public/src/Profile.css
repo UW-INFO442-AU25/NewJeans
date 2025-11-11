@@ -208,9 +208,13 @@
   padding: 4px 12px 4px 4px;
   border-radius: 99px;
   border: 2px solid #1D3A4D;
-  margin-bottom: 32px;
+  /* Center horizontally */
+  margin: 0 auto 32px;
   position: relative;
   max-width: 1440px;
+  /* Make it span the available width up to max-width */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .upload-progress-fill {
