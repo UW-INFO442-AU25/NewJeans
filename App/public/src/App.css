@@ -42,7 +42,7 @@ body {
   width: 100%;
   height: 80px;
   padding: 23px 16px;
-  justify-content: space-between;
+  justify-content: center; /* center inner wrapper */
   align-items: center;
   border-bottom: 1px solid #B7B7B7;
   background-color: #FEFEFE;
@@ -54,10 +54,11 @@ body {
 
 .nav-inner {
   display: flex;
-  max-width: 1400px;
+  width: 100%;
+  max-width: none; /* allow full-width stretch */
   justify-content: space-between;
   align-items: center;
-  flex: 1 0 0;
+  padding: 0 16px; /* consistent horizontal gutter */
 }
 
 .nav-left {
@@ -109,12 +110,13 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left: auto; /* push right cluster to far edge */
 }
 
 .nav-button-wrapper {
   display: flex;
-  align-items: flex-start;
-  align-self: stretch;
+  align-items: center;
+  align-self: auto;
 }
 
 .btn-primary {

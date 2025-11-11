@@ -20,8 +20,8 @@
   max-width: 1000px;
   padding: 32px 0 128px 0;
   flex-direction: column;
-  align-items: flex-start;
-  align-self: stretch;
+  align-items: center;
+  align-self: center;
 }
 
 .back-to-jobs {
@@ -34,6 +34,7 @@
   padding: 0;
   margin-bottom: 24px;
   transition: transform 0.2s ease;
+  align-self: flex-start;
 }
 
 .back-to-jobs:hover {
@@ -53,7 +54,7 @@
 .job-header-section {
   display: flex;
   padding: 24px 0;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   align-self: stretch;
   background: #FEFEFE;
@@ -61,18 +62,22 @@
 
 .job-main-info {
   display: flex;
-  height: 173px;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  flex: 1;
+  flex: 0 1 auto;
 }
 
 .job-header-details {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
+  align-items: center;
+  gap: 32px;
   align-self: stretch;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
 }
 
 .company-logo-large {
@@ -85,7 +90,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 8px;
   flex: 1;
 }
 
@@ -100,18 +105,21 @@
   align-self: stretch;
   color: #191919;
   font: 700 32px/normal 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  text-align: left;
 }
 
 .company-name-text {
   align-self: stretch;
   color: #767676;
   font: 400 16px/20px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  text-align: left;
 }
 
 .visa-type-badges {
   display: flex;
   align-items: center;
   gap: 5px;
+  justify-content: flex-start;
 }
 
 .visa-type-badge {
@@ -127,22 +135,19 @@
 }
 
 .job-metadata-grid {
-  display: grid;
-  row-gap: 8px;
-  column-gap: 8px;
-  flex: 1;
-  align-self: stretch;
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  align-self: flex-start;
+  justify-content: flex-start;
+  padding-top: 4px;
 }
 
 .metadata-item {
   display: flex;
-  max-width: 250px;
   align-items: center;
-  gap: 4px;
-  flex: 1;
-  align-self: stretch;
+  gap: 6px;
+  flex: 0 0 auto;
 }
 
 .metadata-icon-wrapper {
@@ -168,9 +173,10 @@
 .job-actions-section {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  align-self: stretch;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-left: 24px;
 }
 
 .bookmark-button-large {
@@ -207,9 +213,10 @@
   display: flex;
   padding: 32px 0;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
-  align-self: stretch;
+  align-self: center;
+  width: 100%;
 }
 
 .job-info-card {
@@ -218,7 +225,9 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  align-self: stretch;
+  align-self: center;
+  width: 100%;
+  max-width: 1000px;
   border-radius: 8px;
   border: 1px solid #B7B7B7;
   background: #FEFEFE;
@@ -243,8 +252,8 @@
   justify-content: center;
   align-items: center;
   gap: 6px;
-  flex: 1;
-  align-self: stretch;
+  align-self: center;
+  width: auto;
   border-radius: 4px;
 }
 
