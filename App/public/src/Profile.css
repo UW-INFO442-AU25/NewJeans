@@ -9,7 +9,7 @@
 }
 
 .navigation-bar.logged-in {
-  padding: 23px 16px;
+  padding: 24px 16px;
 }
 
 .user-greeting {
@@ -45,12 +45,14 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1440px;
   overflow-x: hidden;
+  align-items: center;
 }
 
 .profile-header-section {
   padding: 32px 128px;
+  width: 100%;
+  max-width: 1440px;
 }
 
 .profile-header {
@@ -185,6 +187,7 @@
 
 .cpt-document-section {
   padding: 64px 128px;
+  width: 100%;
   background: #FBF8F0;
 }
 
@@ -207,6 +210,7 @@
   border: 2px solid #1D3A4D;
   margin-bottom: 32px;
   position: relative;
+  max-width: 1440px;
 }
 
 .upload-progress-fill {
@@ -229,11 +233,14 @@
 
 .document-cards {
   display: flex;
+  justify-content: center;
   gap: 48px;
 }
 
 .document-card {
   display: flex;
+  width: 100%;
+  max-width: 260px;
   flex-direction: column;
   flex: 1;
   border-radius: 8px;
@@ -340,6 +347,8 @@
 
 .saved-jobs-section {
   padding: 0 128px 128px;
+  width: 100%;
+  max-width: 1440px;
 }
 
 .saved-jobs-header {

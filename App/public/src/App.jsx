@@ -3,11 +3,21 @@ import JobBoard from "./JobBoard";
 import Profile from "./Profile";
 import JobDescription from "./JobDescription";
 import JobCreation from "./JobCreation";
+import NavBar from "./components/NavBar";
+import SearchBar from "./components/SearchBar";
+import jobs from './data/jobs.json';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [selectedJobId, setSelectedJobId] = useState(null);
+  const [initialSearchQuery, setInitialSearchQuery] = useState('');
 
   const navigateToJobBoard = () => {
+    setCurrentPage('job-board');
+  };
+
+  const navigateToJobBoardWithQuery = (query) => {
+    setInitialSearchQuery(query || '');
     setCurrentPage('job-board');
   };
 
@@ -19,7 +29,8 @@ function App() {
     setCurrentPage('profile');
   };
 
-  const navigateToJobDescription = () => {
+  const navigateToJobDescription = (jobId) => {
+    setSelectedJobId(jobId);
     setCurrentPage('job-description');
   };
 
@@ -28,7 +39,7 @@ function App() {
   };
 
   if (currentPage === 'job-board') {
-    return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} />;
+    return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} initialSearchQuery={initialSearchQuery} />;
   }
 
   if (currentPage === 'profile') {
@@ -36,7 +47,8 @@ function App() {
   }
 
   if (currentPage === 'job-description') {
-    return <JobDescription onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} />;
+    const job = jobs.find((j) => j.id === selectedJobId) || null;
+    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} />;
   }
 
   if (currentPage === 'job-creation') {
@@ -45,26 +57,11 @@ function App() {
 
   return (
     <div className="desktop-container">
-        <nav className="navigation-bar">
-          <div className="nav-inner">
-            <div className="nav-left">
-              <div className="logo" style={{ cursor: 'pointer' }}>Visa<span style={{ fontWeight: 900 }}>Path</span></div>
-              <div className="nav-links-desktop">
-                <div className="nav-link" onClick={navigateToJobBoard} style={{ cursor: 'pointer' }}>
-                  <div className="link-text">Job Board</div>
-                </div>
-              </div>
-            </div>
-            <div className="nav-right">
-              <div className="nav-link" onClick={navigateToProfile} style={{ cursor: 'pointer' }}>
-                <div className="link-text">Log in</div>
-              </div>
-              <div className="nav-button-wrapper">
-                <button className="btn-primary">Get Started</button>
-              </div>
-            </div>
-          </div>
-        </nav>
+        <NavBar
+          onNavigateHome={navigateToHome}
+          onNavigateJobBoard={navigateToJobBoard}
+          onNavigateProfile={navigateToProfile}
+        />
 
         <section className="hero-section">
           <div className="hero-content-wrapper">
@@ -78,17 +75,10 @@ function App() {
                 </p>
               </div>
               <div className="hero-search-area">
-                <div className="main-search-bar">
-                  <div className="main-search-content">
-                    <svg className="search-icon-main" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    <div className="search-placeholder-main">Search Job Titles, Employers, Key Words</div>
-                  </div>
-                </div>
-                <div className="search-button-wrapper">
-                  <button className="btn-primary btn-search">Search</button>
-                </div>
+                <SearchBar
+                  initialValue={''}
+                  onSubmit={(q) => navigateToJobBoardWithQuery(q)}
+                />
               </div>
             </div>
           </div>

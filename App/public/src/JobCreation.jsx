@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './JobCreation.css';
+import NavBar from './components/NavBar';
 
 function JobCreation({ onNavigateHome }) {
   const [currentStep, setCurrentStep] = useState(1);
@@ -305,22 +306,20 @@ Is at least 18 years of age and has authorization to work in the United States.
 
   return (
     <div className="job-creation-container">
-      <nav className="navigation-bar">
-        <div className="nav-inner">
-          <div className="nav-left">
-            <div className="logo" onClick={onNavigateHome} style={{ cursor: 'pointer' }}>
-              Visa<span style={{ fontWeight: 900 }}>Path</span>
+      <NavBar
+        onNavigateHome={onNavigateHome}
+        leftChildren={(
+          <div className="nav-links-desktop">
+            <div className="nav-link">
+              <div className="link-text">Dashboard</div>
             </div>
-            <div className="nav-links-desktop">
-              <div className="nav-link">
-                <div className="link-text">Dashboard</div>
-              </div>
-              <div className="nav-link">
-                <div className="link-text">Company Profile</div>
-              </div>
+            <div className="nav-link">
+              <div className="link-text">Company Profile</div>
             </div>
           </div>
-          <div className="nav-right">
+        )}
+        rightChildren={(
+          <>
             <div className="user-info">
               <div className="greeting-text">Hello,</div>
               <div className="user-name">John Doe</div>
@@ -330,9 +329,9 @@ Is at least 18 years of age and has authorization to work in the United States.
             <div className="nav-button-wrapper">
               <button className="btn-primary">Sign Out</button>
             </div>
-          </div>
-        </div>
-      </nav>
+          </>
+        )}
+      />
 
       <div className="job-creation-content">
         <div className="back-link" onClick={onNavigateHome} style={{ cursor: 'pointer' }}>

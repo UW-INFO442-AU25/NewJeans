@@ -1,0 +1,43 @@
+import React from 'react';
+import '../App.css';
+
+function NavBar({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, className = '', leftChildren = null, rightChildren = null }) {
+  return (
+    <nav className={("navigation-bar " + className).trim()}>
+      <div className="nav-inner">
+        <div className="nav-left">
+          <div className="logo" onClick={onNavigateHome} style={{ cursor: 'pointer' }}>
+            Visa<span style={{ fontWeight: 900 }}>Path</span>
+          </div>
+
+          {leftChildren ? (
+            leftChildren
+          ) : (
+            <div className="nav-links-desktop">
+              <div className="nav-link" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>
+                <div className="link-text">Job Board</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="nav-right">
+          {rightChildren ? (
+            rightChildren
+          ) : (
+            <>
+              <div className="nav-link" onClick={onNavigateProfile} style={{ cursor: 'pointer' }}>
+                <div className="link-text">Log in</div>
+              </div>
+              <div className="nav-button-wrapper">
+                <button className="btn-primary">Get Started</button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+export default NavBar;

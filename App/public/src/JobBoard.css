@@ -3,30 +3,45 @@
   width: 100%;
   flex-direction: column;
   background: #FEFEFE;
-  min-height: 100vh;
-  overflow-x: hidden;
+  /* Use viewport-based height minus nav so the page doesn't grow taller than the viewport
+     (body already has padding-top for the fixed nav). This prevents the outer page from
+     scrolling and lets internal areas scroll independently. */
+  height: calc(100vh - 80px);
+  overflow: hidden;
 }
 
 .main-content {
   display: flex;
   flex: 1;
+  /* Fill the container's height and allow internal scrolling. */
+  height: 100%;
+  min-height: 0;
 }
 
 .sidebar {
   display: flex;
   width: 300px;
-  padding: 32px 24px 0 24px;
+  padding: 32px 16px;
   flex-direction: column;
   gap: 16px;
-  border-right: 1px solid #B7B7B7;
   background: #FEFEFE;
+  /* Make sidebar take full height of the main-content and scroll internally */
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; /* prevent accidental horizontal scroll */
+  /* Reserve space for overlay scrollbars so they don't cover content */
+  scrollbar-gutter: stable both-edges;
+  /* increase right padding so the scrollbar doesn't overlap filter content */
+  box-sizing: border-box;
+  min-height: 0; /* allow flex children to scroll */
 }
 
 .filter-header {
   display: flex;
-  width: 252px;
+  width: 100%;
   flex-direction: column;
   gap: 8px;
+  box-sizing: border-box;
 }
 
 .filter-title-row {
@@ -52,16 +67,20 @@
 }
 
 .filter-divider {
-  width: 252px;
+  width: 100%;
   height: 1px;
   background: #B7B7B7;
+  box-sizing: border-box;
 }
 
 .filter-section {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow-y: auto;
+  /* Let the sidebar itself scroll. Removing nested overflow prevents nested scrollbars
+     that can overlap interactive controls on some platforms. */
+  overflow-x: hidden; /* prevent horizontal scroll inside filter groups */
+  padding-right: 8px; /* keep interactive elements away from the scrollbar */
 }
 
 .filter-group {
@@ -72,11 +91,12 @@
 
 .filter-group-header {
   display: flex;
-  width: 252px;
+  width: 100%;
   height: 24px;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .filter-group-title {
@@ -91,11 +111,21 @@
 
 .checkbox-item {
   display: flex;
-  width: 252px;
-  padding: 4px;
+  width: 100%;
+  padding: 8px 8px 8px 4px;
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Improve scrollbar appearance and make it less likely to overlap content visually. */
+.sidebar::-webkit-scrollbar {
+  width: 12px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.12);
+  border-radius: 8px;
 }
 
 .checkbox {
@@ -142,19 +172,21 @@
 }
 
 .salary-slider-wrapper {
-  width: 252px;
+  width: 100%;
   height: 36px;
   position: relative;
+  box-sizing: border-box;
 }
 
 .salary-slider-track {
-  width: 252px;
+  width: 100%;
   height: 10px;
   border-radius: 24px;
   background: #DBDBDB;
   position: absolute;
   left: 0;
   top: 3px;
+  box-sizing: border-box;
 }
 
 .salary-slider-range {
@@ -165,12 +197,14 @@
   position: absolute;
   left: 27px;
   top: 3px;
+  box-sizing: border-box;
 }
 
 .salary-slider-handles {
   position: relative;
-  width: 252px;
+  width: 100%;
   height: 36px;
+  box-sizing: border-box;
 }
 
 .salary-handle-wrapper {
@@ -208,6 +242,18 @@
   flex-direction: column;
   flex: 1;
   background: #FFF;
+  border-left: 1px solid #B7B7B7;
+
+  /* Allow the main content column to scroll independently of the sidebar */
+  height: 100%;
+  overflow-y: auto;
+  min-height: 0; /* allow content to scroll internally */
+}
+
+.sidebar * {
+  /* prevent children from causing horizontal overflow */
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .search-section {
@@ -276,6 +322,10 @@
   align-items: flex-start;
   border-bottom: 1px solid #B7B7B7;
   background: #FEFEFE;
+}
+
+.job-card:hover {
+  background: #F7F7F7;
 }
 
 .job-card-content {

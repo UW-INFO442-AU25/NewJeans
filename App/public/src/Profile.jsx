@@ -1,36 +1,37 @@
 import React from 'react';
 import './Profile.css';
+import NavBar from './components/NavBar';
 
 function Profile({ onNavigateHome, onNavigateJobBoard }) {
   return (
     <div className="profile-container">
-      <nav className="navigation-bar logged-in">
-        <div className="nav-inner">
-          <div className="nav-left">
-            <div className="logo" onClick={onNavigateHome} style={{ cursor: 'pointer' }}>
-              Visa<span style={{ fontWeight: 900 }}>Path</span>
+      <NavBar
+        onNavigateHome={onNavigateHome}
+        onNavigateJobBoard={onNavigateJobBoard}
+        className="logged-in"
+        leftChildren={(
+          <div className="nav-links-desktop">
+            <div className="nav-link">
+              <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
             </div>
-            <div className="nav-links-desktop">
-              <div className="nav-link">
-                <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
-              </div>
-              <div className="nav-link">
-                <div className="link-text">Student Resources</div>
-              </div>
-              <div className="nav-link">
-                <div className="link-text">Profile</div>
-              </div>
+            <div className="nav-link">
+              <div className="link-text">Student Resources</div>
+            </div>
+            <div className="nav-link">
+              <div className="link-text">Profile</div>
             </div>
           </div>
-          <div className="nav-right">
+        )}
+        rightChildren={(
+          <>
             <div className="user-greeting">
               <div className="greeting-hello">Hello,</div>
               <div className="greeting-name">John Doe</div>
             </div>
             <button className="btn-primary sign-out-btn">Sign Out</button>
-          </div>
-        </div>
-      </nav>
+          </>
+        )}
+      />
 
       <div className="profile-content">
         <div className="profile-header-section">

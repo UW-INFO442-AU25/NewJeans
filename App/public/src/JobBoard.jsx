@@ -1,35 +1,175 @@
-import React from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './JobBoard.css';
+import NavBar from './components/NavBar';
+import jobs from './data/jobs.json';
+import JobCard from './components/JobCard';
+import SearchBar from './components/SearchBar';
 
-function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
+function JobBoard({ onNavigateHome, onNavigateToJobDescription, initialSearchQuery = '' }) {
+  const [visaFilters, setVisaFilters] = useState([]); // e.g. ['H-1B']
+  const [locationQuery, setLocationQuery] = useState('');
+  const [remoteOnly, setRemoteOnly] = useState(false);
+  const [jobTypeFilters, setJobTypeFilters] = useState([]);
+  const [experienceFilters, setExperienceFilters] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery || '');
+  const [visibleCount, setVisibleCount] = useState(10);
+
+  useEffect(() => {
+    setSearchQuery(initialSearchQuery || '');
+  }, [initialSearchQuery]);
+
+  // When the search query changes, reset visibleCount: if query is empty show the first page, otherwise show all matches
+  useEffect(() => {
+    if (!searchQuery || searchQuery.trim() === '') {
+      setVisibleCount(10);
+    } else {
+      // show all when searching
+      setVisibleCount(Number.POSITIVE_INFINITY);
+    }
+  }, [searchQuery]);
+
+  const visaOptions = ['H-1B', 'L-1', 'O-1', 'OPT', 'CPT'];
+  const jobTypeOptions = ['Internship', 'Part-Time', 'Full-Time', 'Contract'];
+  const experienceOptions = ['Entry-Level', 'Mid-Level', 'Senior-Level'];
+
+  const toggleInArray = (arr, setArr, value) => {
+    setArr((prev) => {
+      if (prev.includes(value)) return prev.filter((x) => x !== value);
+      return [...prev, value];
+    });
+  };
+
+  const clearAll = () => {
+    setVisaFilters([]);
+    setLocationQuery('');
+    setRemoteOnly(false);
+    setJobTypeFilters([]);
+    setExperienceFilters([]);
+    setSalaryMin(salaryBounds.overallMin);
+    setSalaryMax(salaryBounds.overallMax);
+  };
+
+  // Parse salary strings into an annual numeric range { min, max } in USD.
+  const parseSalaryRange = (salaryStr) => {
+    if (!salaryStr || typeof salaryStr !== 'string') return { min: null, max: null };
+    const s = salaryStr.replace(/\s/g, '');
+    // Hourly rates like "$40/hr" or "$50/hr"
+    const hourlyMatch = s.match(/\$?([0-9,]+)\/?hr/i);
+    if (hourlyMatch) {
+      const hourly = Number(hourlyMatch[1].replace(/,/g, ''));
+      const annual = Math.round(hourly * 2080); // 40h * 52 weeks
+      return { min: annual, max: annual };
+    }
+    // Ranges like "$70,000-$90,000"
+    const rangeMatch = s.match(/\$?([0-9,]+)\-\$?([0-9,]+)/);
+    if (rangeMatch) {
+      const min = Number(rangeMatch[1].replace(/,/g, ''));
+      const max = Number(rangeMatch[2].replace(/,/g, ''));
+      return { min, max };
+    }
+    // Single amount like "$70000"
+    const singleMatch = s.match(/\$?([0-9,]+)/);
+    if (singleMatch) {
+      const v = Number(singleMatch[1].replace(/,/g, ''));
+      return { min: v, max: v };
+    }
+    return { min: null, max: null };
+  };
+
+  // derive global salary bounds from data
+  const salaryBounds = useMemo(() => {
+    const mins = [];
+    const maxs = [];
+    for (const job of jobs) {
+      const r = parseSalaryRange(job.salary || '');
+      if (r.min != null) mins.push(r.min);
+      if (r.max != null) maxs.push(r.max);
+    }
+    const overallMin = mins.length ? Math.min(...mins) : 0;
+    const overallMax = maxs.length ? Math.max(...maxs) : 200000;
+    return { overallMin, overallMax };
+  }, []);
+
+  const [salaryMin, setSalaryMin] = useState(salaryBounds.overallMin);
+  const [salaryMax, setSalaryMax] = useState(salaryBounds.overallMax);
+
+  const setSalaryMinSafe = (v) => {
+    const val = Number(v);
+    if (val <= salaryMax) setSalaryMin(val);
+    else setSalaryMin(salaryMax);
+  };
+
+  const setSalaryMaxSafe = (v) => {
+    const val = Number(v);
+    if (val >= salaryMin) setSalaryMax(val);
+    else setSalaryMax(salaryMin);
+  };
+
+  // Helper: check if any attribute of the job (including nested arrays/objects)
+  // contains the query string (case-insensitive).
+  const jobMatchesQuery = (job, q) => {
+    if (!q || q.trim() === '') return true;
+    const needle = q.toLowerCase();
+    const parts = [];
+
+    const collect = (val) => {
+      if (val == null) return;
+      if (Array.isArray(val)) {
+        val.forEach(collect);
+      } else if (typeof val === 'object') {
+        Object.values(val).forEach(collect);
+      } else {
+        parts.push(String(val));
+      }
+    };
+
+    collect(job);
+    const hay = parts.join(' ').toLowerCase();
+    return hay.includes(needle);
+  };
+
+  const filteredJobs = useMemo(() => {
+    return jobs.filter((job) => {
+      // searchQuery should match any attribute of the job object
+      if (!jobMatchesQuery(job, searchQuery)) return false;
+      if (visaFilters.length > 0) {
+        const matchesVisa = job.visaTypes && job.visaTypes.some((v) => visaFilters.includes(v));
+        if (!matchesVisa) return false;
+      }
+      if (locationQuery && !job.location.toLowerCase().includes(locationQuery.toLowerCase())) return false;
+      if (remoteOnly && !job.remote) return false;
+      if (jobTypeFilters.length > 0 && !jobTypeFilters.includes(job.employmentType)) return false;
+      if (experienceFilters.length > 0 && !experienceFilters.includes(job.experience)) return false;
+      // Salary filter: parse job salary and require overlap between job range and selected range
+      const jobRange = parseSalaryRange(job.salary || '');
+      if (jobRange.min != null && jobRange.max != null) {
+        if (jobRange.max < salaryMin) return false;
+        if (jobRange.min > salaryMax) return false;
+      }
+      return true;
+    });
+  }, [searchQuery, visaFilters, locationQuery, remoteOnly, jobTypeFilters, experienceFilters, salaryMin, salaryMax]);
+
+  // determine which jobs to actually render depending on visibleCount and whether a query exists
+  const displayedJobs = (searchQuery && searchQuery.trim() !== '')
+    ? filteredJobs
+    : filteredJobs.slice(0, visibleCount);
+
+  const hasMore = (filteredJobs.length > displayedJobs.length);
+
   return (
     <div className="job-board-container">
-      <nav className="navigation-bar">
-        <div className="nav-inner">
-          <div className="nav-left">
-            <div className="logo" onClick={onNavigateHome} style={{ cursor: 'pointer' }}>
-              Visa<span style={{ fontWeight: 900 }}>Path</span>
-            </div>
-            <div className="nav-links-desktop">
-              <div className="nav-link">
-                <div className="link-text">Job Board</div>
-              </div>
-            </div>
-          </div>
-          <div className="nav-right">
-            <div className="nav-button-wrapper">
-              <button className="btn-primary">Get Started</button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <NavBar
+        onNavigateHome={onNavigateHome}
+        onNavigateJobBoard={null}
+      />
 
       <div className="main-content">
         <aside className="sidebar">
           <div className="filter-header">
             <div className="filter-title-row">
               <div className="filter-title">Refine Your Search</div>
-              <div className="clear-all">Clear All</div>
+              <div className="clear-all" onClick={clearAll} style={{ cursor: 'pointer' }}>Clear All</div>
             </div>
             <div className="filter-divider"></div>
           </div>
@@ -42,18 +182,16 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">CPT/OPT Friendly</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Requires Sponsorship</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Full-Time (H-1B Eligible)</div>
-              </label>
+              {visaOptions.map((v) => (
+                <label key={v} className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    checked={visaFilters.includes(v)}
+                    onChange={() => toggleInArray(visaFilters, setVisaFilters, v)}
+                  />
+                  <div className="checkbox-label">{v}</div>
+                </label>
+              ))}
             </div>
 
             <div className="filter-divider"></div>
@@ -70,20 +208,18 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
                   <svg className="search-icon-small" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.75 15.75L11.2501 11.25M12.75 7.5C12.75 10.3995 10.3995 12.75 7.5 12.75C4.6005 12.75 2.25 10.3995 2.25 7.5C2.25 4.6005 4.6005 2.25 7.5 2.25C10.3995 2.25 12.75 4.6005 12.75 7.5Z" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                  <div className="search-placeholder-small">City, State, Country</div>
+                  <input
+                    className="location-input"
+                    placeholder="City, State, Country"
+                    value={locationQuery}
+                    onChange={(e) => setLocationQuery(e.target.value)}
+                    style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%' }}
+                  />
                 </div>
               </div>
               <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Remote</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Hybrid</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">In-Person</div>
+                <input type="checkbox" checked={remoteOnly} onChange={() => setRemoteOnly(!remoteOnly)} />
+                <div className="checkbox-label">Remote only</div>
               </label>
             </div>
 
@@ -96,22 +232,16 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Internship</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Part-Time</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Full-Time</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Contract</div>
-              </label>
+              {jobTypeOptions.map((jt) => (
+                <label key={jt} className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    checked={jobTypeFilters.includes(jt)}
+                    onChange={() => toggleInArray(jobTypeFilters, setJobTypeFilters, jt)}
+                  />
+                  <div className="checkbox-label">{jt}</div>
+                </label>
+              ))}
             </div>
 
             <div className="filter-divider"></div>
@@ -123,18 +253,16 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Entry-Level / New Grad (0 – 1 years)</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Mid-Level (2 – 4 years)</div>
-              </label>
-              <label className="checkbox-item">
-                <div className="checkbox"></div>
-                <div className="checkbox-label">Senior-Level (5+ years)</div>
-              </label>
+              {experienceOptions.map((ex) => (
+                <label key={ex} className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    checked={experienceFilters.includes(ex)}
+                    onChange={() => toggleInArray(experienceFilters, setExperienceFilters, ex)}
+                  />
+                  <div className="checkbox-label">{ex}</div>
+                </label>
+              ))}
             </div>
 
             <div className="filter-divider"></div>
@@ -174,21 +302,29 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
                 </svg>
               </div>
               <div className="salary-slider-wrapper">
-                <div className="salary-slider-track"></div>
-                <div className="salary-slider-range"></div>
-                <div className="salary-slider-handles">
-                  <div className="salary-handle-wrapper salary-handle-min">
-                    <svg className="salary-handle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="8" cy="8" r="8" fill="#B7B7B7"/>
-                    </svg>
-                    <div className="salary-label">$15,000</div>
-                  </div>
-                  <div className="salary-handle-wrapper salary-handle-max">
-                    <svg className="salary-handle" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="8" cy="8" r="8" fill="#B7B7B7"/>
-                    </svg>
-                    <div className="salary-label">$75,000</div>
-                  </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <div className="salary-label">Min: ${salaryMin.toLocaleString()}</div>
+                  <div className="salary-label">Max: ${salaryMax.toLocaleString()}</div>
+                </div>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                  <input
+                    type="range"
+                    min={salaryBounds.overallMin}
+                    max={salaryBounds.overallMax}
+                    value={salaryMin}
+                    onChange={(e) => setSalaryMinSafe(e.target.value)}
+                    aria-label="Minimum salary"
+                    style={{ flex: 1 }}
+                  />
+                  <input
+                    type="range"
+                    min={salaryBounds.overallMin}
+                    max={salaryBounds.overallMax}
+                    value={salaryMax}
+                    onChange={(e) => setSalaryMaxSafe(e.target.value)}
+                    aria-label="Maximum salary"
+                    style={{ flex: 1 }}
+                  />
                 </div>
               </div>
             </div>
@@ -197,110 +333,35 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
 
         <main className="content-area">
           <div className="search-section">
-            <div className="main-search-bar">
-              <div className="main-search-content">
-                <svg className="search-icon-main" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <div className="search-placeholder-main">Search Job Titles, Employers, Key Words</div>
-              </div>
-            </div>
+            <SearchBar
+              initialValue={searchQuery}
+              onSubmit={(q) => setSearchQuery(q)}
+            />
             <p className="search-description">
               Navigate your career journey with confidence. Search our database of jobs from employers who actively sponsor H-1B, OPT, CPT, and other work visas for international students.
             </p>
-            <div className="results-count"># Results</div>
+            <div className="results-count">{displayedJobs.length} Results</div>
           </div>
 
           <div className="jobs-list">
-            {[1, 2, 3, 4, 5, 6].map((index) => (
-              <div key={index} className="job-card">
-                <div className="job-card-content" onClick={onNavigateToJobDescription} style={{ cursor: 'pointer' }}>
-                  <div className="job-header">
-                    <img className="job-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/e83b21893337804f974f8a34f903748129405d9e?width=190" alt="" />
-                    <div className="job-info">
-                      <div className="job-info-text">
-                        <div className="job-role">{index === 1 ? "Intern, Innovation - Designer (Spring 2026)" : "Role"}</div>
-                        <div className="job-company">{index === 1 ? "Delta Air Lines" : "Company"}</div>
-                      </div>
-                      <div className="job-badges">
-                        <span className="job-badge">H-1B</span>
-                        <span className="job-badge">L-1</span>
-                        <span className="job-badge">O-1</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="job-details-grid">
-                    <div className="job-detail">
-                      <div className="job-icon-wrapper">
-                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          <path d="M9 16.5C12 13.5 15 10.8137 15 7.5C15 4.18629 12.3137 1.5 9 1.5C5.68629 1.5 3 4.18629 3 7.5C3 10.8137 6 13.5 9 16.5Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <div className="job-detail-text">Location</div>
-                    </div>
-                    <div className="job-detail">
-                      <div className="job-icon-wrapper">
-                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g clipPath="url(#clip0_1003_615)">
-                            <path d="M12.75 10.875V8.62081C12.75 8.4862 12.75 8.41889 12.7295 8.35947C12.7114 8.30693 12.6818 8.25907 12.6429 8.21936C12.5989 8.17445 12.5387 8.14435 12.4183 8.08415L9 6.37499M3 7.12499V12.2299C3 12.5089 3 12.6483 3.04351 12.7705C3.08198 12.8784 3.14468 12.9761 3.22678 13.0561C3.31966 13.1465 3.44645 13.2046 3.70001 13.3208L8.50001 15.5208C8.68394 15.6051 8.7759 15.6473 8.87171 15.6639C8.9566 15.6787 9.0434 15.6787 9.12829 15.6639C9.2241 15.6473 9.31606 15.6051 9.49999 15.5208L14.3 13.3208C14.5535 13.2046 14.6803 13.1465 14.7732 13.0561C14.8553 12.9761 14.918 12.8784 14.9565 12.7705C15 12.6483 15 12.5089 15 12.23V7.12499M1.5 6.37499L8.73167 2.75915C8.83006 2.70996 8.87925 2.68536 8.93085 2.67568C8.97655 2.66711 9.02345 2.66711 9.06915 2.67568C9.12075 2.68536 9.16994 2.70996 9.26833 2.75915L16.5 6.37499L9.26833 9.99082C9.16994 10.04 9.12075 10.0646 9.06915 10.0743C9.02345 10.0829 8.97655 10.0829 8.93085 10.0743C8.87925 10.0646 8.83006 10.04 8.73167 9.99082L1.5 6.37499Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_1003_615">
-                              <rect width="18" height="18" fill="white"/>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div className="job-detail-text">Years of Experience</div>
-                    </div>
-                    <div className="job-detail">
-                      <div className="job-icon-wrapper">
-                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g clipPath="url(#clip0_1003_620)">
-                            <path d="M9 4.5V9L12 10.5M16.5 9C16.5 13.1421 13.1421 16.5 9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_1003_620">
-                              <rect width="18" height="18" fill="white"/>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div className="job-detail-text">Full-Time</div>
-                    </div>
-                    <div className="job-detail">
-                      <div className="job-icon-wrapper">
-                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.75 15.75V10.2C6.75 9.77995 6.75 9.56993 6.83175 9.4095C6.90365 9.26837 7.01839 9.15364 7.15951 9.08173C7.31994 8.99999 7.52996 8.99999 7.95 8.99999H10.05C10.47 8.99999 10.6801 8.99999 10.8405 9.08173C10.9816 9.15364 11.0963 9.26837 11.1683 9.4095C11.25 9.56993 11.25 9.77995 11.25 10.2V15.75M8.26327 2.073L3.17654 6.02934C2.83652 6.29381 2.6665 6.42604 2.54402 6.59164C2.43552 6.73833 2.3547 6.90359 2.30552 7.07929C2.25 7.27764 2.25 7.49302 2.25 7.92379V13.35C2.25 14.1901 2.25 14.6101 2.41349 14.931C2.5573 15.2132 2.78677 15.4427 3.06901 15.5865C3.38988 15.75 3.80992 15.75 4.65 15.75H13.35C14.1901 15.75 14.6101 15.75 14.931 15.5865C15.2132 15.4427 15.4427 15.2132 15.5865 14.931C15.75 14.6101 15.75 14.1901 15.75 13.35V7.92379C15.75 7.49302 15.75 7.27764 15.6945 7.07929C15.6453 6.90359 15.5645 6.73833 15.456 6.59164C15.3335 6.42604 15.1635 6.29381 14.8235 6.02934L9.73673 2.073C9.47324 1.86806 9.34149 1.76559 9.19601 1.7262C9.06765 1.69145 8.93235 1.69145 8.80399 1.7262C8.65851 1.76559 8.52677 1.86806 8.26327 2.073Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <div className="job-detail-text">Remote</div>
-                    </div>
-                    <div className="job-detail">
-                      <div className="job-icon-wrapper">
-                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M4.5 12C4.5 13.6569 5.84315 15 7.5 15H10.5C12.1569 15 13.5 13.6569 13.5 12C13.5 10.3431 12.1569 9 10.5 9H7.5C5.84315 9 4.5 7.65685 4.5 6C4.5 4.34315 5.84315 3 7.5 3H10.5C12.1569 3 13.5 4.34315 13.5 6M9 1.5V16.5" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <div className="job-detail-text">Salary</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="job-actions">
-                  <button className="bookmark-button">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.75 5.85C3.75 4.58988 3.75 3.95982 3.99524 3.47852C4.21095 3.05516 4.55516 2.71095 4.97852 2.49524C5.45982 2.25 6.08988 2.25 7.35 2.25H10.65C11.9101 2.25 12.5402 2.25 13.0215 2.49524C13.4448 2.71095 13.789 3.05516 14.0048 3.47852C14.25 3.95982 14.25 4.58988 14.25 5.85V15.75L9 12.75L3.75 15.75V5.85Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
-                  <button className="btn-primary apply-btn">Apply</button>
-                </div>
-              </div>
-            ))}
+            {displayedJobs.length === 0 ? (
+              <div style={{ padding: 24, color: '#767676' }}>No jobs match your filters.</div>
+            ) : (
+              displayedJobs.map((job) => (
+                <JobCard key={job.id} job={job} onClick={() => onNavigateToJobDescription(job.id)} />
+              ))
+            )}
           </div>
 
           <div className="view-more">
-            <div className="view-more-link">View More Results</div>
+            {hasMore ? (
+              <button
+                className="view-more-link"
+                onClick={() => setVisibleCount((v) => (Number.isFinite(v) ? v + 10 : 10 + 10))}
+              >
+                View More Results
+              </button>
+            ) : null}
           </div>
         </main>
       </div>
