@@ -197,7 +197,6 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
 
         <main className="content-area">
           <div className="search-section">
-            <h1 className="page-title">Find Opportunities Open to You</h1>
             <div className="main-search-bar">
               <div className="main-search-content">
                 <svg className="search-icon-main" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -217,7 +216,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
               <div key={index} className="job-card">
                 <div className="job-card-content" onClick={onNavigateToJobDescription} style={{ cursor: 'pointer' }}>
                   <div className="job-header">
-                    <img className="job-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/bb386d0f70a4874d89b7e6518aebbfdace2c5878?width=190" alt="" />
+                    <img className="job-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/e83b21893337804f974f8a34f903748129405d9e?width=190" alt="" />
                     <div className="job-info">
                       <div className="job-info-text">
                         <div className="job-role">Role</div>
@@ -232,48 +231,58 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
                   </div>
                   <div className="job-details-grid">
                     <div className="job-detail">
-                      <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M9 16.5C12 13.5 15 10.8137 15 7.5C15 4.18629 12.3137 1.5 9 1.5C5.68629 1.5 3 4.18629 3 7.5C3 10.8137 6 13.5 9 16.5Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      <div className="job-icon-wrapper">
+                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M9 16.5C12 13.5 15 10.8137 15 7.5C15 4.18629 12.3137 1.5 9 1.5C5.68629 1.5 3 4.18629 3 7.5C3 10.8137 6 13.5 9 16.5Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
                       <div className="job-detail-text">Location</div>
                     </div>
                     <div className="job-detail">
-                      <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clipPath="url(#clip0_990_2066)">
-                          <path d="M12.75 10.8747V8.6205C12.75 8.48589 12.75 8.41859 12.7295 8.35917C12.7114 8.30662 12.6818 8.25876 12.6429 8.21905C12.5989 8.17414 12.5387 8.14405 12.4183 8.08385L9 6.37468M3 7.12468V12.2296C3 12.5086 3 12.648 3.04351 12.7702C3.08198 12.8781 3.14468 12.9758 3.22678 13.0558C3.31966 13.1462 3.44645 13.2043 3.70001 13.3205L8.50001 15.5205C8.68394 15.6048 8.7759 15.647 8.87171 15.6636C8.9566 15.6783 9.0434 15.6783 9.12829 15.6636C9.2241 15.647 9.31606 15.6048 9.49999 15.5205L14.3 13.3205C14.5535 13.2043 14.6803 13.1462 14.7732 13.0558C14.8553 12.9758 14.918 12.8781 14.9565 12.7702C15 12.648 15 12.5086 15 12.2296V7.12468M1.5 6.37468L8.73167 2.75885C8.83006 2.70965 8.87925 2.68506 8.93085 2.67538C8.97655 2.6668 9.02345 2.6668 9.06915 2.67538C9.12075 2.68506 9.16994 2.70965 9.26833 2.75885L16.5 6.37468L9.26833 9.99052C9.16994 10.0397 9.12075 10.0643 9.06915 10.074C9.02345 10.0826 8.97655 10.0826 8.93085 10.074C8.87925 10.0643 8.83006 10.0397 8.73167 9.99052L1.5 6.37468Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_990_2066">
-                            <rect width="18" height="18" fill="white"/>
-                          </clipPath>
-                        </defs>
-                      </svg>
+                      <div className="job-icon-wrapper">
+                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clipPath="url(#clip0_1003_615)">
+                            <path d="M12.75 10.875V8.62081C12.75 8.4862 12.75 8.41889 12.7295 8.35947C12.7114 8.30693 12.6818 8.25907 12.6429 8.21936C12.5989 8.17445 12.5387 8.14435 12.4183 8.08415L9 6.37499M3 7.12499V12.2299C3 12.5089 3 12.6483 3.04351 12.7705C3.08198 12.8784 3.14468 12.9761 3.22678 13.0561C3.31966 13.1465 3.44645 13.2046 3.70001 13.3208L8.50001 15.5208C8.68394 15.6051 8.7759 15.6473 8.87171 15.6639C8.9566 15.6787 9.0434 15.6787 9.12829 15.6639C9.2241 15.6473 9.31606 15.6051 9.49999 15.5208L14.3 13.3208C14.5535 13.2046 14.6803 13.1465 14.7732 13.0561C14.8553 12.9761 14.918 12.8784 14.9565 12.7705C15 12.6483 15 12.5089 15 12.23V7.12499M1.5 6.37499L8.73167 2.75915C8.83006 2.70996 8.87925 2.68536 8.93085 2.67568C8.97655 2.66711 9.02345 2.66711 9.06915 2.67568C9.12075 2.68536 9.16994 2.70996 9.26833 2.75915L16.5 6.37499L9.26833 9.99082C9.16994 10.04 9.12075 10.0646 9.06915 10.0743C9.02345 10.0829 8.97655 10.0829 8.93085 10.0743C8.87925 10.0646 8.83006 10.04 8.73167 9.99082L1.5 6.37499Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_1003_615">
+                              <rect width="18" height="18" fill="white"/>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
                       <div className="job-detail-text">Years of Experience</div>
                     </div>
                     <div className="job-detail">
-                      <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clipPath="url(#clip0_990_2071)">
-                          <path d="M9 4.5V9L12 10.5M16.5 9C16.5 13.1421 13.1421 16.5 9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_990_2071">
-                            <rect width="18" height="18" fill="white"/>
-                          </clipPath>
-                        </defs>
-                      </svg>
+                      <div className="job-icon-wrapper">
+                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clipPath="url(#clip0_1003_620)">
+                            <path d="M9 4.5V9L12 10.5M16.5 9C16.5 13.1421 13.1421 16.5 9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_1003_620">
+                              <rect width="18" height="18" fill="white"/>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
                       <div className="job-detail-text">Full-Time</div>
                     </div>
                     <div className="job-detail">
-                      <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.75 15.75V10.2C6.75 9.78001 6.75 9.56999 6.83175 9.40956C6.90365 9.26843 7.01839 9.1537 7.15951 9.08179C7.31994 9.00005 7.52996 9.00005 7.95 9.00005H10.05C10.47 9.00005 10.6801 9.00005 10.8405 9.08179C10.9816 9.1537 11.0963 9.26843 11.1683 9.40956C11.25 9.56999 11.25 9.78001 11.25 10.2V15.75M8.26327 2.07306L3.17654 6.0294C2.83652 6.29387 2.6665 6.4261 2.54402 6.5917C2.43552 6.73839 2.3547 6.90365 2.30552 7.07935C2.25 7.2777 2.25 7.49308 2.25 7.92385V13.35C2.25 14.1901 2.25 14.6102 2.41349 14.931C2.5573 15.2133 2.78677 15.4427 3.06901 15.5866C3.38988 15.75 3.80992 15.75 4.65 15.75H13.35C14.1901 15.75 14.6101 15.75 14.931 15.5866C15.2132 15.4427 15.4427 15.2133 15.5865 14.931C15.75 14.6102 15.75 14.1901 15.75 13.35V7.92385C15.75 7.49308 15.75 7.2777 15.6945 7.07935C15.6453 6.90365 15.5645 6.73839 15.456 6.5917C15.3335 6.4261 15.1635 6.29387 14.8235 6.02941L9.73673 2.07306C9.47324 1.86812 9.34149 1.76565 9.19601 1.72626C9.06765 1.69151 8.93235 1.69151 8.80399 1.72626C8.65851 1.76565 8.52677 1.86812 8.26327 2.07306Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      <div className="job-icon-wrapper">
+                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.75 15.75V10.2C6.75 9.77995 6.75 9.56993 6.83175 9.4095C6.90365 9.26837 7.01839 9.15364 7.15951 9.08173C7.31994 8.99999 7.52996 8.99999 7.95 8.99999H10.05C10.47 8.99999 10.6801 8.99999 10.8405 9.08173C10.9816 9.15364 11.0963 9.26837 11.1683 9.4095C11.25 9.56993 11.25 9.77995 11.25 10.2V15.75M8.26327 2.073L3.17654 6.02934C2.83652 6.29381 2.6665 6.42604 2.54402 6.59164C2.43552 6.73833 2.3547 6.90359 2.30552 7.07929C2.25 7.27764 2.25 7.49302 2.25 7.92379V13.35C2.25 14.1901 2.25 14.6101 2.41349 14.931C2.5573 15.2132 2.78677 15.4427 3.06901 15.5865C3.38988 15.75 3.80992 15.75 4.65 15.75H13.35C14.1901 15.75 14.6101 15.75 14.931 15.5865C15.2132 15.4427 15.4427 15.2132 15.5865 14.931C15.75 14.6101 15.75 14.1901 15.75 13.35V7.92379C15.75 7.49302 15.75 7.27764 15.6945 7.07929C15.6453 6.90359 15.5645 6.73833 15.456 6.59164C15.3335 6.42604 15.1635 6.29381 14.8235 6.02934L9.73673 2.073C9.47324 1.86806 9.34149 1.76559 9.19601 1.7262C9.06765 1.69145 8.93235 1.69145 8.80399 1.7262C8.65851 1.76559 8.52677 1.86806 8.26327 2.073Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
                       <div className="job-detail-text">Remote</div>
                     </div>
                     <div className="job-detail">
-                      <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.5 12C4.5 13.6569 5.84315 15 7.5 15H10.5C12.1569 15 13.5 13.6569 13.5 12C13.5 10.3431 12.1569 9 10.5 9H7.5C5.84315 9 4.5 7.65685 4.5 6C4.5 4.34315 5.84315 3 7.5 3H10.5C12.1569 3 13.5 4.34315 13.5 6M9 1.5V16.5" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      <div className="job-icon-wrapper">
+                        <svg className="job-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M4.5 12C4.5 13.6569 5.84315 15 7.5 15H10.5C12.1569 15 13.5 13.6569 13.5 12C13.5 10.3431 12.1569 9 10.5 9H7.5C5.84315 9 4.5 7.65685 4.5 6C4.5 4.34315 5.84315 3 7.5 3H10.5C12.1569 3 13.5 4.34315 13.5 6M9 1.5V16.5" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
                       <div className="job-detail-text">Salary</div>
                     </div>
                   </div>
@@ -295,52 +304,6 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription }) {
           </div>
         </main>
       </div>
-
-      <footer className="footer">
-        <div className="footer-container">
-          <div className="footer-grid">
-            <div className="footer-column">
-              <div className="logo">
-                Visa<span style={{ fontWeight: 900 }}>Path</span>
-              </div>
-              <div className="footer-paragraph">
-                <p className="footer-desc">Connecting international students with U.S. employers who sponsor work visas.</p>
-              </div>
-            </div>
-            <div className="footer-column footer-column-students">
-              <div className="footer-heading">
-                <h5 className="footer-heading-text">Students</h5>
-              </div>
-              <div className="footer-list">
-                <div className="footer-list-item">
-                  <a href="#" className="footer-link">Job Board</a>
-                </div>
-                <div className="footer-list-item">
-                  <a href="#" className="footer-link">Employer Board</a>
-                </div>
-                <div className="footer-list-item">
-                  <a href="#" className="footer-link">Visa Resources</a>
-                </div>
-              </div>
-            </div>
-            <div className="footer-column footer-column-employers">
-              <div className="footer-heading">
-                <h5 className="footer-heading-text">Employers</h5>
-              </div>
-              <div className="footer-list">
-                <div className="footer-list-item">
-                  <a href="#" className="footer-link">Post a Job</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="footer-copyright">
-            <div className="footer-copyright-paragraph">
-              <p className="footer-copyright-text">© 2025 VisaPath. All rights reserved.</p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

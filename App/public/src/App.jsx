@@ -36,7 +36,6 @@ function App() {
 
   return (
     <div className="desktop-container">
-      <div className="background-overlay">
         <nav className="navigation-bar">
           <div className="nav-inner">
             <div className="nav-left">
@@ -70,18 +69,12 @@ function App() {
                 </p>
               </div>
               <div className="hero-search-area">
-                <div className="search-bar">
-                  <div className="search-content">
-                    <div className="search-inner">
-                      <div>
-                        <svg className="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#30546C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                        </svg>
-                      </div>
-                      <div className="search-placeholder">
-                        Search Job Titles, Employers, Key Words
-                      </div>
-                    </div>
+                <div className="main-search-bar">
+                  <div className="main-search-content">
+                    <svg className="search-icon-main" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <div className="search-placeholder-main">Search Job Titles, Employers, Key Words</div>
                   </div>
                 </div>
                 <div className="search-button-wrapper">
@@ -142,7 +135,7 @@ function App() {
         </section>
 
         <section className="how-it-works-section">
-          <div className="how-header">
+           <div className="tools-header centered-text">
             <div className="section-label">How this works</div>
             <h2 className="section-title centered">4 simple steps to find your ideal employers</h2>
           </div>
@@ -186,7 +179,7 @@ function App() {
           </div>
         </section>
 
-        <section className="tools-section">
+        <section className="featured-section">
           <div className="tools-header centered-text">
             <div className="section-label">Empowering Your Career</div>
             <h2 className="section-title centered">We provide the tools and information you need to navigate visa sponsorship with confidence</h2>
@@ -291,7 +284,6 @@ function App() {
             </div>
           </div>
         </footer>
-      </div>
     </div>
   );
 }
