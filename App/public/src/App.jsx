@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import JobBoard from "./JobBoard";
 import Profile from "./Profile";
 import JobDescription from "./JobDescription";
+import JobCreation from "./JobCreation";
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -22,6 +23,10 @@ function App() {
     setCurrentPage('job-description');
   };
 
+  const navigateToJobCreation = () => {
+    setCurrentPage('job-creation');
+  };
+
   if (currentPage === 'job-board') {
     return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} />;
   }
@@ -32,6 +37,10 @@ function App() {
 
   if (currentPage === 'job-description') {
     return <JobDescription onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} />;
+  }
+
+  if (currentPage === 'job-creation') {
+    return <JobCreation onNavigateHome={navigateToHome} />;
   }
 
   return (
@@ -234,8 +243,8 @@ function App() {
                 </p>
               </div>
               <div className="cta-buttons">
-                <button className="btn-primary">Post a Job Listing</button>
-                <button className="btn-secondary">Post a Job Listing</button>
+                <button className="btn-primary" onClick={navigateToJobCreation}>Post a Job Listing</button>
+                <button className="btn-secondary" onClick={navigateToJobCreation}>Learn More</button>
               </div>
             </div>
           </div>
@@ -272,7 +281,7 @@ function App() {
                 </div>
                 <div className="footer-list">
                   <div className="footer-list-item">
-                    <a href="#" className="footer-link">Post a Job</a>
+                    <div className="footer-link" onClick={navigateToJobCreation} style={{ cursor: 'pointer' }}>Post a Job</div>
                   </div>
                 </div>
               </div>
