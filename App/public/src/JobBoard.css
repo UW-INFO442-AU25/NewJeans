@@ -142,16 +142,6 @@
   font: 400 12px/14px Inter, -apple-system, Roboto, Helvetica, sans-serif;
 }
 
-.location-search {
-  display: flex;
-  max-width: 720px;
-  align-items: center;
-  gap: 4px;
-  border-radius: 6px;
-  border: 1px solid #B7B7B7;
-  background: #FEFEFE;
-}
-
 .location-search-content {
   display: flex;
   padding: 8px 12px;
@@ -159,6 +149,8 @@
   gap: 8px;
   flex: 1;
   background: #F4F4F4;
+  border-radius: 6px;
+  border: 1px solid #B7B7B7;
 }
 
 .search-icon-small {
