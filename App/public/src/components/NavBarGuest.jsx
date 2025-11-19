@@ -25,11 +25,8 @@ function NavBarGuest({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, cl
 
         <div className="nav-right">
           <>
-            <div className="nav-link" onClick={onNavigateProfile} style={{ cursor: 'pointer' }}>
-              <div className="link-text">Log in</div>
-            </div>
-            <div className="nav-button-wrapper">
-              <button className="btn-primary">Get Started</button>
+            <div className="nav-button-wrapper" onClick={onNavigateProfile} style={{ cursor: 'pointer' }}>
+              <div className="btn-primary">Get Started</div>
             </div>
           </>
         </div>
