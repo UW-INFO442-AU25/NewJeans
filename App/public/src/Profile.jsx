@@ -1,270 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Profile.css';
 import NavBar from './components/NavBar';
 
-const checklists = {
-  'F-1': {
-    title: 'CPT Document Checklist',
-    tasks: [
-      {
-        id: 1,
-        title: 'Secure Job Offer',
-        subtasks: [
-          'Find an internship/job related to your major through VisaPath',
-          'Ensure role duties relate to your academic program'
-        ]
-      },
-      {
-        id: 2,
-        title: 'Meet with Academic Adviser',
-        subtasks: [
-          'Register for CPT credit course',
-          'Confirm credit units meet ISS requirements'
-        ]
-      },
-      {
-        id: 3,
-        title: 'Prepare CPT Materials for MyISSS',
-        subtasks: [
-          'Offer letter PDF ready',
-          'Employer address confirmed',
-          'Start & end dates confirmed',
-          'Supervisor/contact person details ready',
-          'CPT course enrollment proof uploaded',
-          'Academic Department Approver contact included'
-        ]
-      },
-      {
-        id: 4,
-        title: 'Submit CPT Request in MyISSS',
-        subtasks: [
-          'Submit full application online',
-          'Review submission status regularly',
-          'Respond to ISS/department follow-ups'
-        ]
-      },
-      {
-        id: 5,
-        title: 'Begin CPT Employment',
-        subtasks: [
-          'Start work on or after the CPT start date',
-          'Track hours & maintain student status',
-          'Stop work by CPT end date',
-          'Re-apply if extending into next quarter'
-        ]
-      }
-    ]
-  },
-  'OPT': {
-    title: 'OPT Document Checklist',
-    tasks: [
-      {
-        id: 1,
-        title: 'Prepare OPT Application',
-        subtasks: [
-          'Obtain recommendation from academic advisor',
-          'Complete I-765 form',
-          'Prepare passport-style photos',
-          'Gather supporting documents'
-        ]
-      },
-      {
-        id: 2,
-        title: 'Submit to USCIS',
-        subtasks: [
-          'Mail complete application package',
-          'Track application status',
-          'Respond to RFEs if needed'
-        ]
-      },
-      {
-        id: 3,
-        title: 'Receive EAD Card',
-        subtasks: [
-          'Wait for USCIS approval',
-          'Receive Employment Authorization Document',
-          'Verify card details are correct'
-        ]
-      },
-      {
-        id: 4,
-        title: 'Begin Employment',
-        subtasks: [
-          'Start work after EAD start date',
-          'Report employment to school within 10 days',
-          'Update employment changes within 10 days',
-          'Maintain employment in field related to degree'
-        ]
-      }
-    ]
-  },
-  'H-1B': {
-    title: 'H-1B Visa Checklist',
-    tasks: [
-      {
-        id: 1,
-        title: 'Secure Job Offer from H-1B Sponsor',
-        subtasks: [
-          'Find employer willing to sponsor H-1B',
-          'Receive formal job offer letter',
-          'Confirm position meets specialty occupation requirements'
-        ]
-      },
-      {
-        id: 2,
-        title: 'Labor Condition Application (LCA)',
-        subtasks: [
-          'Employer files LCA with Department of Labor',
-          'Wait for LCA approval',
-          'Review approved LCA details'
-        ]
-      },
-      {
-        id: 3,
-        title: 'File H-1B Petition',
-        subtasks: [
-          'Employer submits Form I-129 to USCIS',
-          'Pay required filing fees',
-          'Consider premium processing if needed',
-          'Track petition status'
-        ]
-      },
-      {
-        id: 4,
-        title: 'Visa Approval & Employment',
-        subtasks: [
-          'Receive H-1B approval notice',
-          'Apply for visa stamp if abroad',
-          'Begin employment on H-1B start date',
-          'Maintain H-1B status requirements'
-        ]
-      }
-    ]
-  },
-  'L-1': {
-    title: 'L-1 Visa Checklist',
-    tasks: [
-      {
-        id: 1,
-        title: 'Verify Eligibility',
-        subtasks: [
-          'Confirm 1 year of continuous employment abroad',
-          'Verify qualifying relationship between companies',
-          'Determine L-1A (Manager) or L-1B (Specialized Knowledge)'
-        ]
-      },
-      {
-        id: 2,
-        title: 'Prepare Petition Documents',
-        subtasks: [
-          'Gather evidence of foreign employment',
-          'Document qualifying relationship',
-          'Prepare detailed job description',
-          'Collect organizational charts'
-        ]
-      },
-      {
-        id: 3,
-        title: 'File L-1 Petition',
-        subtasks: [
-          'Employer submits Form I-129',
-          'Include all supporting documents',
-          'Pay filing fees',
-          'Track petition status'
-        ]
-      },
-      {
-        id: 4,
-        title: 'Begin U.S. Employment',
-        subtasks: [
-          'Receive L-1 approval',
-          'Apply for visa stamp if needed',
-          'Enter U.S. and begin work',
-          'Maintain L-1 status'
-        ]
-      }
-    ]
-  },
-  'O-1': {
-    title: 'O-1 Visa Checklist',
-    tasks: [
-      {
-        id: 1,
-        title: 'Demonstrate Extraordinary Ability',
-        subtasks: [
-          'Gather awards and recognition',
-          'Collect published materials about you',
-          'Document high salary or remuneration',
-          'Obtain expert letters of recommendation'
-        ]
-      },
-      {
-        id: 2,
-        title: 'Secure Advisory Opinion',
-        subtasks: [
-          'Contact relevant peer group',
-          'Request written advisory opinion',
-          'Address any concerns raised'
-        ]
-      },
-      {
-        id: 3,
-        title: 'File O-1 Petition',
-        subtasks: [
-          'Employer or agent files Form I-129',
-          'Include all evidence of extraordinary ability',
-          'Submit advisory opinion',
-          'Pay filing fees'
-        ]
-      },
-      {
-        id: 4,
-        title: 'Approval & Employment',
-        subtasks: [
-          'Receive O-1 approval notice',
-          'Apply for visa stamp if abroad',
-          'Begin work in extraordinary capacity',
-          'Maintain O-1 status requirements'
-        ]
-      }
-    ]
-  }
-};
-
 function Profile({ onNavigateHome, onNavigateJobBoard }) {
-  const [visaType, setVisaType] = useState('F-1');
-  const [workAuth, setWorkAuth] = useState('CPT');
-  const [showVisaDropdown, setShowVisaDropdown] = useState(false);
-  const [showWorkAuthDropdown, setShowWorkAuthDropdown] = useState(false);
-  const [checkedItems, setCheckedItems] = useState({});
-
-  const visaTypes = ['F-1', 'OPT', 'H-1B', 'L-1', 'O-1', 'TN', 'E-3'];
-  const workAuthOptions = {
-    'F-1': ['CPT', 'Day 1 CPT'],
-    'OPT': ['Pre-completion OPT', 'Post-completion OPT', 'STEM OPT Extension'],
-    'H-1B': ['H-1B Regular', 'H-1B Cap-Exempt'],
-    'L-1': ['L-1A (Manager)', 'L-1B (Specialized Knowledge)'],
-    'O-1': ['O-1A (Sciences/Business)', 'O-1B (Arts)'],
-    'TN': ['TN Professional'],
-    'E-3': ['E-3 Professional']
-  };
-
-  const currentChecklist = checklists[visaType] || checklists['F-1'];
-
-  const handleCheckTask = (taskId) => {
-    setCheckedItems(prev => ({
-      ...prev,
-      [`task-${taskId}`]: !prev[`task-${taskId}`]
-    }));
-  };
-
-  const handleCheckSubtask = (taskId, subtaskIndex) => {
-    setCheckedItems(prev => ({
-      ...prev,
-      [`subtask-${taskId}-${subtaskIndex}`]: !prev[`subtask-${taskId}-${subtaskIndex}`]
-    }));
-  };
-
   return (
     <div className="profile-container">
       <NavBar
@@ -330,7 +68,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard }) {
 
           <div className="profile-section">
             <h2 className="profile-section-title">Contact Information</h2>
-            <div className="profile-form-grid contact-grid">
+            <div className="profile-form-grid two-columns">
               <div className="form-field">
                 <div className="form-label-row">
                   <label className="form-label">Email Address</label>
@@ -357,36 +95,11 @@ function Profile({ onNavigateHome, onNavigateJobBoard }) {
                   <label className="form-label">Visa Type</label>
                   <span className="required-asterisk">*</span>
                 </div>
-                <div className="dropdown-wrapper">
-                  <div 
-                    className="form-select" 
-                    onClick={() => {
-                      setShowVisaDropdown(!showVisaDropdown);
-                      setShowWorkAuthDropdown(false);
-                    }}
-                  >
-                    <span className="form-select-placeholder">{visaType || 'Select Visa Type'}</span>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M6 9L12 15L18 9" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  {showVisaDropdown && (
-                    <div className="dropdown-menu">
-                      {visaTypes.map(type => (
-                        <div 
-                          key={type}
-                          className="dropdown-item"
-                          onClick={() => {
-                            setVisaType(type);
-                            setWorkAuth(workAuthOptions[type]?.[0] || '');
-                            setShowVisaDropdown(false);
-                          }}
-                        >
-                          {type}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                <div className="form-select">
+                  <span className="form-select-placeholder">Select Visa Type</span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9L12 15L18 9" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
               </div>
               <div className="form-field">
@@ -394,35 +107,11 @@ function Profile({ onNavigateHome, onNavigateJobBoard }) {
                   <label className="form-label">Work Authorization Status</label>
                   <span className="required-asterisk">*</span>
                 </div>
-                <div className="dropdown-wrapper">
-                  <div 
-                    className="form-select"
-                    onClick={() => {
-                      setShowWorkAuthDropdown(!showWorkAuthDropdown);
-                      setShowVisaDropdown(false);
-                    }}
-                  >
-                    <span className="form-select-placeholder">{workAuth || 'CPT, OPT, H1B, etc.'}</span>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M6 9L12 15L18 9" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  {showWorkAuthDropdown && (
-                    <div className="dropdown-menu">
-                      {(workAuthOptions[visaType] || []).map(option => (
-                        <div 
-                          key={option}
-                          className="dropdown-item"
-                          onClick={() => {
-                            setWorkAuth(option);
-                            setShowWorkAuthDropdown(false);
-                          }}
-                        >
-                          {option}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                <div className="form-select">
+                  <span className="form-select-placeholder">CPT, OPT, H1B, etc.</span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9L12 15L18 9" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -430,7 +119,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard }) {
         </div>
 
         <div className="cpt-document-section">
-          <h2 className="cpt-section-title">{currentChecklist.title}</h2>
+          <h2 className="cpt-section-title">Curricular Practical Training (CPT) Document</h2>
           
           <div className="upload-progress-bar">
             <div className="upload-progress-fill"></div>
@@ -493,36 +182,6 @@ function Profile({ onNavigateHome, onNavigateJobBoard }) {
               </div>
               <button className="document-action-btn not-accepted-btn">Not Accepted</button>
             </div>
-          </div>
-        </div>
-
-        <div className="checklist-section">
-          <h2 className="checklist-title">{currentChecklist.title}</h2>
-          <div className="checklist-container">
-            {currentChecklist.tasks.map((task, taskIndex) => (
-              <div key={task.id} className="checklist-task-group">
-                <div className="task-item">
-                  <div 
-                    className={`task-checkbox ${checkedItems[`task-${task.id}`] ? 'checked' : ''}`}
-                    onClick={() => handleCheckTask(task.id)}
-                  ></div>
-                  <div className="task-title">{task.title}</div>
-                </div>
-                {task.subtasks.map((subtask, subtaskIndex) => (
-                  <div key={subtaskIndex} className="subtask-item">
-                    <div className="subtask-line-container">
-                      {subtaskIndex > 0 && <div className="subtask-top-line"></div>}
-                      <div 
-                        className={`subtask-checkbox ${checkedItems[`subtask-${task.id}-${subtaskIndex}`] ? 'checked' : ''}`}
-                        onClick={() => handleCheckSubtask(task.id, subtaskIndex)}
-                      ></div>
-                      {subtaskIndex < task.subtasks.length - 1 && <div className="subtask-bottom-line"></div>}
-                    </div>
-                    <div className="subtask-title">{subtask}</div>
-                  </div>
-                ))}
-              </div>
-            ))}
           </div>
         </div>
 
