@@ -5,7 +5,7 @@ import jobs from './data/jobs.json';
 import JobCard from './components/JobCard';
 import SearchBar from './components/SearchBar';
 
-function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfile, initialSearchQuery = '' }) {
+function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfile, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
   const [visaFilters, setVisaFilters] = useState([]); // e.g. ['H-1B']
   const [locationQuery, setLocationQuery] = useState('');
   const [remoteOnly, setRemoteOnly] = useState(false);
@@ -451,7 +451,13 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfil
               <div style={{ padding: 24, color: '#767676' }}>No jobs match your filters.</div>
             ) : (
               displayedJobs.map((job) => (
-                <JobCard key={job.id} job={job} onClick={() => onNavigateToJobDescription(job.id)} />
+                <JobCard
+                  key={job.id}
+                  job={job}
+                  onClick={() => onNavigateToJobDescription(job.id)}
+                  isSaved={savedJobIds.includes(job.id)}
+                  onToggleSave={onToggleSave}
+                />
               ))
             )}
           </div>

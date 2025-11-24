@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import JobBoard from "./JobBoard";
 import Profile from "./Profile";
 import JobDescription from "./JobDescription";
@@ -11,6 +11,30 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [initialSearchQuery, setInitialSearchQuery] = useState('');
+  // persisted saved jobs (array of job ids)
+  const [savedJobIds, setSavedJobIds] = useState(() => {
+    try {
+      const raw = localStorage.getItem('savedJobIds');
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('savedJobIds', JSON.stringify(savedJobIds));
+    } catch (e) {
+      // ignore
+    }
+  }, [savedJobIds]);
+
+  const toggleSavedJob = (jobId) => {
+    setSavedJobIds((prev) => {
+      if (prev.includes(jobId)) return prev.filter((id) => id !== jobId);
+      return [...prev, jobId];
+    });
+  };
 
   const navigateToJobBoard = () => {
     setCurrentPage('job-board');
@@ -39,16 +63,16 @@ function App() {
   };
 
   if (currentPage === 'job-board') {
-    return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} initialSearchQuery={initialSearchQuery} />;
+    return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'profile') {
-    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} />;
+    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateToJobDescription={navigateToJobDescription} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'job-description') {
     const job = jobs.find((j) => j.id === selectedJobId) || null;
-    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} />;
+    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'job-creation') {

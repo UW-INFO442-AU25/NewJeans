@@ -541,10 +541,6 @@
   max-width: 1440px;
 }
 
-.saved-jobs-header {
-  padding: 32px 32px 12px;
-}
-
 .saved-jobs-title {
   color: #191919;
   font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
@@ -554,22 +550,6 @@
   margin-bottom: 16px;
 }
 
-.saved-jobs-search-bar {
-  display: flex;
-  align-items: center;
-  height: 56px;
-  border-radius: 6px;
-  border: 1px solid #B7B7B7;
-  background: #F4F4F4;
-  padding: 0 20px;
-}
-
-.saved-jobs-search-content {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-}
 
 .search-placeholder {
   color: #767676;
@@ -905,10 +885,6 @@
 
   .saved-jobs-section {
     padding: 0 16px 48px;
-  }
-
-  .saved-jobs-header {
-    padding: 24px 16px 12px;
   }
 
   .saved-jobs-title {

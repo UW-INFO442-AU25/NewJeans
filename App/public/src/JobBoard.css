@@ -360,7 +360,7 @@
 .job-header {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
@@ -458,7 +458,20 @@
 }
 
 .bookmark-button:hover {
-  background: #F4F4F4;
+  background: #5384A4;
+  border: 1px solid #5384A4;
+}
+
+.bookmark-button.active {
+  background: #5384A4;
+  border: 1px solid #5384A4;
+}
+
+/* Ensure icon contrasts on hover/active */
+.bookmark-button:hover svg path,
+.bookmark-button.active svg path {
+  stroke: #FEFEFE;
+  fill: #FEFEFE;
 }
 
 .apply-btn {

@@ -75,7 +75,7 @@
 .job-header-details {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 16px;
   align-self: stretch;
   justify-content: flex-start;
   flex-wrap: nowrap;
@@ -198,7 +198,20 @@
 }
 
 .bookmark-button-large:hover {
-  background: #F4F4F4;
+  background: #5384A4;
+  border-color: #5384A4;
+}
+
+.bookmark-button-large.active {
+  background: #5384A4;
+  border-color: #5384A4;
+}
+
+/* Ensure icon contrasts on hover/active */
+.bookmark-button-large:hover svg path,
+.bookmark-button-large.active svg path {
+  stroke: #FEFEFE;
+  fill: #FEFEFE;
 }
 
 .apply-button-top {
