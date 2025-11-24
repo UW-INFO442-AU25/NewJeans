@@ -220,26 +220,6 @@ function App() {
           </div>
         </section>
 
-        <section className="cta-section">
-          <div className="cta-box">
-            <div className="cta-content">
-              <div className="cta-text">
-                <h2 className="cta-title">Are You an Employer? Post Your Job Listing Here!</h2>
-                <p className="cta-description">
-                  Get your company verified as "Sponsorship-Friendly" and
-                  attract top talent globally! Post your job listing with us and
-                  learn how to become an official international employer with
-                  verified sponsorship capabilities.
-                </p>
-              </div>
-              <div className="cta-buttons">
-                <button className="btn-primary" onClick={navigateToJobCreation}>Post a Job Listing</button>
-                <button className="btn-secondary" onClick={navigateToJobCreation}>Learn More</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <footer className="footer">
           <div className="footer-container">
             <div className="footer-grid">
