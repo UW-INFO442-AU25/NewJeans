@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css';
 import NavBarGuest from './NavBarGuest';
 import NavBarStudent from './NavBarStudent';
-import NavBarEmployer from './NavBarEmployer';
 
 /**
  * NavBar wrapper that can render one of several role-based variants.
@@ -24,6 +23,7 @@ function NavBar({
   className = '',
   leftChildren = null,
   rightChildren = null,
+  onNavigateLogin = () => {},
 }) {
   // Preserve existing override behavior when callers pass custom left/right children.
   if (leftChildren || rightChildren) {
@@ -79,25 +79,13 @@ function NavBar({
     );
   }
 
-  if (role === 'employer') {
-    return (
-      <NavBarEmployer
-        onNavigateHome={onNavigateHome}
-        onNavigateDashboard={onNavigateDashboard}
-        onNavigateProfile={onNavigateProfile}
-        onSignOut={onSignOut}
-        userName={userName}
-        className={className}
-      />
-    );
-  }
-
   // Default: guest
   return (
     <NavBarGuest
       onNavigateHome={onNavigateHome}
       onNavigateJobBoard={onNavigateJobBoard}
       onNavigateProfile={onNavigateProfile}
+      onNavigateLogin={onNavigateLogin}
       className={className}
     />
   );

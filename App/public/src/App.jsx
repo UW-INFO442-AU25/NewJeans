@@ -5,11 +5,13 @@ import JobDescription from "./JobDescription";
 import JobCreation from "./JobCreation";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import Login from './components/Login';
 import SearchBar from "./components/SearchBar";
 import jobs from './data/jobs.json';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [user, setUser] = useState(null);
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [initialSearchQuery, setInitialSearchQuery] = useState('');
   // persisted saved jobs (array of job ids)
@@ -63,21 +65,46 @@ function App() {
     setCurrentPage('job-creation');
   };
 
+  const navigateToLogin = () => {
+    setCurrentPage('login');
+  };
+
+  const handleLogin = (userObj) => {
+    setUser(userObj);
+    setCurrentPage('home');
+  };
+
   if (currentPage === 'job-board') {
-    return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
+    return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'profile') {
-    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateToJobDescription={navigateToJobDescription} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
+    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateLogin={navigateToLogin} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'job-description') {
     const job = jobs.find((j) => j.id === selectedJobId) || null;
-    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} />;
+    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateLogin={navigateToLogin} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'job-creation') {
-    return <JobCreation onNavigateHome={navigateToHome} />;
+    return <JobCreation onNavigateHome={navigateToHome} onNavigateLogin={navigateToLogin} />;
+  }
+
+  if (currentPage === 'login') {
+    return (
+      <div className="desktop-container">
+        <NavBar
+          onNavigateHome={navigateToHome}
+          onNavigateJobBoard={navigateToJobBoard}
+          onNavigateProfile={navigateToProfile}
+          onNavigateLogin={navigateToLogin}
+          role={user ? 'student' : 'guest'}
+        />
+        <Login onLogin={handleLogin} onNavigateHome={navigateToHome} />
+        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateHome={navigateToHome} />
+      </div>
+    );
   }
 
   return (
@@ -86,6 +113,8 @@ function App() {
           onNavigateHome={navigateToHome}
           onNavigateJobBoard={navigateToJobBoard}
           onNavigateProfile={navigateToProfile}
+          onNavigateLogin={navigateToLogin}
+          role={user ? 'student' : 'guest'}
         />
 
         <section className="hero-section">

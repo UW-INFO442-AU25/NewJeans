@@ -10,6 +10,7 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateHome, isSaved = fal
         <NavBar
           onNavigateHome={onNavigateHome}
           onNavigateJobBoard={onNavigateJobBoard}
+          onNavigateLogin={arguments[0] && arguments[0].onNavigateLogin}
         />
         <div className="job-description-container">
           <div className="job-description-content">
@@ -34,6 +35,7 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateHome, isSaved = fal
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateLogin={arguments[0] && arguments[0].onNavigateLogin}
       />
 
       <div className="job-description-container">

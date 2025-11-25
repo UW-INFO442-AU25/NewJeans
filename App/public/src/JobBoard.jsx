@@ -5,7 +5,7 @@ import jobs from './data/jobs.json';
 import JobCard from './components/JobCard';
 import SearchBar from './components/SearchBar';
 
-function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfile, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
+function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
   const [visaFilters, setVisaFilters] = useState([]); // e.g. ['H-1B']
   const [locationQuery, setLocationQuery] = useState('');
   const [remoteOnly, setRemoteOnly] = useState(false);
@@ -255,6 +255,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfil
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={null}
         onNavigateProfile={onNavigateProfile}
+        onNavigateLogin={onNavigateLogin}
       />
 
       <div className="main-content">
