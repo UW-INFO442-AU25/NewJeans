@@ -5,6 +5,7 @@ import Profile from "./Profile";
 import JobDescription from "./JobDescription";
 import JobCreation from "./JobCreation";
 import StudentResources from "./StudentResources";
+import CPT from "./CPT";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from './components/Login';
@@ -79,6 +80,10 @@ function App() {
     setCurrentPage('student-resources');
   };
 
+  const navigateToCPT = () => {
+    setCurrentPage('cpt');
+  };
+
   const handleLogin = (userObj) => {
     setUser(userObj);
     setCurrentPage('home');
@@ -123,7 +128,11 @@ function App() {
   }
 
   if (currentPage === 'student-resources') {
-    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} />;
+    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateToCPT={navigateToCPT} />;
+  }
+
+  if (currentPage === 'cpt') {
+    return <CPT onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} />;
   }
 
   return (

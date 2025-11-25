@@ -3,7 +3,7 @@ import './StudentResources.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
-function StudentResources({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin }) {
+function StudentResources({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin, onNavigateToCPT = () => {} }) {
   return (
     <div className="student-resources-container">
       <NavBar
@@ -50,7 +50,7 @@ function StudentResources({ onNavigateHome, onNavigateJobBoard, onNavigateEmploy
               <p className="resource-card-description">
                 CPT is training that is an integral (i.e., required) part of the student's curriculum. It is authorized by the DSO.
               </p>
-              <button className="resource-card-button">Learn More</button>
+              <button className="resource-card-button" onClick={onNavigateToCPT}>Learn More</button>
             </div>
 
             <div className="resource-card">

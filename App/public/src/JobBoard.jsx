@@ -7,6 +7,8 @@ import JobCard from './components/JobCard';
 import SearchBar from './components/SearchBar';
 
 function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
+  // Alias retains previous internal usage expecting onNavigateJobBoard while restoring original prop name
+  const onNavigateJobBoard = onNavigateToJobBoard;
   const [visaFilters, setVisaFilters] = useState([]); // e.g. ['H-1B']
   const [locationQuery, setLocationQuery] = useState('');
   const [remoteOnly, setRemoteOnly] = useState(false);
