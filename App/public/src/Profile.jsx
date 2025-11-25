@@ -499,7 +499,7 @@ const CHECKLIST_BY_VISA = {
 import JobCard from './components/JobCard';
 import jobs from './data/jobs.json';
 
-function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, savedJobIds = [], onToggleSave = () => {} }) {
+function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateStudentResources = () => {}, savedJobIds = [], onToggleSave = () => {} }) {
   const [selectedVisa, setSelectedVisa] = useState('');
   const [selectedWorkAuth, setSelectedWorkAuth] = useState('');
   const [visaDropdownOpen, setVisaDropdownOpen] = useState(false);
@@ -554,7 +554,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard =
               <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
             </div>
             <div className="nav-link">
-              <div className="link-text">Student Resources</div>
+              <div className="link-text" onClick={onNavigateStudentResources} style={{ cursor: 'pointer' }}>Student Resources</div>
             </div>
             <div className="nav-link">
               <div className="link-text">Profile</div>
@@ -797,7 +797,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard =
         </div>
       </div>
 
-  <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} />
+  <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} onNavigateStudentResources={onNavigateStudentResources} />
     </div>
   );
 }

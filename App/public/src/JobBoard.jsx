@@ -6,7 +6,7 @@ import jobs from './data/jobs.json';
 import JobCard from './components/JobCard';
 import SearchBar from './components/SearchBar';
 
-function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
+function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
   const [visaFilters, setVisaFilters] = useState([]); // e.g. ['H-1B']
   const [locationQuery, setLocationQuery] = useState('');
   const [remoteOnly, setRemoteOnly] = useState(false);
@@ -257,6 +257,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
         onNavigateJobBoard={onNavigateJobBoard}
         onNavigateProfile={onNavigateProfile}
         onNavigateLogin={onNavigateLogin}
+        onNavigateStudentResources={onNavigateStudentResources}
       />
 
       <div className="main-content">
@@ -479,7 +480,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
           </div>
         </main>
       </div>
-      <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} />
+      <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} onNavigateStudentResources={onNavigateStudentResources} />
     </div>
   );
 }

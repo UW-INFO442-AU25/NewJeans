@@ -24,6 +24,7 @@ function NavBar({
   leftChildren = null,
   rightChildren = null,
   onNavigateLogin = () => {},
+  onNavigateStudentResources = () => {},
 }) {
   // Preserve existing override behavior when callers pass custom left/right children.
   if (leftChildren || rightChildren) {
@@ -72,6 +73,7 @@ function NavBar({
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
         onNavigateProfile={onNavigateProfile}
+        onNavigateStudentResources={onNavigateStudentResources}
         onSignOut={onSignOut}
         userName={userName}
         className={className}
@@ -86,6 +88,7 @@ function NavBar({
       onNavigateJobBoard={onNavigateJobBoard}
       onNavigateProfile={onNavigateProfile}
       onNavigateLogin={onNavigateLogin}
+      onNavigateStudentResources={onNavigateStudentResources}
       className={className}
     />
   );

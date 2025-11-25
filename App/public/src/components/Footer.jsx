@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Footer({ onNavigateJobBoard = () => {}, onNavigateHome = () => {}, onNavigateEmployerBoard = () => {} }) {
+function Footer({ onNavigateJobBoard = () => {}, onNavigateHome = () => {}, onNavigateEmployerBoard = () => {}, onNavigateStudentResources = () => {} }) {
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -17,14 +17,14 @@ function Footer({ onNavigateJobBoard = () => {}, onNavigateHome = () => {}, onNa
               <h5 className="footer-heading-text">Students</h5>
             </div>
             <div className="footer-list">
-                <div className="footer-list-item">
-                    <div className="footer-link">Visa Resources</div>
-                </div>
               <div className="footer-list-item">
                 <div className="footer-link" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
               </div>
               <div className="footer-list-item">
                 <div className="footer-link" onClick={onNavigateEmployerBoard} style={{ cursor: 'pointer' }}>Employer Board</div>
+              </div>
+              <div className="footer-list-item">
+                <div className="footer-link" onClick={onNavigateStudentResources} style={{ cursor: 'pointer' }}>Visa Resources</div>
               </div>
             </div>
           </div>

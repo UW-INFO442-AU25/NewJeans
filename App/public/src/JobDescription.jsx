@@ -3,7 +3,7 @@ import './JobDescription.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
-function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateHome, isSaved = false, onToggleSave = () => {} }) {
+function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateHome, onNavigateStudentResources = () => {}, isSaved = false, onToggleSave = () => {} }) {
   if (!job) {
     return (
       <div className="job-description-page">
@@ -11,6 +11,7 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () 
           onNavigateHome={onNavigateHome}
           onNavigateJobBoard={onNavigateJobBoard}
           onNavigateLogin={arguments[0] && arguments[0].onNavigateLogin}
+          onNavigateStudentResources={onNavigateStudentResources}
         />
         <div className="job-description-container">
           <div className="job-description-content">
@@ -36,6 +37,7 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () 
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
         onNavigateLogin={arguments[0] && arguments[0].onNavigateLogin}
+        onNavigateStudentResources={onNavigateStudentResources}
       />
 
       <div className="job-description-container">
@@ -161,7 +163,7 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () 
         </div>
       </div>
 
-  <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} />
+  <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} onNavigateStudentResources={onNavigateStudentResources} />
     </div>
   );
 }

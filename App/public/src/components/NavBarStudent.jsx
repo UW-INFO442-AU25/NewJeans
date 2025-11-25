@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-function NavBarStudent({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, onSignOut, userName = 'Student', className = '' }) {
+function NavBarStudent({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, onNavigateStudentResources = () => {}, onSignOut, userName = 'Student', className = '' }) {
   return (
     <nav className={("navigation-bar " + className).trim()}>
       <div className="nav-inner">
@@ -15,7 +15,7 @@ function NavBarStudent({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, 
               <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
             </div>
             <div className="nav-link">
-              <div className="link-text">Student Resources</div>
+              <div className="link-text" onClick={onNavigateStudentResources} style={{ cursor: 'pointer' }}>Student Resources</div>
             </div>
             <div className="nav-link">
               <div className="link-text" onClick={onNavigateProfile} style={{ cursor: 'pointer' }}>Profile</div>

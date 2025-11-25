@@ -4,6 +4,7 @@ import EmployerBoard from "./EmployerBoard";
 import Profile from "./Profile";
 import JobDescription from "./JobDescription";
 import JobCreation from "./JobCreation";
+import StudentResources from "./StudentResources";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from './components/Login';
@@ -74,22 +75,26 @@ function App() {
     setCurrentPage('login');
   };
 
+  const navigateToStudentResources = () => {
+    setCurrentPage('student-resources');
+  };
+
   const handleLogin = (userObj) => {
     setUser(userObj);
     setCurrentPage('home');
   };
 
   if (currentPage === 'job-board') {
-    return <JobBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
+    return <JobBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'profile') {
-    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateLogin={navigateToLogin} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
+    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'job-description') {
     const job = jobs.find((j) => j.id === selectedJobId) || null;
-    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} />;
+    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'job-creation') {
@@ -108,12 +113,17 @@ function App() {
           onNavigateJobBoard={navigateToJobBoard}
           onNavigateProfile={navigateToProfile}
           onNavigateLogin={navigateToLogin}
+          onNavigateStudentResources={navigateToStudentResources}
           role={user ? 'student' : 'guest'}
         />
         <Login onLogin={handleLogin} onNavigateHome={navigateToHome} />
-        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateHome={navigateToHome} />
+        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateHome={navigateToHome} onNavigateStudentResources={navigateToStudentResources} />
       </div>
     );
+  }
+
+  if (currentPage === 'student-resources') {
+    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} />;
   }
 
   return (
@@ -123,6 +133,7 @@ function App() {
           onNavigateJobBoard={navigateToJobBoard}
           onNavigateProfile={navigateToProfile}
           onNavigateLogin={navigateToLogin}
+          onNavigateStudentResources={navigateToStudentResources}
           role={user ? 'student' : 'guest'}
         />
 
@@ -283,7 +294,7 @@ function App() {
           </div>
         </section>
 
-        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateHome={navigateToHome} />
+        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateHome={navigateToHome} onNavigateStudentResources={navigateToStudentResources} />
     </div>
   );
 }
