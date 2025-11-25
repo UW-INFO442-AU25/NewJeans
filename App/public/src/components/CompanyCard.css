@@ -33,7 +33,7 @@
 
 .company-card-info {
   display: flex;
-  width: 113px;
+  width: fit-content;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;

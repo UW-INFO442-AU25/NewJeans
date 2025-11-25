@@ -4,13 +4,18 @@
   flex-direction: column;
   align-items: flex-start;
   background: #FEFEFE;
-  min-height: 100vh;
+  height: fit-content; /* pin the board to viewport height */
+  overflow: hidden; /* prevent the whole page from scrolling */
 }
 
 .employer-main-content {
   display: flex;
   width: 100%;
   align-items: flex-start;
+}
+
+.employer-main-content{
+  height: 100%;
 }
 
 .employer-sidebar {
@@ -49,6 +54,14 @@
   height: calc(100vh - 80px);
   overflow-y: auto;
   min-height: 0;
+}
+
+/* center the view-more area inside the scrolling content */
+.employer-content-area .view-more{
+  display:flex;
+  justify-content:center;
+  width:100%;
+  padding: 32px 0;
 }
 
 .employer-search-section {

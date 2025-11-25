@@ -499,7 +499,7 @@ const CHECKLIST_BY_VISA = {
 import JobCard from './components/JobCard';
 import jobs from './data/jobs.json';
 
-function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateToJobDescription, savedJobIds = [], onToggleSave = () => {} }) {
+function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, savedJobIds = [], onToggleSave = () => {} }) {
   const [selectedVisa, setSelectedVisa] = useState('');
   const [selectedWorkAuth, setSelectedWorkAuth] = useState('');
   const [visaDropdownOpen, setVisaDropdownOpen] = useState(false);
@@ -797,7 +797,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateToJobDescriptio
         </div>
       </div>
 
-      <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateHome={onNavigateHome} />
+  <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} />
     </div>
   );
 }

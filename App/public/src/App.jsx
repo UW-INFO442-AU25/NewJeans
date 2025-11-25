@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobBoard from "./JobBoard";
+import EmployerBoard from "./EmployerBoard";
 import Profile from "./Profile";
 import JobDescription from "./JobDescription";
 import JobCreation from "./JobCreation";
@@ -43,6 +44,10 @@ function App() {
     setCurrentPage('job-board');
   };
 
+  const navigateToEmployerBoard = () => {
+    setCurrentPage('employer-board');
+  };
+
   const navigateToJobBoardWithQuery = (query) => {
     setInitialSearchQuery(query || '');
     setCurrentPage('job-board');
@@ -75,20 +80,24 @@ function App() {
   };
 
   if (currentPage === 'job-board') {
-    return <JobBoard onNavigateHome={navigateToHome} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
+    return <JobBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'profile') {
-    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateLogin={navigateToLogin} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
+    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateLogin={navigateToLogin} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'job-description') {
     const job = jobs.find((j) => j.id === selectedJobId) || null;
-    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateLogin={navigateToLogin} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} />;
+    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} />;
   }
 
   if (currentPage === 'job-creation') {
     return <JobCreation onNavigateHome={navigateToHome} onNavigateLogin={navigateToLogin} />;
+  }
+
+  if (currentPage === 'employer-board') {
+    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} />;
   }
 
   if (currentPage === 'login') {
@@ -102,7 +111,7 @@ function App() {
           role={user ? 'student' : 'guest'}
         />
         <Login onLogin={handleLogin} onNavigateHome={navigateToHome} />
-        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateHome={navigateToHome} />
+        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateHome={navigateToHome} />
       </div>
     );
   }
@@ -145,7 +154,7 @@ function App() {
               <h2 className="section-title">Top companies actively sponsoring international talent</h2>
             </div>
             <div className="section-header-button">
-              <button className="btn-primary" onClick={navigateToJobBoard}>See All</button>
+              <button className="btn-primary" onClick={navigateToEmployerBoard}>See All</button>
             </div>
           </div>
           <div className="company-cards">
@@ -274,7 +283,7 @@ function App() {
           </div>
         </section>
 
-        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateHome={navigateToHome} />
+        <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateHome={navigateToHome} />
     </div>
   );
 }

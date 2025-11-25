@@ -81,6 +81,7 @@
      that can overlap interactive controls on some platforms. */
   overflow-x: hidden; /* prevent horizontal scroll inside filter groups */
   padding-right: 8px; /* keep interactive elements away from the scrollbar */
+  width: 100%;
 }
 
 .filter-group {

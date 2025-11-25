@@ -3,7 +3,7 @@ import './JobDescription.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
-function JobDescription({ job, onNavigateJobBoard, onNavigateHome, isSaved = false, onToggleSave = () => {} }) {
+function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateHome, isSaved = false, onToggleSave = () => {} }) {
   if (!job) {
     return (
       <div className="job-description-page">
@@ -161,7 +161,7 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateHome, isSaved = fal
         </div>
       </div>
 
-      <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateHome={onNavigateHome} />
+  <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} />
     </div>
   );
 }

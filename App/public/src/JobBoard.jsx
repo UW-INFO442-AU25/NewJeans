@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import './JobBoard.css';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import jobs from './data/jobs.json';
 import JobCard from './components/JobCard';
 import SearchBar from './components/SearchBar';
 
-function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
+function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
   const [visaFilters, setVisaFilters] = useState([]); // e.g. ['H-1B']
   const [locationQuery, setLocationQuery] = useState('');
   const [remoteOnly, setRemoteOnly] = useState(false);
@@ -253,7 +254,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfil
     <div className="job-board-container">
       <NavBar
         onNavigateHome={onNavigateHome}
-        onNavigateJobBoard={null}
+        onNavigateJobBoard={onNavigateJobBoard}
         onNavigateProfile={onNavigateProfile}
         onNavigateLogin={onNavigateLogin}
       />
@@ -437,6 +438,9 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfil
 
         <main className="content-area">
           <div className="search-section">
+            <div className="employer-header">
+              <h1 className="employer-page-title">Find Opportunities for International Students</h1>
+            </div>
             <SearchBar
               initialValue={searchQuery}
               onSubmit={(q) => setSearchQuery(q)}
@@ -475,6 +479,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobDescription, onNavigateProfil
           </div>
         </main>
       </div>
+      <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} />
     </div>
   );
 }

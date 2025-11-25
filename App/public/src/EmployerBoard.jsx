@@ -299,8 +299,6 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, 
           </div>
         </main>
       </div>
-
-      <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={() => {}} onNavigateStudentResources={onNavigateStudentResources} />
     </div>
   );
 }
