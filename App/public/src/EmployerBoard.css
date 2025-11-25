@@ -57,11 +57,18 @@
 }
 
 /* center the view-more area inside the scrolling content */
-.employer-content-area .view-more{
+.employer-content-area {
   display:flex;
   justify-content:center;
   width:100%;
   padding: 32px 0;
+}
+
+.view-more {
+  display:flex;
+  justify-content:center;
+  width:100%;
+  padding: 64px 0;
 }
 
 .employer-search-section {

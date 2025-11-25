@@ -200,6 +200,19 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
     };
   }, []);
 
+  // Ensure salaryMin/Max default to the parsed bounds from job data.
+  // Only initialize if current values look like the fallback defaults (0 / 200000)
+  // to avoid overwriting user adjustments later.
+  useEffect(() => {
+    const fallbackMin = 0;
+    const fallbackMax = 200000;
+    if ((salaryMin === fallbackMin && salaryMax === fallbackMax) || salaryMin == null || salaryMax == null) {
+      setSalaryMin(salaryBounds.overallMin);
+      setSalaryMax(salaryBounds.overallMax);
+    }
+    // run when computed bounds change or when salary values update
+  }, [salaryBounds.overallMin, salaryBounds.overallMax]);
+
   // Helper: check if any attribute of the job (including nested arrays/objects)
   // contains the query string (case-insensitive).
   const jobMatchesQuery = (job, q) => {
@@ -373,25 +386,26 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
               </div>
               <div className="salary-slider-wrapper">
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, alignItems: 'center', gap: 12 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  {/* Make these child containers flex:1 with minWidth:0 so inputs can shrink in narrow sidebars */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 0 }}>
                     <div className="salary-label">Min:</div>
                     <input
                       type="number"
                       className="salary-input"
                       value={salaryMin}
                       onChange={(e) => setSalaryMinSafe(e.target.value)}
-                      style={{ width: 120 }}
+                      style={{ width: '100%', maxWidth: 120 }}
                       aria-label="Minimum salary input"
                     />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 0 }}>
                     <div className="salary-label">Max:</div>
                     <input
                       type="number"
                       className="salary-input"
                       value={salaryMax}
                       onChange={(e) => setSalaryMaxSafe(e.target.value)}
-                      style={{ width: 120 }}
+                      style={{ width: '100%', maxWidth: 120 }}
                       aria-label="Maximum salary input"
                     />
                   </div>
@@ -482,7 +496,6 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
           </div>
         </main>
       </div>
-      <Footer onNavigateJobBoard={onNavigateJobBoard} onNavigateEmployerBoard={onNavigateEmployerBoard} onNavigateHome={onNavigateHome} onNavigateStudentResources={onNavigateStudentResources} />
     </div>
   );
 }

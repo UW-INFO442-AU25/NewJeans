@@ -373,7 +373,7 @@ body {
 .company-logo {
   width: 64px;
   height: 64px;
-  border-radius: 8px;
+  border: 1px solid #B7B7B7;
 }
 
 .company-info {
@@ -387,7 +387,7 @@ body {
 .company-name {
   align-self: stretch;
   color: #191919;
-  font: 700 24px/26px 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  font: 500 24px/normal 'Inter', -apple-system, Roboto, Helvetica, sans-serif;
 }
 
 .company-industry {
@@ -668,7 +668,6 @@ body {
   align-self: stretch;
   border-top: 1px solid #B7B7B7;
   background-color: #FEFEFE;
-  margin-top: 64px;
 }
 
 .footer-container {

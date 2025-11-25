@@ -29,6 +29,7 @@
   width: 64px;
   height: 64px;
   aspect-ratio: 1/1;
+  border: 1px solid #B7B7B7;
 }
 
 .company-card-info {
@@ -42,7 +43,7 @@
 .company-card-name {
   align-self: stretch;
   color: #191919;
-  font: 700 24px/26px 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  font: 500 24px/normal 'Inter', -apple-system, Roboto, Helvetica, sans-serif;
 }
 
 .company-card-industry {

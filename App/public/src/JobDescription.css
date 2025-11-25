@@ -82,9 +82,11 @@
 }
 
 .company-logo-large {
-  width: 101px;
-  height: 101px;
-  border: 1px solid #929292;
+  width: 95px;
+  height: 95px;
+  min-width: 95px;
+  min-height: 95px;
+  border: 1px solid #B7B7B7;
 }
 
 .job-title-section {
@@ -107,7 +109,7 @@
 .job-position-title {
   align-self: stretch;
   color: #191919;
-  font: 700 32px/normal 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  font: 500 28px/normal 'Inter', -apple-system, Roboto, Helvetica, sans-serif;
   text-align: left;
 }
 
