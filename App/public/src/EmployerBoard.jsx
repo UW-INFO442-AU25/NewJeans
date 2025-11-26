@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import CompanyCard from './components/CompanyCard';
 import jobs from './data/jobs.json';
 
-function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, onNavigateStudentResources }) {
+function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, onNavigateStudentResources, onNavigateLogin = () => {}, user = null, onSignOut = () => {} }) {
   const [visaFilters, setVisaFilters] = useState([]);
   const [locationQuery, setLocationQuery] = useState('');
   const [locationTypeFilters, setLocationTypeFilters] = useState([]);
@@ -110,6 +110,10 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, 
         onNavigateJobBoard={onNavigateJobBoard}
         onNavigateProfile={onNavigateProfile}
         onNavigateStudentResources={onNavigateStudentResources}
+        onNavigateLogin={onNavigateLogin}
+        role={user ? 'student' : 'guest'}
+        onSignOut={onSignOut}
+        userName={user ? user.name : ''}
       />
 
       <div className="employer-main-content">

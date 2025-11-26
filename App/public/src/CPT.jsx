@@ -3,7 +3,7 @@ import './CPT.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
-function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin, onNavigateStudentResources }) {
+function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin, onNavigateStudentResources, user = null, onSignOut = () => {} }) {
   return (
     <div className="cpt-page-container">
       <NavBar
@@ -11,6 +11,9 @@ function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNa
         onNavigateJobBoard={onNavigateJobBoard}
         onNavigateLogin={onNavigateLogin}
         onNavigateStudentResources={onNavigateStudentResources}
+        role={user ? 'student' : 'guest'}
+        onSignOut={onSignOut}
+        userName={user ? user.name : ''}
       />
 
       <section className="cpt-hero">

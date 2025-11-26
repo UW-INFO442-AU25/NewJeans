@@ -6,7 +6,7 @@ import jobs from './data/jobs.json';
 import JobCard from './components/JobCard';
 import SearchBar from './components/SearchBar';
 
-function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {} }) {
+function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {}, user = null, onSignOut = () => {} }) {
   // Alias retains previous internal usage expecting onNavigateJobBoard while restoring original prop name
   const onNavigateJobBoard = onNavigateToJobBoard;
   const [visaFilters, setVisaFilters] = useState([]); // e.g. ['H-1B']
@@ -273,6 +273,9 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
         onNavigateProfile={onNavigateProfile}
         onNavigateLogin={onNavigateLogin}
         onNavigateStudentResources={onNavigateStudentResources}
+        role={user ? 'student' : 'guest'}
+        onSignOut={onSignOut}
+        userName={user ? user.name : ''}
       />
 
       <div className="main-content">
@@ -385,7 +388,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
                 </svg>
               </div>
               <div className="salary-slider-wrapper">
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, alignItems: 'center', gap: 12 }}>
+                <div                   style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginBottom: 8, alignItems: 'flex-start', gap: 12 }}>              
                   {/* Make these child containers flex:1 with minWidth:0 so inputs can shrink in narrow sidebars */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 0 }}>
                     <div className="salary-label">Min:</div>

@@ -129,16 +129,21 @@
   gap: 8px;
   margin-top: 8px;
   align-items: center;
+
 }
 
 .btn-primary {
   background: #1D3A4D;
-  width: 100%;
   color: #FEFEFE;
   border: none;
   padding: 10px 16px;
   border-radius: 8px;
   cursor: pointer;
+}
+
+/* Make the primary button inside the login actions fill the container width */
+.login-actions .btn-primary {
+  width: 100%;
 }
 
 .btn-secondary {

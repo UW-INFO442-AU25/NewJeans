@@ -499,7 +499,7 @@ const CHECKLIST_BY_VISA = {
 import JobCard from './components/JobCard';
 import jobs from './data/jobs.json';
 
-function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateStudentResources = () => {}, savedJobIds = [], onToggleSave = () => {} }) {
+function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateStudentResources = () => {}, savedJobIds = [], onToggleSave = () => {}, onSignOut = () => {}, user = null }) {
   const [selectedVisa, setSelectedVisa] = useState('');
   const [selectedWorkAuth, setSelectedWorkAuth] = useState('');
   const [visaDropdownOpen, setVisaDropdownOpen] = useState(false);
@@ -547,29 +547,12 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard =
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateProfile={onNavigateProfile}
+        onNavigateStudentResources={onNavigateStudentResources}
+        role={user ? 'student' : 'guest'}
+        onSignOut={onSignOut}
+        userName={user ? user.name : ''}
         className="logged-in"
-        leftChildren={(
-          <div className="nav-links-desktop">
-            <div className="nav-link">
-              <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
-            </div>
-            <div className="nav-link">
-              <div className="link-text" onClick={onNavigateStudentResources} style={{ cursor: 'pointer' }}>Student Resources</div>
-            </div>
-            <div className="nav-link">
-              <div className="link-text">Profile</div>
-            </div>
-          </div>
-        )}
-        rightChildren={(
-          <>
-            <div className="user-greeting">
-              <div className="greeting-hello">Hello,</div>
-              <div className="greeting-name">John Doe</div>
-            </div>
-            <button className="btn-primary sign-out-btn">Sign Out</button>
-          </>
-        )}
       />
 
       <div className="profile-content">

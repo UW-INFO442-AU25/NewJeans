@@ -14,8 +14,9 @@
 }
 
 .company-card-employer:hover {
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.35);
-  transform: translateY(-2px);
+  /* match the desired elevated hover from the sample */
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.15);
+  border-color: #30546C;
 }
 
 .company-card-header {

@@ -24,7 +24,6 @@ function NavBarStudent({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, 
         </div>
 
         <div className="nav-right">
-          <div className="nav-link greeting">Hi, {userName.split(' ')[0]}</div>
           <div className="nav-button-wrapper">
             <button className="btn-secondary" onClick={onSignOut}>Sign Out</button>
           </div>

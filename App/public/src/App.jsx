@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import Login from './components/Login';
 import SearchBar from "./components/SearchBar";
 import jobs from './data/jobs.json';
+import CompanyCard from './components/CompanyCard';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -89,25 +90,30 @@ function App() {
     setCurrentPage('home');
   };
 
+  const handleSignOut = () => {
+    setUser(null);
+    setCurrentPage('home');
+  };
+
   if (currentPage === 'job-board') {
-    return <JobBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
+    return <JobBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'profile') {
-    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} />;
+    return <Profile onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} onNavigateProfile={navigateToProfile} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} onSignOut={handleSignOut} user={user} />;
   }
 
   if (currentPage === 'job-description') {
     const job = jobs.find((j) => j.id === selectedJobId) || null;
-    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} />;
+    return <JobDescription job={job} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} isSaved={savedJobIds.includes(selectedJobId)} onToggleSave={toggleSavedJob} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'job-creation') {
-    return <JobCreation onNavigateHome={navigateToHome} onNavigateLogin={navigateToLogin} />;
+    return <JobCreation onNavigateHome={navigateToHome} onNavigateLogin={navigateToLogin} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'employer-board') {
-    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} />;
+    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} onNavigateLogin={navigateToLogin} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'login') {
@@ -120,6 +126,8 @@ function App() {
           onNavigateLogin={navigateToLogin}
           onNavigateStudentResources={navigateToStudentResources}
           role={user ? 'student' : 'guest'}
+          onSignOut={handleSignOut}
+          userName={user ? user.name : ''}
         />
         <Login onLogin={handleLogin} onNavigateHome={navigateToHome} />
         <Footer onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateHome={navigateToHome} onNavigateStudentResources={navigateToStudentResources} />
@@ -128,11 +136,11 @@ function App() {
   }
 
   if (currentPage === 'student-resources') {
-    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateToCPT={navigateToCPT} />;
+    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateToCPT={navigateToCPT} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'cpt') {
-    return <CPT onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} />;
+    return <CPT onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} user={user} onSignOut={handleSignOut} />;
   }
 
   return (
@@ -144,6 +152,8 @@ function App() {
           onNavigateLogin={navigateToLogin}
           onNavigateStudentResources={navigateToStudentResources}
           role={user ? 'student' : 'guest'}
+          onSignOut={handleSignOut}
+          userName={user ? user.name : ''}
         />
 
         <section className="hero-section">
@@ -174,45 +184,38 @@ function App() {
               <h2 className="section-title">Top companies actively sponsoring international talent</h2>
             </div>
             <div className="section-header-button">
-              <button className="btn-primary" onClick={navigateToEmployerBoard}>See All</button>
+              <button className="btn-primary" onClick={navigateToEmployerBoard}>View Employers</button>
             </div>
           </div>
           <div className="company-cards">
-            {[1, 2, 3].map((index) => (
-              <div key={index} className="company-card">
-                <div className="company-header">
-                  <img className="company-logo" src="https://api.builder.io/api/v1/image/assets/TEMP/45b0d603fecab53706615f58736f4f5015f8b88e?width=128" alt="" />
-                  <div className="company-info">
-                    <div className="company-name">Company</div>
-                    <div className="company-industry">Industry</div>
-                  </div>
-                </div>
-                <div className="company-details">
-                  <div className="detail-item">
-                    <div className="icon-button">
-                      <svg className="location-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                        <path d="M9 16.5C12 13.5 15 10.8137 15 7.5C15 4.18629 12.3137 1.5 9 1.5C5.68629 1.5 3 4.18629 3 7.5C3 10.8137 6 13.5 9 16.5Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                      </svg>
-                    </div>
-                    <div className="detail-text">Location</div>
-                  </div>
-                  <div className="detail-item">
-                    <div className="icon-button">
-                      <svg className="briefcase-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 15.75V5.25C6 4.55252 6 4.20378 6.07667 3.91766C6.28472 3.1412 6.8912 2.53472 7.66766 2.32667C7.95378 2.25 8.30252 2.25 9 2.25C9.69748 2.25 10.0462 2.25 10.3323 2.32667C11.1088 2.53472 11.7153 3.1412 11.9233 3.91766C12 4.20378 12 4.55252 12 5.25V15.75M3.9 15.75H14.1C14.9401 15.75 15.3601 15.75 15.681 15.5865C15.9632 15.4427 16.1927 15.2132 16.3365 14.931C16.5 14.6101 16.5 14.1901 16.5 13.35V7.65C16.5 6.80992 16.5 6.38988 16.3365 6.06901C16.1927 5.78677 15.9632 5.5573 15.681 5.41349C15.3601 5.25 14.9401 5.25 14.1 5.25H3.9C3.05992 5.25 2.63988 5.25 2.31901 5.41349C2.03677 5.5573 1.8073 5.78677 1.66349 6.06901C1.5 6.38988 1.5 6.80992 1.5 7.65V13.35C1.5 14.1901 1.5 14.6101 1.66349 14.931C1.8073 15.2132 2.03677 15.4427 2.31901 15.5865C2.63988 15.75 3.05992 15.75 3.9 15.75Z" stroke="#1D3A4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                      </svg>
-                    </div>
-                    <div className="detail-text"># of open positions</div>
-                  </div>
-                </div>
-                <div className="visa-badges">
-                  <span className="visa-badge">H-1B</span>
-                  <span className="visa-badge">L-1</span>
-                  <span className="visa-badge">O-1</span>
-                </div>
-              </div>
-            ))}
+            {(() => {
+              // build employer profiles aggregated from jobs and pick top 3 by open positions
+              const companyMap = {};
+              jobs.forEach((job) => {
+                const name = job.company || 'Unknown';
+                if (!companyMap[name]) {
+                  companyMap[name] = {
+                    name,
+                    industry: job.industry || 'Technology',
+                    location: job.location || 'Remote',
+                    openPositions: 0,
+                    visaTypes: new Set(),
+                  };
+                }
+                companyMap[name].openPositions += 1;
+                if (job.visaTypes && Array.isArray(job.visaTypes)) {
+                  job.visaTypes.forEach((v) => companyMap[name].visaTypes.add(v));
+                }
+              });
+
+              const employers = Object.values(companyMap).map((c) => ({ ...c, visaTypes: Array.from(c.visaTypes) }));
+              employers.sort((a, b) => b.openPositions - a.openPositions);
+              const top3 = employers.slice(0, 3);
+
+              return top3.map((employer) => (
+                <CompanyCard key={employer.name} employer={employer} />
+              ));
+            })()}
           </div>
         </section>
 

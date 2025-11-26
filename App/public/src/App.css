@@ -119,6 +119,7 @@ body {
 
 .btn-primary {
   display: flex;
+  width: fit-content;
   height: 40px;
   padding: 6px 12px;
   justify-content: center;

@@ -4,7 +4,8 @@
   flex-direction: column;
   align-items: flex-start;
   background: #FEFEFE;
-  height: fit-content; /* pin the board to viewport height */
+  /* make the board fit the viewport minus the fixed nav (80px) so content isn't hidden under the nav */
+  height: calc(100vh - 80px);
   overflow: hidden; /* prevent the whole page from scrolling */
 }
 
@@ -51,16 +52,11 @@
   align-items: flex-start;
   flex: 1 0 0;
   background: #FFF;
+  /* fill remaining viewport height (accounting for nav) and scroll internally */
   height: calc(100vh - 80px);
   overflow-y: auto;
   min-height: 0;
-}
-
-/* center the view-more area inside the scrolling content */
-.employer-content-area {
-  display:flex;
-  justify-content:center;
-  width:100%;
+  /* spacing at top/bottom of the scrolling content */
   padding: 32px 0;
 }
 

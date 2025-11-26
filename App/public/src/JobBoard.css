@@ -188,11 +188,10 @@
 
 .salary-slider-track {
   width: 100%;
-  height: 10px;
-  border-radius: 24px;
-  /* use a neutral stroke for the track */
-  background: transparent;
-  border: 1px solid #B7B7B7;
+  height: 6px;
+  border-radius: 5px;
+  /* neutral background for the track */
+  background: #e4e4e4;
   position: absolute;
   left: 0;
   top: 50%;
@@ -201,9 +200,9 @@
 }
 
 .salary-slider-range {
-  height: 10px;
-  border-radius: 24px;
-  /* selected range stroke color */
+  height: 6px;
+  border-radius: 5px;
+  /* selected range color */
   background: #5384A4;
   position: absolute;
   top: 50%;
@@ -223,11 +222,10 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
   background: transparent;
   -webkit-appearance: none;
   appearance: none;
-  pointer-events: none; /* we handle pointer interaction on the container for reliable behavior */
+  pointer-events: none; /* container handles pointer interaction */
 }
 
 /* hide default track */
@@ -240,19 +238,18 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #FFF;
-  /* stroke around thumb set to neutral gray */
-  border: 3px solid #B7B7B7;
+  background: #B7B7B7; /* gray handle */
+  border: 0;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.06) inset;
-  /* center the thumb vertically on the track */
+  /* vertically center the thumb in the 36px container */
   margin-top: 9px;
 }
 .range-input::-moz-range-thumb {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #FFF;
-  border: 3px solid #B7B7B7;
+  background: #B7B7B7;
+  border: 0;
 }
 
 /* make the active handle be on top */
@@ -352,6 +349,8 @@
   align-items: flex-start;
   border-bottom: 1px solid #B7B7B7;
   background: #FEFEFE;
+  transition: all 0.3s ease;
+
 }
 
 .job-card:hover {
@@ -463,23 +462,20 @@
   border: 1px solid #1D3A4D;
   background: transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .bookmark-button:hover {
-  background: #5384A4;
-  border: 1px solid #5384A4;
+  background: #1D3A4D;
+  border: 1px solid #1D3A4D;
 }
 
 .bookmark-button.active {
-  background: #5384A4;
-  border: 1px solid #5384A4;
+  background: #1D3A4D;
+  border: 1px solid #1D3A4D;
 }
-
+  
 /* Ensure icon contrasts on hover/active */
-.bookmark-button:hover svg path,
-.bookmark-button.active svg path {
-  stroke: #FEFEFE;
+.bookmark-button:hover svg path {
   fill: #FEFEFE;
 }
 

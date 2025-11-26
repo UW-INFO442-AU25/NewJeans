@@ -3,15 +3,17 @@ import './JobDescription.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
-function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateHome, onNavigateStudentResources = () => {}, isSaved = false, onToggleSave = () => {} }) {
+function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateHome, onNavigateStudentResources = () => {}, isSaved = false, onToggleSave = () => {}, user = null, onSignOut = () => {} }) {
   if (!job) {
     return (
       <div className="job-description-page">
         <NavBar
           onNavigateHome={onNavigateHome}
           onNavigateJobBoard={onNavigateJobBoard}
-          onNavigateLogin={arguments[0] && arguments[0].onNavigateLogin}
           onNavigateStudentResources={onNavigateStudentResources}
+          role={user ? 'student' : 'guest'}
+          onSignOut={onSignOut}
+          userName={user ? user.name : ''}
         />
         <div className="job-description-container">
           <div className="job-description-content">
@@ -36,8 +38,10 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () 
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
-        onNavigateLogin={arguments[0] && arguments[0].onNavigateLogin}
         onNavigateStudentResources={onNavigateStudentResources}
+        role={user ? 'student' : 'guest'}
+        onSignOut={onSignOut}
+        userName={user ? user.name : ''}
       />
 
       <div className="job-description-container">

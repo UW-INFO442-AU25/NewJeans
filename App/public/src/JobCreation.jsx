@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './JobCreation.css';
 import NavBar from './components/NavBar';
 
-function JobCreation({ onNavigateHome }) {
+function JobCreation({ onNavigateHome, user = null, onSignOut = () => {} }) {
   const [currentStep, setCurrentStep] = useState(1);
 
   const nextStep = () => {
@@ -308,29 +308,9 @@ Is at least 18 years of age and has authorization to work in the United States.
     <div className="job-creation-container">
       <NavBar
         onNavigateHome={onNavigateHome}
-        leftChildren={(
-          <div className="nav-links-desktop">
-            <div className="nav-link">
-              <div className="link-text">Dashboard</div>
-            </div>
-            <div className="nav-link">
-              <div className="link-text">Company Profile</div>
-            </div>
-          </div>
-        )}
-        rightChildren={(
-          <>
-            <div className="user-info">
-              <div className="greeting-text">Hello,</div>
-              <div className="user-name">John Doe</div>
-            </div>
-            <div className="user-divider"></div>
-            <div className="user-role">Company</div>
-            <div className="nav-button-wrapper">
-              <button className="btn-primary">Sign Out</button>
-            </div>
-          </>
-        )}
+        role={user ? 'student' : 'guest'}
+        onSignOut={onSignOut}
+        userName={user ? user.name : ''}
       />
 
       <div className="job-creation-content">
