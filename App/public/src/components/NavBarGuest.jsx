@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 
 function NavBarGuest({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, className = '' }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
   return (
     <nav className={("navigation-bar " + className).trim()}>
       <div className="nav-inner">
@@ -9,7 +12,6 @@ function NavBarGuest({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoa
           <div className="logo" onClick={onNavigateHome} style={{ cursor: 'pointer' }}>
             Visa<span style={{ fontWeight: 900 }}>Path</span>
           </div>
-
           <div className="nav-links-desktop">
             <div className="nav-link">
               <div className="link-text" onClick={onNavigateStudentResources} style={{ cursor: 'pointer' }}>Student Resources</div>
@@ -30,6 +32,29 @@ function NavBarGuest({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoa
             </div>
           </>
         </div>
+
+        {/* Mobile hamburger */}
+        <button className="hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+          <span />
+          <span />
+          <span />
+        </button>
+
+        {menuOpen && (
+          <div className="mobile-menu" role="dialog" aria-modal="true">
+            <div className="mobile-menu-panel">
+              <button className="mobile-close" aria-label="Close menu" onClick={closeMenu}>✕</button>
+              <div className="mobile-links">
+                <div className="mobile-link" onClick={() => { onNavigateStudentResources(); closeMenu(); }}>Student Resources</div>
+                <div className="mobile-link" onClick={() => { onNavigateJobBoard(); closeMenu(); }}>Jobs</div>
+                <div className="mobile-link" onClick={() => { onNavigateEmployerBoard(); closeMenu(); }}>Employers</div>
+                <div className="mobile-link" onClick={() => { onNavigateLogin(); closeMenu(); }} style={{ marginTop: 16 }}>
+                  <div className="btn-primary">Get Started</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

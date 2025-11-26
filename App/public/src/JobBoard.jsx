@@ -14,6 +14,19 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
   const [remoteOnly, setRemoteOnly] = useState(false);
   const [jobTypeFilters, setJobTypeFilters] = useState([]);
   const [experienceFilters, setExperienceFilters] = useState([]);
+  // collapse/expand state for filter groups
+  const [openGroups, setOpenGroups] = useState({
+    visas: true,
+    location: true,
+    jobType: true,
+    experience: true,
+    salary: true,
+  });
+
+  const toggleGroup = (groupKey) => {
+    setOpenGroups((prev) => ({ ...prev, [groupKey]: !prev[groupKey] }));
+  };
+  
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery || '');
   const [visibleCount, setVisibleCount] = useState(10);
 
@@ -288,15 +301,16 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
             </div>
             <div className="filter-divider"></div>
           </div>
-
+  
           <div className="filter-section">
             <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group-header" onClick={() => toggleGroup('visas')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Visas & Status</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.visas ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.visas ? 'expanded' : 'collapsed'}`}>
               {visaOptions.map((v) => (
                 <label key={v} className="checkbox-item">
                   <input
@@ -307,17 +321,19 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
                   <div className="checkbox-label">{v}</div>
                 </label>
               ))}
+              </div>
             </div>
 
             <div className="filter-divider"></div>
 
             <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group-header" onClick={() => toggleGroup('location')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Location</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.location ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.location ? 'expanded' : 'collapsed'}`}>
               <div className="location-search-content">
                   <svg className="search-icon-small" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.75 15.75L11.2501 11.25M12.75 7.5C12.75 10.3995 10.3995 12.75 7.5 12.75C4.6005 12.75 2.25 10.3995 2.25 7.5C2.25 4.6005 4.6005 2.25 7.5 2.25C10.3995 2.25 12.75 4.6005 12.75 7.5Z" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -335,17 +351,19 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
                 <input type="checkbox" checked={remoteOnly} onChange={() => setRemoteOnly(!remoteOnly)} />
                 <div className="checkbox-label">Remote only</div>
               </label>
+              </div>
             </div>
 
             <div className="filter-divider"></div>
 
             <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group-header" onClick={() => toggleGroup('jobType')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Job Type</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.jobType ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.jobType ? 'expanded' : 'collapsed'}`}>
               {jobTypeOptions.map((jt) => (
                 <label key={jt} className="checkbox-item">
                   <input
@@ -356,17 +374,19 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
                   <div className="checkbox-label">{jt}</div>
                 </label>
               ))}
+              </div>
             </div>
 
             <div className="filter-divider"></div>
 
             <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group-header" onClick={() => toggleGroup('experience')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Experience Level</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.experience ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.experience ? 'expanded' : 'collapsed'}`}>
               {experienceOptions.map((ex) => (
                 <label key={ex} className="checkbox-item">
                   <input
@@ -377,17 +397,19 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
                   <div className="checkbox-label">{ex}</div>
                 </label>
               ))}
+              </div>
             </div>
 
             <div className="filter-divider"></div>
 
             <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group-header" onClick={() => toggleGroup('salary')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Salary</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.salary ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.salary ? 'expanded' : 'collapsed'}`}>
               <div className="salary-slider-wrapper">
                 <div                   style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginBottom: 8, alignItems: 'flex-start', gap: 12 }}>              
                   {/* Make these child containers flex:1 with minWidth:0 so inputs can shrink in narrow sidebars */}
@@ -454,6 +476,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </aside>
 

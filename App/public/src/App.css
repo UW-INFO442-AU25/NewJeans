@@ -54,6 +54,11 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* hide hamburger by default; it's shown in the mobile media query */
+.hamburger {
+  display: none;
+}
+
 .nav-inner {
   display: flex;
   width: 100%;
@@ -161,13 +166,13 @@ body {
 .hero-section {
   display: flex;
   width: 100%;
-  height: 700px;
+  height: 70vh;
   padding: 0 64px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 8px;
-  background-image: url("../images/thumbnail_edwin-andrade-4V1dC_eoCWG-unsplash.jpg"); 
+  background-image: url("../images/landing_image.png"); 
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -556,7 +561,6 @@ body {
 }
 
 .tool-card:hover {
-  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.15);
   border-color: #30546C;
 }
 
@@ -680,13 +684,13 @@ body {
 }
 
 .footer-grid {
-  display: grid;
-  row-gap: 48px;
-  column-gap: 48px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* space between columns */
+  align-items: flex-start;
+  gap: 48px;
   flex: 1 0 0;
   align-self: stretch;
-  grid-template-rows: repeat(1, minmax(0, 1fr));
-  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .footer-column {
@@ -694,7 +698,10 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  flex: 1 0 0;
+  /* Make columns size to their content instead of stretching */
+  flex: 0 0 auto;
+  width: -moz-fit-content;
+  width: fit-content;
   align-self: stretch;
   grid-row: 1 / span 1;
 }
@@ -824,6 +831,77 @@ body {
     display: none;
   }
 
+  /* show hamburger on mobile */
+  .hamburger {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    border: none;
+    background: transparent;
+    padding: 8px;
+    margin-left: 12px;
+    cursor: pointer;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #1D3A4D;
+    border-radius: 2px;
+  }
+
+  .nav-right {
+    display: none; /* hide right cluster on mobile; links move into hamburger */
+  }
+
+  /* Mobile menu overlay */
+  .mobile-menu {
+    position: fixed;
+    top: 80px; /* below navbar */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 2000;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mobile-menu-panel {
+    width: 280px;
+    max-width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    padding: 20px;
+    box-shadow: -8px 0 20px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-close {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    align-self: flex-end;
+    cursor: pointer;
+  }
+
+  .mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .mobile-link {
+    color: #1D3A4D;
+    font: 500 18px/22px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+    cursor: pointer;
+    padding: 8px 4px;
+  }
+
   .nav-right {
     gap: 8px;
   }
@@ -914,6 +992,7 @@ body {
   }
 
   .footer-grid {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1081,6 +1160,7 @@ body {
   }
 
   .footer-grid {
+    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: 32px;
@@ -1152,4 +1232,9 @@ body {
   .tool-card {
     padding: 24px;
   }
+}
+
+/* Ensure navbar padding is correct on the Profile page */
+.profile-container .navigation-bar {
+  padding: 24px 32px;
 }

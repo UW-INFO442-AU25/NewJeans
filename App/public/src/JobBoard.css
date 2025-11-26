@@ -68,9 +68,11 @@
 
 .filter-divider {
   width: 100%;
-  height: 1px;
+  height: 1px !important;
+  min-height: 1px;
   background: #B7B7B7;
   box-sizing: border-box;
+  display: block;
 }
 
 .filter-section {
@@ -88,6 +90,36 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* Collapsible filter styles (matches EmployerBoard behavior) */
+.filter-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.chevron-icon {
+  transition: transform 0.18s ease;
+}
+
+.chevron-icon.open {
+  transform: rotate(-180deg);
+}
+
+.filter-group-content {
+  overflow: hidden;
+  transition: max-height 0.22s ease, opacity 0.18s ease, padding 0.18s ease;
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.filter-group-content.collapsed {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
 }
 
 .filter-group-header {

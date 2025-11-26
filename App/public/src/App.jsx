@@ -3,6 +3,7 @@ import JobBoard from "./JobBoard";
 import EmployerBoard from "./EmployerBoard";
 import Profile from "./Profile";
 import JobDescription from "./JobDescription";
+import CompanyDetail from "./CompanyDetail";
 import JobCreation from "./JobCreation";
 import StudentResources from "./StudentResources";
 import CPT from "./CPT";
@@ -39,7 +40,7 @@ function App() {
 
   // Firebase auth state listener
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         const userObj = {
           uid: firebaseUser.uid,
@@ -47,32 +48,37 @@ function App() {
           name: firebaseUser.email.split('@')[0]
         };
         setUser(userObj);
-        
-        // Load saved jobs from Firestore
-        try {
-          const userDocRef = doc(db, 'users', firebaseUser.uid);
-          const userDoc = await getDoc(userDocRef);
-          if (userDoc.exists()) {
-            const data = userDoc.data();
-            if (data.savedJobIds) {
-              setSavedJobIds(data.savedJobIds);
+
+        // Mark auth as resolved immediately so the app can render fast.
+        setAuthLoading(false);
+
+        // Load saved jobs from Firestore in background (don't block render)
+        (async () => {
+          try {
+            const userDocRef = doc(db, 'users', firebaseUser.uid);
+            const userDoc = await getDoc(userDocRef);
+            if (userDoc.exists()) {
+              const data = userDoc.data();
+              if (data.savedJobIds) {
+                setSavedJobIds(data.savedJobIds);
+              }
+            } else {
+              // Create user document if it doesn't exist
+              await setDoc(userDocRef, {
+                email: firebaseUser.email,
+                savedJobIds: [],
+                createdAt: new Date().toISOString()
+              });
             }
-          } else {
-            // Create user document if it doesn't exist
-            await setDoc(userDocRef, {
-              email: firebaseUser.email,
-              savedJobIds: [],
-              createdAt: new Date().toISOString()
-            });
+          } catch (error) {
+            console.error('Error loading user data:', error);
           }
-        } catch (error) {
-          console.error('Error loading user data:', error);
-        }
+        })();
       } else {
         setUser(null);
         // Keep local storage for guest users
+        setAuthLoading(false);
       }
-      setAuthLoading(false);
     });
 
     return () => unsubscribe();
@@ -172,6 +178,13 @@ function App() {
     setCurrentPage('h1b-guide');
   };
 
+  const [selectedCompanyName, setSelectedCompanyName] = useState(null);
+
+  const navigateToCompanyDetail = (companyName) => {
+    setSelectedCompanyName(companyName);
+    setCurrentPage('company-detail');
+  };
+
   const handleLogin = (userObj) => {
     setUser(userObj);
     setCurrentPage('home');
@@ -188,21 +201,9 @@ function App() {
     }
   };
 
-  // Show loading screen while checking auth state
-  if (authLoading) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        fontSize: '18px',
-        color: '#5384A4'
-      }}>
-        Loading...
-      </div>
-    );
-  }
+  // NOTE: we no longer block rendering while waiting for auth state.
+  // authLoading is still tracked, but the app will render immediately and
+  // Firestore user data (saved jobs) will load in the background.
 
   if (currentPage === 'job-board') {
     return <JobBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} user={user} onSignOut={handleSignOut} />;
@@ -221,8 +222,12 @@ function App() {
     return <JobCreation onNavigateHome={navigateToHome} onNavigateLogin={navigateToLogin} user={user} onSignOut={handleSignOut} />;
   }
 
+  if (currentPage === 'company-detail') {
+    return <CompanyDetail companyName={selectedCompanyName} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} onNavigateToJobDescription={navigateToJobDescription} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} user={user} onSignOut={handleSignOut} />;
+  }
+
   if (currentPage === 'employer-board') {
-    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} onNavigateLogin={navigateToLogin} user={user} onSignOut={handleSignOut} />;
+    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} onNavigateLogin={navigateToLogin} onNavigateToCompanyDetail={navigateToCompanyDetail} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'login') {
@@ -231,6 +236,7 @@ function App() {
         <NavBar
           onNavigateHome={navigateToHome}
           onNavigateJobBoard={navigateToJobBoard}
+          onNavigateEmployerBoard={navigateToEmployerBoard}
           onNavigateProfile={navigateToProfile}
           onNavigateLogin={navigateToLogin}
           onNavigateStudentResources={navigateToStudentResources}
@@ -245,7 +251,7 @@ function App() {
   }
 
   if (currentPage === 'student-resources') {
-    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateToCPT={navigateToCPT} onNavigateToOPT={navigateToOPT} onNavigateToOnCampus={navigateToOnCampus} onNavigateToOffCampus={navigateToOffCampus} onNavigateToInternationalOrg={navigateToInternationalOrg} onNavigateToH1BGuide={navigateToH1BGuide} user={user} onSignOut={handleSignOut} />;
+    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateToCPT={navigateToCPT} onNavigateToOPT={navigateToOPT} onNavigateToOnCampus={navigateToOnCampus} onNavigateToOffCampus={navigateToOffCampus} onNavigateToInternationalOrg={navigateToInternationalOrg} onNavigateToH1BGuide={navigateToH1BGuide} onNavigateProfile={navigateToProfile} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'cpt') {
@@ -277,6 +283,7 @@ function App() {
         <NavBar
           onNavigateHome={navigateToHome}
           onNavigateJobBoard={navigateToJobBoard}
+          onNavigateEmployerBoard={navigateToEmployerBoard}
           onNavigateProfile={navigateToProfile}
           onNavigateLogin={navigateToLogin}
           onNavigateStudentResources={navigateToStudentResources}
@@ -342,7 +349,7 @@ function App() {
               const top3 = employers.slice(0, 3);
 
               return top3.map((employer) => (
-                <CompanyCard key={employer.name} employer={employer} />
+                <CompanyCard key={employer.name} employer={employer} onClick={() => navigateToCompanyDetail(employer.name)} />
               ));
             })()}
           </div>

@@ -3,13 +3,14 @@ import './StudentResources.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
-function StudentResources({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin, onNavigateToCPT = () => {}, onNavigateToOPT = () => {}, onNavigateToOnCampus = () => {}, onNavigateToOffCampus = () => {}, onNavigateToInternationalOrg = () => {}, onNavigateToH1BGuide = () => {}, user = null, onSignOut = () => {} }) {
+function StudentResources({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin, onNavigateProfile = () => {}, onNavigateToCPT = () => {}, onNavigateToOPT = () => {}, onNavigateToOnCampus = () => {}, onNavigateToOffCampus = () => {}, onNavigateToInternationalOrg = () => {}, onNavigateToH1BGuide = () => {}, user = null, onSignOut = () => {} }) {
   return (
     <div className="student-resources-container">
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
         onNavigateEmployerBoard={onNavigateEmployerBoard}
+        onNavigateProfile={onNavigateProfile}
         onNavigateLogin={onNavigateLogin}
         role={user ? 'student' : 'guest'}
         onSignOut={onSignOut}

@@ -11,6 +11,17 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
   const [locationTypeFilters, setLocationTypeFilters] = useState([]);
   const [industryFilters, setIndustryFilters] = useState([]);
   const [companySizeFilters, setCompanySizeFilters] = useState([]);
+  // track which filter groups are open (true) or collapsed (false)
+  const [openGroups, setOpenGroups] = useState({
+    visas: true,
+    location: true,
+    industry: true,
+    companySize: true
+  });
+
+  const toggleGroup = (groupKey) => {
+    setOpenGroups((prev) => ({ ...prev, [groupKey]: !prev[groupKey] }));
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(9);
 
@@ -128,13 +139,14 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
           </div>
 
           <div className="filter-section">
-            <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group">
+              <div className="filter-group-header" onClick={() => toggleGroup('visas')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Visas & Status</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.visas ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.visas ? 'expanded' : 'collapsed'}`}>
               <label className="checkbox-item">
                 <input
                   type="checkbox"
@@ -171,17 +183,19 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
                 />
                 <div className="checkbox-label">Full-Time (H-1B Eligible)</div>
               </label>
+              </div>
             </div>
 
             <div className="filter-divider"></div>
 
-            <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group">
+              <div className="filter-group-header" onClick={() => toggleGroup('location')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Location</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.location ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.location ? 'expanded' : 'collapsed'}`}>
               <div className="location-search-content">
                 <svg className="search-icon-small" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15.75 15.75L11.2501 11.25M12.75 7.5C12.75 10.3995 10.3995 12.75 7.5 12.75C4.6005 12.75 2.25 10.3995 2.25 7.5C2.25 4.6005 4.6005 2.25 7.5 2.25C10.3995 2.25 12.75 4.6005 12.75 7.5Z" stroke="#767676" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -205,17 +219,19 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
                   <div className="checkbox-label">{lt}</div>
                 </label>
               ))}
+              </div>
             </div>
 
             <div className="filter-divider"></div>
 
             <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group-header" onClick={() => toggleGroup('industry')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Industry</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.industry ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.industry ? 'expanded' : 'collapsed'}`}>
               {industryOptions.map((ind) => (
                 <label key={ind} className="checkbox-item">
                   <input
@@ -226,17 +242,19 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
                   <div className="checkbox-label">{ind}</div>
                 </label>
               ))}
+              </div>
             </div>
 
             <div className="filter-divider"></div>
 
             <div className="filter-group">
-              <div className="filter-group-header">
+              <div className="filter-group-header" onClick={() => toggleGroup('companySize')} role="button" tabIndex={0}>
                 <div className="filter-group-title">Company Size</div>
-                <svg className="chevron-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`chevron-icon ${openGroups.companySize ? 'open' : ''}`} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 11.25L9 6.75L4.5 11.25" stroke="#767676" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
+              <div className={`filter-group-content ${openGroups.companySize ? 'expanded' : 'collapsed'}`}>
               {companySizeOptions.map((cs) => (
                 <label key={cs} className="checkbox-item">
                   <input
@@ -247,6 +265,7 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
                   <div className="checkbox-label">{cs}</div>
                 </label>
               ))}
+              </div>
             </div>
 
             <div className="filter-divider"></div>
