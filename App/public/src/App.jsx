@@ -6,6 +6,11 @@ import JobDescription from "./JobDescription";
 import JobCreation from "./JobCreation";
 import StudentResources from "./StudentResources";
 import CPT from "./CPT";
+import OPT from "./OPT";
+import OnCampusEmployment from "./OnCampusEmployment";
+import OffCampusEmployment from "./OffCampusEmployment";
+import InternationalOrganization from "./InternationalOrganization";
+import F1ToH1BGuide from "./F1ToH1BGuide";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from './components/Login';
@@ -85,6 +90,26 @@ function App() {
     setCurrentPage('cpt');
   };
 
+  const navigateToOPT = () => {
+    setCurrentPage('opt');
+  };
+
+  const navigateToOnCampus = () => {
+    setCurrentPage('on-campus');
+  };
+
+  const navigateToOffCampus = () => {
+    setCurrentPage('off-campus');
+  };
+
+  const navigateToInternationalOrg = () => {
+    setCurrentPage('international-org');
+  };
+
+  const navigateToH1BGuide = () => {
+    setCurrentPage('h1b-guide');
+  };
+
   const handleLogin = (userObj) => {
     setUser(userObj);
     setCurrentPage('home');
@@ -136,11 +161,31 @@ function App() {
   }
 
   if (currentPage === 'student-resources') {
-    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateToCPT={navigateToCPT} user={user} onSignOut={handleSignOut} />;
+    return <StudentResources onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateToCPT={navigateToCPT} onNavigateToOPT={navigateToOPT} onNavigateToOnCampus={navigateToOnCampus} onNavigateToOffCampus={navigateToOffCampus} onNavigateToInternationalOrg={navigateToInternationalOrg} onNavigateToH1BGuide={navigateToH1BGuide} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'cpt') {
     return <CPT onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} user={user} onSignOut={handleSignOut} />;
+  }
+
+  if (currentPage === 'opt') {
+    return <OPT onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} user={user} onSignOut={handleSignOut} />;
+  }
+
+  if (currentPage === 'on-campus') {
+    return <OnCampusEmployment onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} user={user} onSignOut={handleSignOut} />;
+  }
+
+  if (currentPage === 'off-campus') {
+    return <OffCampusEmployment onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} user={user} onSignOut={handleSignOut} />;
+  }
+
+  if (currentPage === 'international-org') {
+    return <InternationalOrganization onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} user={user} onSignOut={handleSignOut} />;
+  }
+
+  if (currentPage === 'h1b-guide') {
+    return <F1ToH1BGuide onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} user={user} onSignOut={handleSignOut} />;
   }
 
   return (

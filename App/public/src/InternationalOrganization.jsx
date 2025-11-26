@@ -39,7 +39,6 @@ function InternationalOrganization({ onNavigateHome, onNavigateJobBoard, onNavig
 
       <section className="intl-org-hero">
         <div className="intl-org-hero-content">
-          <h1 className="intl-org-hero-title">Internship with an International Organization</h1>
         </div>
       </section>
 

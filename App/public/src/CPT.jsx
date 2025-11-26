@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './CPT.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
 function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin, onNavigateStudentResources, user = null, onSignOut = () => {} }) {
+  const [checkedItems, setCheckedItems] = useState({});
+
+  const toggleCheck = (itemId) => {
+    setCheckedItems(prev => ({
+      ...prev,
+      [itemId]: !prev[itemId]
+    }));
+  };
+
   return (
     <div className="cpt-page-container">
       <NavBar
@@ -129,22 +138,40 @@ function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNa
         <h2 className="cpt-checklist-title">CPT Document Checklist</h2>
 
         <div className="cpt-task-group">
-          <div className="cpt-task-header">
-            <div className="cpt-task-checkbox"></div>
+          <div className="cpt-task-header" onClick={() => toggleCheck('cpt-task-1')} style={{ cursor: 'pointer' }}>
+            <div className={`cpt-task-checkbox ${checkedItems['cpt-task-1'] ? 'checked' : ''}`}>
+              {checkedItems['cpt-task-1'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="cpt-task-title">Secure Job Offer</h3>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-1-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-1-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-1-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Find an internship/job related to your major through VisaPath</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-1-sub-2')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-1-sub-2'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-1-sub-2'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Ensure role duties relate to your academic program</p>
@@ -152,22 +179,40 @@ function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNa
         </div>
 
         <div className="cpt-task-group">
-          <div className="cpt-task-header">
-            <div className="cpt-task-checkbox"></div>
+          <div className="cpt-task-header" onClick={() => toggleCheck('cpt-task-2')} style={{ cursor: 'pointer' }}>
+            <div className={`cpt-task-checkbox ${checkedItems['cpt-task-2'] ? 'checked' : ''}`}>
+              {checkedItems['cpt-task-2'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="cpt-task-title">Meet with Academic Adviser</h3>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-2-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-2-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-2-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Register for CPT credit course</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-2-sub-2')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-2-sub-2'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-2-sub-2'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Confirm credit units meet ISS requirements</p>
@@ -175,54 +220,96 @@ function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNa
         </div>
 
         <div className="cpt-task-group">
-          <div className="cpt-task-header">
-            <div className="cpt-task-checkbox"></div>
+          <div className="cpt-task-header" onClick={() => toggleCheck('cpt-task-3')} style={{ cursor: 'pointer' }}>
+            <div className={`cpt-task-checkbox ${checkedItems['cpt-task-3'] ? 'checked' : ''}`}>
+              {checkedItems['cpt-task-3'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="cpt-task-title">Prepare CPT Materials for MyISSS</h3>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-3-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-3-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-3-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Offer letter PDF ready</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-3-sub-2')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-3-sub-2'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-3-sub-2'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Employer address confirmed</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-3-sub-3')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-3-sub-3'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-3-sub-3'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Start & end dates confirmed</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-3-sub-4')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-3-sub-4'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-3-sub-4'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Supervisor/contact person details ready</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-3-sub-5')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-3-sub-5'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-3-sub-5'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">CPT course enrollment proof uploaded</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-3-sub-6')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-3-sub-6'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-3-sub-6'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Academic Department Approver contact included</p>
@@ -230,30 +317,54 @@ function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNa
         </div>
 
         <div className="cpt-task-group">
-          <div className="cpt-task-header">
-            <div className="cpt-task-checkbox"></div>
+          <div className="cpt-task-header" onClick={() => toggleCheck('cpt-task-4')} style={{ cursor: 'pointer' }}>
+            <div className={`cpt-task-checkbox ${checkedItems['cpt-task-4'] ? 'checked' : ''}`}>
+              {checkedItems['cpt-task-4'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="cpt-task-title">Submit CPT Request in MyISSS</h3>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-4-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-4-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-4-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Submit full application online</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-4-sub-2')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-4-sub-2'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-4-sub-2'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Review submission status regularly</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-4-sub-3')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-4-sub-3'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-4-sub-3'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Respond to ISS/department follow-ups</p>
@@ -261,38 +372,68 @@ function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNa
         </div>
 
         <div className="cpt-task-group">
-          <div className="cpt-task-header">
-            <div className="cpt-task-checkbox"></div>
+          <div className="cpt-task-header" onClick={() => toggleCheck('cpt-task-5')} style={{ cursor: 'pointer' }}>
+            <div className={`cpt-task-checkbox ${checkedItems['cpt-task-5'] ? 'checked' : ''}`}>
+              {checkedItems['cpt-task-5'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="cpt-task-title">Begin CPT Employment</h3>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-5-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-5-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-5-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Start work on or after the CPT start date</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-5-sub-2')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-5-sub-2'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-5-sub-2'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Track hours & maintain student status</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-5-sub-3')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-5-sub-3'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-5-sub-3'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Stop work by CPT end date</p>
           </div>
-          <div className="cpt-subtask">
+          <div className="cpt-subtask" onClick={() => toggleCheck('cpt-task-5-sub-4')} style={{ cursor: 'pointer' }}>
             <div className="cpt-subtask-connector">
               <div className="cpt-subtask-line-top"></div>
-              <div className="cpt-subtask-checkbox"></div>
+              <div className={`cpt-subtask-checkbox ${checkedItems['cpt-task-5-sub-4'] ? 'checked' : ''}`}>
+                {checkedItems['cpt-task-5-sub-4'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="cpt-subtask-line-bottom"></div>
             </div>
             <p className="cpt-subtask-text">Re-apply if extending into next quarter</p>
