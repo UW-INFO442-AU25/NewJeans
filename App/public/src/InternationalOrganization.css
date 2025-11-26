@@ -331,3 +331,70 @@
     font-size: 16px;
   }
 }
+
+@media (max-width: 768px) {
+  .intl-org-hero {
+    padding: 40px 24px;
+    min-height: 250px;
+  }
+
+  .intl-org-hero-title {
+    font-size: 36px;
+  }
+
+  .intl-org-what-section, .intl-org-checklist-section {
+    padding: 40px 24px;
+  }
+
+  .intl-org-section-title, .intl-org-checklist-title {
+    font-size: 28px;
+  }
+
+  .intl-org-task-header {
+    padding: 12px 24px;
+  }
+
+  .intl-org-task-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intl-org-hero {
+    padding: 32px 16px;
+    min-height: 200px;
+  }
+
+  .intl-org-hero-title {
+    font-size: 28px;
+  }
+
+  .intl-org-what-section, .intl-org-checklist-section {
+    padding: 32px 16px;
+  }
+
+  .intl-org-section-title, .intl-org-checklist-title {
+    font-size: 24px;
+  }
+
+  .intl-org-task-header {
+    padding: 12px 16px;
+  }
+
+  .intl-org-task-checkbox {
+    width: 36px;
+    height: 36px;
+  }
+
+  .intl-org-task-title {
+    font-size: 16px;
+  }
+
+  .intl-org-subtask {
+    padding: 0 24px;
+  }
+
+  .intl-org-subtask-text {
+    font-size: 14px;
+  }
+}

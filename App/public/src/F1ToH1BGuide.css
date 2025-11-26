@@ -879,3 +879,62 @@
     font-size: 14px;
   }
 }
+
+@media (max-width: 480px) {
+  .h1b-guide-hero {
+    padding: 32px 16px;
+    min-height: 200px;
+  }
+
+  .h1b-guide-hero-title {
+    font-size: 28px;
+  }
+
+  .h1b-timeline-section, .h1b-checklist-section {
+    padding: 32px 16px;
+  }
+
+  .h1b-timeline-title, .h1b-checklist-title {
+    font-size: 24px;
+  }
+
+  .timeline-item {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .timeline-step {
+    font-size: 16px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .timeline-title {
+    font-size: 18px;
+  }
+
+  .timeline-subtitle {
+    font-size: 14px;
+  }
+
+  .main-task-header {
+    padding: 12px 0 12px 12px;
+  }
+
+  .main-task-checkbox {
+    width: 36px;
+    height: 36px;
+  }
+
+  .main-task-title {
+    font-size: 16px;
+  }
+
+  .subtask-item {
+    padding: 0 12px;
+  }
+
+  .subtask-description {
+    font-size: 14px;
+  }
+}

@@ -11,20 +11,22 @@ import OnCampusEmployment from "./OnCampusEmployment";
 import OffCampusEmployment from "./OffCampusEmployment";
 import InternationalOrganization from "./InternationalOrganization";
 import F1ToH1BGuide from "./F1ToH1BGuide";
-import CompanyDetail from "./CompanyDetail";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from './components/Login';
 import SearchBar from "./components/SearchBar";
 import jobs from './data/jobs.json';
 import CompanyCard from './components/CompanyCard';
+import { auth, db } from './firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [user, setUser] = useState(null);
   const [selectedJobId, setSelectedJobId] = useState(null);
-  const [selectedCompanyName, setSelectedCompanyName] = useState(null);
   const [initialSearchQuery, setInitialSearchQuery] = useState('');
+  const [authLoading, setAuthLoading] = useState(true);
   // persisted saved jobs (array of job ids)
   const [savedJobIds, setSavedJobIds] = useState(() => {
     try {
@@ -35,13 +37,71 @@ function App() {
     }
   });
 
+  // Firebase auth state listener
   useEffect(() => {
-    try {
-      localStorage.setItem('savedJobIds', JSON.stringify(savedJobIds));
-    } catch (e) {
-      // ignore
-    }
-  }, [savedJobIds]);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const userObj = {
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          name: firebaseUser.email.split('@')[0]
+        };
+        setUser(userObj);
+        
+        // Load saved jobs from Firestore
+        try {
+          const userDocRef = doc(db, 'users', firebaseUser.uid);
+          const userDoc = await getDoc(userDocRef);
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            if (data.savedJobIds) {
+              setSavedJobIds(data.savedJobIds);
+            }
+          } else {
+            // Create user document if it doesn't exist
+            await setDoc(userDocRef, {
+              email: firebaseUser.email,
+              savedJobIds: [],
+              createdAt: new Date().toISOString()
+            });
+          }
+        } catch (error) {
+          console.error('Error loading user data:', error);
+        }
+      } else {
+        setUser(null);
+        // Keep local storage for guest users
+      }
+      setAuthLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Sync saved jobs to Firestore when user is logged in
+  useEffect(() => {
+    const syncSavedJobs = async () => {
+      if (user && user.uid) {
+        try {
+          const userDocRef = doc(db, 'users', user.uid);
+          await updateDoc(userDocRef, {
+            savedJobIds: savedJobIds
+          });
+        } catch (error) {
+          console.error('Error syncing saved jobs:', error);
+        }
+      } else {
+        // For non-logged-in users, use localStorage
+        try {
+          localStorage.setItem('savedJobIds', JSON.stringify(savedJobIds));
+        } catch (e) {
+          // ignore
+        }
+      }
+    };
+
+    syncSavedJobs();
+  }, [savedJobIds, user]);
 
   const toggleSavedJob = (jobId) => {
     setSavedJobIds((prev) => {
@@ -112,20 +172,37 @@ function App() {
     setCurrentPage('h1b-guide');
   };
 
-  const navigateToCompanyDetail = (companyName) => {
-    setSelectedCompanyName(companyName);
-    setCurrentPage('company-detail');
-  };
-
   const handleLogin = (userObj) => {
     setUser(userObj);
     setCurrentPage('home');
   };
 
-  const handleSignOut = () => {
-    setUser(null);
-    setCurrentPage('home');
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      setSavedJobIds([]);
+      setCurrentPage('home');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
+
+  // Show loading screen while checking auth state
+  if (authLoading) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        fontSize: '18px',
+        color: '#5384A4'
+      }}>
+        Loading...
+      </div>
+    );
+  }
 
   if (currentPage === 'job-board') {
     return <JobBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateToJobDescription={navigateToJobDescription} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} initialSearchQuery={initialSearchQuery} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} user={user} onSignOut={handleSignOut} />;
@@ -145,11 +222,7 @@ function App() {
   }
 
   if (currentPage === 'employer-board') {
-    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} onNavigateLogin={navigateToLogin} onNavigateToCompanyDetail={navigateToCompanyDetail} user={user} onSignOut={handleSignOut} />;
-  }
-
-  if (currentPage === 'company-detail') {
-    return <CompanyDetail companyName={selectedCompanyName} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} onNavigateToJobDescription={navigateToJobDescription} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} user={user} onSignOut={handleSignOut} />;
+    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} onNavigateLogin={navigateToLogin} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'login') {
@@ -158,7 +231,6 @@ function App() {
         <NavBar
           onNavigateHome={navigateToHome}
           onNavigateJobBoard={navigateToJobBoard}
-          onNavigateEmployerBoard={navigateToEmployerBoard}
           onNavigateProfile={navigateToProfile}
           onNavigateLogin={navigateToLogin}
           onNavigateStudentResources={navigateToStudentResources}
@@ -205,7 +277,6 @@ function App() {
         <NavBar
           onNavigateHome={navigateToHome}
           onNavigateJobBoard={navigateToJobBoard}
-          onNavigateEmployerBoard={navigateToEmployerBoard}
           onNavigateProfile={navigateToProfile}
           onNavigateLogin={navigateToLogin}
           onNavigateStudentResources={navigateToStudentResources}
@@ -271,7 +342,7 @@ function App() {
               const top3 = employers.slice(0, 3);
 
               return top3.map((employer) => (
-                <CompanyCard key={employer.name} employer={employer} onClick={() => navigateToCompanyDetail(employer.name)} />
+                <CompanyCard key={employer.name} employer={employer} />
               ));
             })()}
           </div>

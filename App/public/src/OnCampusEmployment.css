@@ -229,6 +229,41 @@
   }
 }
 
+@media (max-width: 768px) {
+  .on-campus-hero {
+    padding: 40px 24px;
+    min-height: 250px;
+  }
+
+  .on-campus-hero-title {
+    font-size: 36px;
+  }
+
+  .on-campus-what-section, .on-campus-checklist-section {
+    padding: 40px 24px;
+  }
+
+  .on-campus-section-title, .on-campus-checklist-title {
+    font-size: 28px;
+  }
+
+  .on-campus-task-header {
+    padding: 12px 24px;
+  }
+
+  .on-campus-task-title {
+    font-size: 18px;
+  }
+
+  .on-campus-subtask {
+    padding: 0 32px;
+  }
+
+  .on-campus-subtask-text {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 640px) {
   .on-campus-hero {
     padding: 32px 16px;
@@ -272,5 +307,45 @@
 
   .on-campus-subtask-text {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .on-campus-hero {
+    padding: 32px 16px;
+    min-height: 200px;
+  }
+
+  .on-campus-hero-title {
+    font-size: 28px;
+  }
+
+  .on-campus-what-section, .on-campus-checklist-section {
+    padding: 32px 16px;
+  }
+
+  .on-campus-section-title, .on-campus-checklist-title {
+    font-size: 24px;
+  }
+
+  .on-campus-task-header {
+    padding: 12px 16px;
+  }
+
+  .on-campus-task-checkbox {
+    width: 36px;
+    height: 36px;
+  }
+
+  .on-campus-task-title {
+    font-size: 16px;
+  }
+
+  .on-campus-subtask {
+    padding: 0 24px;
+  }
+
+  .on-campus-subtask-text {
+    font-size: 14px;
   }
 }

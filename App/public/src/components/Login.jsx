@@ -1,20 +1,73 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 
 function Login({ onLogin = () => {}, onNavigateHome = () => {} }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) {
-      setError('Enter an email');
-      return;
+    setError('');
+    setLoading(true);
+
+    try {
+      if (isRegister) {
+        // Create new account
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const firebaseUser = userCredential.user;
+        const user = {
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          name: firebaseUser.email.split('@')[0]
+        };
+        onLogin(user);
+      } else {
+        // Sign in existing user
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const firebaseUser = userCredential.user;
+        const user = {
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          name: firebaseUser.email.split('@')[0]
+        };
+        onLogin(user);
+      }
+    } catch (err) {
+      // Handle Firebase auth errors
+      console.error('Firebase Auth Error:', err);
+      switch (err.code) {
+        case 'auth/user-not-found':
+          setError('No account found with this email');
+          break;
+        case 'auth/wrong-password':
+          setError('Incorrect password');
+          break;
+        case 'auth/email-already-in-use':
+          setError('Email already in use');
+          break;
+        case 'auth/weak-password':
+          setError('Password should be at least 6 characters');
+          break;
+        case 'auth/invalid-email':
+          setError('Invalid email address');
+          break;
+        case 'auth/operation-not-allowed':
+          setError('Email/Password sign-in is not enabled. Please contact support.');
+          break;
+        case 'auth/invalid-credential':
+          setError('Invalid credentials. Please check your email and password.');
+          break;
+        default:
+          setError(`Authentication failed: ${err.message || 'Please try again.'}`);
+      }
+    } finally {
+      setLoading(false);
     }
-    const user = { email, name: email.split('@')[0] };
-    onLogin(user);
   };
 
   return (
@@ -64,7 +117,9 @@ function Login({ onLogin = () => {}, onNavigateHome = () => {} }) {
                 </label>
                 {error && <div className="form-error">{error}</div>}
                 <div className="login-actions">
-                    <button className="btn-primary" type="submit">{isRegister ? 'Create account' : 'Sign in'}</button>
+                    <button className="btn-primary" type="submit" disabled={loading}>
+                      {loading ? 'Please wait...' : (isRegister ? 'Create account' : 'Sign in')}
+                    </button>
                     <button className="btn-secondary" type="button" onClick={() => setIsRegister(!isRegister)}>{isRegister ? 'Have an account? Log in' : 'Create an account'}</button>
                     <button className="btn-ghost" onClick={onNavigateHome} type="button">Cancel</button>
                 </div>

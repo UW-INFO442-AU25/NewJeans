@@ -433,3 +433,94 @@
 .apply-button:hover {
   background: #1D3A4D;
 }
+
+@media (max-width: 768px) {
+  .company-detail-content {
+    padding: 24px 16px 0 16px;
+  }
+
+  .company-header {
+    gap: 16px;
+  }
+
+  .company-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .company-name {
+    font-size: 28px;
+  }
+
+  .company-meta {
+    font-size: 14px;
+  }
+
+  .company-tabs {
+    gap: 24px;
+  }
+
+  .company-tab {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-detail-content {
+    padding: 16px;
+  }
+
+  .back-to-jobs {
+    margin-bottom: 16px;
+  }
+
+  .back-text {
+    font-size: 14px;
+  }
+
+  .company-header {
+    gap: 12px;
+  }
+
+  .company-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .company-name {
+    font-size: 24px;
+  }
+
+  .company-meta {
+    font-size: 13px;
+  }
+
+  .company-tabs {
+    gap: 16px;
+    overflow-x: auto;
+  }
+
+  .company-tab {
+    font-size: 14px;
+    padding: 8px 0;
+    white-space: nowrap;
+  }
+
+  .overview-section, .jobs-section, .reviews-section {
+    padding: 20px 16px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .overview-description, .stat-label, .review-text {
+    font-size: 14px;
+  }
+
+  .apply-button {
+    height: 44px;
+    font-size: 15px;
+  }
+}

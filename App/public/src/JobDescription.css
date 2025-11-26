@@ -423,3 +423,49 @@
     padding: 16px 0;
   }
 }
+
+@media (max-width: 480px) {
+  .job-description-container {
+    padding: 16px;
+  }
+
+  .job-header {
+    padding: 24px 16px;
+    gap: 16px;
+  }
+
+  .job-logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .job-title {
+    font-size: 20px;
+  }
+
+  .job-company, .job-location {
+    font-size: 13px;
+  }
+
+  .job-detail-actions {
+    gap: 12px;
+  }
+
+  .save-job-btn, .apply-job-btn {
+    height: 40px;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  .job-info-card {
+    padding: 16px;
+  }
+
+  .section-heading {
+    font-size: 16px;
+  }
+
+  .section-description {
+    font-size: 13px;
+  }
+}

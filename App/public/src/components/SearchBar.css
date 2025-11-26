@@ -36,3 +36,47 @@
 }
 
 .search-icon-main { display: block; }
+
+@media (max-width: 768px) {
+  .main-search-bar {
+    max-width: 100%;
+    height: 40px;
+  }
+
+  .search-input-main {
+    font-size: 16px;
+  }
+
+  .search-input-main::placeholder {
+    font-size: 16px;
+  }
+
+  .search-button-wrapper .btn-search {
+    font-size: 14px;
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-search-bar {
+    height: 38px;
+  }
+
+  .main-search-content {
+    gap: 8px;
+    padding: 4px 10px;
+  }
+
+  .search-input-main {
+    font-size: 14px;
+  }
+
+  .search-input-main::placeholder {
+    font-size: 14px;
+  }
+
+  .search-button-wrapper .btn-search {
+    font-size: 13px;
+    padding: 0 12px;
+  }
+}

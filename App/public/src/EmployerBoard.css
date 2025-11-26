@@ -195,3 +195,47 @@
     height: 48px;
   }
 }
+
+@media (max-width: 480px) {
+  .employer-board-container {
+    padding: 16px;
+  }
+
+  .employer-header-title {
+    font-size: 26px;
+  }
+
+  .create-job-btn {
+    height: 40px;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  .stats-card {
+    padding: 16px;
+  }
+
+  .stat-value {
+    font-size: 28px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+  }
+
+  .posted-jobs-section {
+    padding: 20px 16px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .job-item-title {
+    font-size: 16px;
+  }
+
+  .job-item-details {
+    font-size: 13px;
+  }
+}

@@ -21,7 +21,6 @@ body {
   min-height: 100vh;
   background-color: #FEFEFE;
   overflow-x: hidden;
-  gap: 64px;
 }
 
 .content-max-width {
@@ -43,7 +42,7 @@ body {
   display: flex;
   width: 100%;
   height: 80px;
-  padding: 24px 16px;
+  padding: 24px 32px;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #B7B7B7;
@@ -119,7 +118,6 @@ body {
 
 .btn-primary {
   display: flex;
-  width: fit-content;
   height: 40px;
   padding: 6px 12px;
   justify-content: center;
@@ -150,7 +148,7 @@ body {
   border: 2px solid #30546C;
   background-color: #FEFEFE;
   color: #30546C;
-  font: 500 16px/18px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font: 400 16px/18px Inter, -apple-system, Roboto, Helvetica, sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -163,13 +161,13 @@ body {
 .hero-section {
   display: flex;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: 700px;
   padding: 0 64px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 8px;
-  background-image: url("../images/landing_image.png"); 
+  background-image: url("../images/thumbnail_edwin-andrade-4V1dC_eoCWG-unsplash.jpg"); 
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -374,7 +372,7 @@ body {
 .company-logo {
   width: 64px;
   height: 64px;
-  border: 1px solid #B7B7B7;
+  border-radius: 8px;
 }
 
 .company-info {
@@ -388,7 +386,7 @@ body {
 .company-name {
   align-self: stretch;
   color: #191919;
-  font: 500 24px/normal 'Inter', -apple-system, Roboto, Helvetica, sans-serif;
+  font: 700 24px/26px 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
 }
 
 .company-industry {
@@ -669,6 +667,7 @@ body {
   align-self: stretch;
   border-top: 1px solid #B7B7B7;
   background-color: #FEFEFE;
+  margin-top: 64px;
 }
 
 .footer-container {
@@ -681,13 +680,13 @@ body {
 }
 
 .footer-grid {
-  display: flex;
-  gap: 48px;
+  display: grid;
+  row-gap: 48px;
+  column-gap: 48px;
   flex: 1 0 0;
   align-self: stretch;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  grid-template-rows: repeat(1, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .footer-column {
@@ -695,22 +694,21 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  flex: 0 1 auto;
-  align-self: flex-start;
+  flex: 1 0 0;
+  align-self: stretch;
+  grid-row: 1 / span 1;
 }
 
-/* column placement now handled by flex; specific ordering/widths can be added if needed */
-
-.footer-column-students .footer-list {
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 8px;
-  align-items: center;
+.footer-column:nth-child(1) {
+  grid-column: 1 / span 1;
 }
 
-.footer-column-students .footer-list-item {
-  flex-direction: row;
-  align-items: center;
+.footer-column-students {
+  grid-column: 3 / span 1;
+}
+
+.footer-column-employers {
+  grid-column: 4 / span 1;
 }
 
 .footer-paragraph {
@@ -800,20 +798,26 @@ body {
 
 @media (max-width: 991px) {
   .content-max-width {
-    gap: 96px;
-    padding: 0 0 96px 0;
+    gap: 64px;
+    padding: 0 0 64px 0;
   }
 
   .navigation-bar {
     padding: 16px;
+    height: 70px;
   }
 
   .nav-inner {
     width: 100%;
+    padding: 0 8px;
   }
 
   .nav-left {
-    gap: 32px;
+    gap: 24px;
+  }
+
+  .logo {
+    font-size: 20px;
   }
 
   .nav-links-desktop {
@@ -824,27 +828,38 @@ body {
     gap: 8px;
   }
 
+  .btn-primary, .btn-secondary {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: auto;
+  }
+
   .hero-section {
     height: auto;
-    padding: 80px 32px;
+    padding: 60px 24px;
+    min-height: 400px;
   }
 
   .hero-content-wrapper {
     padding: 0;
+    max-width: 100%;
   }
 
   .hero-title {
-    font-size: 48px;
+    font-size: 36px;
+    line-height: 1.2;
   }
 
   .hero-description {
     width: 100%;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   .hero-search-area {
     flex-direction: column;
     align-items: stretch;
-    gap: 16px;
+    gap: 12px;
   }
 
   .search-bar {
@@ -899,11 +914,53 @@ body {
   }
 
   .footer-grid {
-    flex-direction: column;
-    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .footer-column:nth-child(1) {
+    grid-column: 1 / span 2;
+  }
+
+  .footer-column-students {
+    grid-column: 1 / span 1;
+  }
+
+  .footer-column-employers {
+    grid-column: 2 / span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .section-label {
+    font-size: 12px;
+  }
+
+  .featured-section, .how-it-works-section {
+    padding: 48px 20px;
+  }
+
+  .company-cards, .tools-cards, .steps-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .company-card, .tool-card, .step-item {
     width: 100%;
   }
 }
@@ -1042,12 +1099,42 @@ body {
 }
 
 @media (max-width: 480px) {
+  body {
+    padding-top: 60px;
+  }
+
+  .navigation-bar {
+    height: 60px;
+    padding: 12px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .hero-section {
+    padding: 40px 16px;
+  }
+
   .hero-title {
-    font-size: 28px;
+    font-size: 24px;
+  }
+
+  .featured-section, .how-it-works-section {
+    padding: 32px 16px;
   }
 
   .section-title {
-    font-size: 20px;
+    font-size: 24px;
+  }
+
+  .hero-title {
+    font-size: 28px;
   }
 
   .cta-title {

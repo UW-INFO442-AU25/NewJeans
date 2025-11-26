@@ -188,4 +188,50 @@
     margin-top: 0;
     border-radius: 0 0 8px 8px; /* bottom radius for form when stacked */
   }
+
+  .login-heading {
+    font-size: 24px;
+  }
+
+  .login-button {
+    height: 44px;
+    font-size: 15px;
+  }
+
+  .login-input-group input {
+    height: 44px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page {
+    padding: 16px;
+  }
+
+  .login-heading {
+    font-size: 22px;
+  }
+
+  .login-subheading {
+    font-size: 13px;
+  }
+
+  .login-button {
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .login-input-group input {
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .login-benefits-heading {
+    font-size: 20px;
+  }
+
+  .login-benefit-item {
+    font-size: 13px;
+  }
 }
