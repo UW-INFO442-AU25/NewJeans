@@ -45,11 +45,19 @@ function OffCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmp
         <h2 className="off-campus-section-title">What is Off-Campus Employment?</h2>
         <div className="off-campus-what-content">
           <div className="off-campus-video-placeholder">
-            <img 
-              src="https://api.builder.io/api/v1/image/assets/TEMP/b3c3fd1cd00e0aa42c2a2b552dc17d05ea9b9013?width=892" 
-              alt="Off-Campus Employment Video Placeholder" 
-              className="off-campus-video-img"
-            />
+            {/* Thumbnail links to the video in a new tab (safe fallback). */}
+            <a
+              href="https://youtu.be/vgjP88xICjk?si=yKFQnsEadCt6f9nG"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open Off-Campus Employment video in a new tab"
+            >
+              <img
+                src="https://img.youtube.com/vi/vgjP88xICjk/hqdefault.jpg"
+                alt="Off-Campus Employment Video Thumbnail"
+                className="off-campus-video-img"
+              />
+            </a>
           </div>
           <div className="off-campus-what-description">
             <p>

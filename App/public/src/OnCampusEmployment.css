@@ -65,6 +65,70 @@
   object-fit: cover;
 }
 
+/* Thumbnail button reset */
+.video-thumb-button {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+}
+
+/* Modal styles */
+.video-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 24px;
+}
+
+.video-modal-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  background: transparent;
+}
+
+.video-modal-close {
+  position: absolute;
+  right: -8px;
+  top: -8px;
+  background: #ffffff;
+  border: none;
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  line-height: 36px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.video-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 aspect */
+  background: transparent; /* avoid visible black bars behind player */
+  overflow: hidden;
+}
+
+.video-iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  /* slight scale to ensure player fills the container on some browsers */
+  transform-origin: center center;
+}
+
 .on-campus-what-description {
   flex: 1;
   color: #191919;

@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './OnCampusEmployment.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
 function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin, onNavigateStudentResources }) {
+  const [videoOpen, setVideoOpen] = useState(false);
+
+  useEffect(() => {
+    if (videoOpen) {
+      // prevent background scroll while modal is open
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev; };
+    }
+    return undefined;
+  }, [videoOpen]);
   return (
     <div className="on-campus-employment-container">
       <NavBar
@@ -21,11 +32,19 @@ function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmpl
         <h2 className="on-campus-section-title">What is On-Campus Employment?</h2>
         <div className="on-campus-what-content">
           <div className="on-campus-video-placeholder">
-            <img 
-              src="https://api.builder.io/api/v1/image/assets/TEMP/b3c3fd1cd00e0aa42c2a2b552dc17d05ea9b9013?width=892" 
-              alt="On-Campus Employment Video Placeholder" 
-              className="on-campus-video-img"
-            />
+            {/* Use the actual YouTube thumbnail and open an inline modal player. */}
+            <button
+              type="button"
+              className="video-thumb-button"
+              onClick={() => setVideoOpen(true)}
+              aria-label="Play On-Campus Employment video"
+            >
+              <img
+                src="https://img.youtube.com/vi/vgjP88xICjk/maxresdefault.jpg"
+                alt="On-Campus Employment Video Thumbnail"
+                className="on-campus-video-img"
+              />
+            </button>
           </div>
           <div className="on-campus-what-description">
             <p>
@@ -43,6 +62,34 @@ function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmpl
           </div>
         </div>
       </section>
+
+      {videoOpen && (
+        <div
+          className="video-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setVideoOpen(false)}
+        >
+          <div className="video-modal-inner" onClick={e => e.stopPropagation()}>
+            <button
+              className="video-modal-close"
+              aria-label="Close video"
+              onClick={() => setVideoOpen(false)}
+            >
+              ×
+            </button>
+            <div className="video-iframe-wrapper">
+              <iframe
+                title="On-Campus Employment Video"
+                src="https://www.youtube.com/embed/vgjP88xICjk?autoplay=1&rel=0"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="on-campus-checklist-section">
         <h2 className="on-campus-checklist-title">On-Campus Employment Document Checklist</h2>

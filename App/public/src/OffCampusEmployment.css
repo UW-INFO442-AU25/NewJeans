@@ -56,11 +56,14 @@
 
 .off-campus-video-placeholder {
   width: 446px;
-  height: 251px;
+  /* use an explicit aspect ratio so the placeholder keeps its shape and doesn't get cut off */
+  aspect-ratio: 16 / 9;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .off-campus-video-img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -237,7 +240,8 @@
 
   .off-campus-video-placeholder {
     width: 100%;
-    height: auto;
+    /* keep aspect ratio on small screens too */
+    aspect-ratio: 16 / 9;
   }
 
   .off-campus-checklist-section {
