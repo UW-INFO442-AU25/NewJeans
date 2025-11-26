@@ -6,8 +6,10 @@
   /* Use viewport-based height minus nav so the page doesn't grow taller than the viewport
      (body already has padding-top for the fixed nav). This prevents the outer page from
      scrolling and lets internal areas scroll independently. */
-  height: calc(100vh - 80px);
-  overflow: hidden;
+  /* Allow page to grow and scroll normally; keep a minimum viewport height */
+  min-height: calc(100vh - 80px);
+  height: auto;
+  overflow: visible;
 }
 
 .main-content {
@@ -274,10 +276,17 @@
   background: #FFF;
   border-left: 1px solid #B7B7B7;
 
-  /* Allow the main content column to scroll independently of the sidebar */
-  height: 100%;
-  overflow-y: auto;
+  /* Let the page itself handle scrolling to enable longer scroll distances */
+  height: auto;
+  overflow: visible;
   min-height: 0; /* allow content to scroll internally */
+  padding-bottom: 24px;
+
+  /* Remove centered max-width so it sits flush against the sidebar */
+  max-width: none;
+  margin: 0;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .sidebar * {
@@ -341,8 +350,9 @@
 }
 
 .jobs-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .job-card {
@@ -350,7 +360,8 @@
   padding: 24px 32px;
   justify-content: space-between;
   align-items: flex-start;
-  border-bottom: 1px solid #B7B7B7;
+  border: 1px solid #B7B7B7;
+  border-radius: 8px;
   background: #FEFEFE;
 }
 
@@ -555,8 +566,11 @@
     width: 100%;
   }
 
+  .jobs-list {
+    grid-template-columns: 1fr;
+  }
   .job-card {
-    padding: 20px 24px;
+    padding: 16px;
   }
 }
 
@@ -713,4 +727,41 @@
   .checkbox-label {
     font-size: 11px;
   }
+}
+
+/* Compact layout overrides to reduce perceived zoom */
+.search-section {
+  padding: 20px 24px 8px 24px;
+}
+
+.main-search-bar {
+  height: 48px;
+}
+
+.content-area {
+  max-width: none;
+  margin: 0;
+}
+
+.job-card {
+  padding: 12px 16px;
+}
+
+.job-logo {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  min-height: 60px;
+}
+
+.job-role {
+  font-size: 22px;
+}
+
+.job-company {
+  font-size: 13px;
+}
+
+.job-detail-text {
+  font-size: 12px;
 }
