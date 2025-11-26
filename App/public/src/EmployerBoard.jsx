@@ -22,6 +22,8 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
   const toggleGroup = (groupKey) => {
     setOpenGroups((prev) => ({ ...prev, [groupKey]: !prev[groupKey] }));
   };
+  // On mobile, keep entire employer filter sidebar closed by default and toggle with a button
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(9);
 
@@ -129,11 +131,19 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
       />
 
       <div className="employer-main-content">
-        <aside className="employer-sidebar">
+        <aside className={`employer-sidebar ${mobileFiltersOpen ? 'mobile-open' : ''}`}>
+          <div className="mobile-filter-bar">
+            <button className="mobile-filter-toggle" onClick={() => setMobileFiltersOpen((v) => !v)} aria-expanded={mobileFiltersOpen}>
+              {mobileFiltersOpen ? 'Hide Filters' : 'Show Filters'}
+            </button>
+          </div>
+
           <div className="filter-header">
             <div className="filter-title-row">
               <div className="filter-title">Refine Your Search</div>
-              <div className="clear-all" onClick={clearAll} style={{ cursor: 'pointer' }}>Clear All</div>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <div className="clear-all" onClick={clearAll} style={{ cursor: 'pointer' }}>Clear All</div>
+              </div>
             </div>
             <div className="filter-divider"></div>
           </div>

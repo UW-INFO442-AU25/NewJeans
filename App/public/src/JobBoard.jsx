@@ -23,6 +23,9 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
     salary: true,
   });
 
+  // On mobile, keep the entire sidebar closed by default; toggled with the mobile filter button
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
   const toggleGroup = (groupKey) => {
     setOpenGroups((prev) => ({ ...prev, [groupKey]: !prev[groupKey] }));
   };
@@ -293,11 +296,20 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
       />
 
       <div className="main-content">
-        <aside className="sidebar">
+        <aside className={`sidebar ${mobileFiltersOpen ? 'mobile-open' : ''}`}>
+          {/* Mobile-only compact bar with the toggle button. When closed we show only this bar. */}
+          <div className="mobile-filter-bar">
+            <button className="mobile-filter-toggle" onClick={() => setMobileFiltersOpen((v) => !v)} aria-expanded={mobileFiltersOpen}>
+              {mobileFiltersOpen ? 'Hide Filters' : 'Show Filters'}
+            </button>
+          </div>
+
           <div className="filter-header">
             <div className="filter-title-row">
               <div className="filter-title">Refine Your Search</div>
-              <div className="clear-all" onClick={clearAll} style={{ cursor: 'pointer' }}>Clear All</div>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <div className="clear-all" onClick={clearAll} style={{ cursor: 'pointer' }}>Clear All</div>
+              </div>
             </div>
             <div className="filter-divider"></div>
           </div>

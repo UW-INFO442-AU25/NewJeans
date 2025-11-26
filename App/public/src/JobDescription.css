@@ -181,7 +181,6 @@
   justify-content: space-between;
   align-items: flex-end;
   flex: 0 0 auto;
-  margin-left: 24px;
 }
 
 .bookmark-button-large {
@@ -430,7 +429,6 @@
   }
 
   .job-header {
-    padding: 24px 16px;
     gap: 16px;
   }
 

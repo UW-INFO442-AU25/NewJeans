@@ -858,7 +858,7 @@ body {
   /* Mobile menu overlay */
   .mobile-menu {
     position: fixed;
-    top: 80px; /* below navbar */
+    top: 0px; /* ensure menu sits at the very top on mobile */
     left: 0;
     right: 0;
     bottom: 0;

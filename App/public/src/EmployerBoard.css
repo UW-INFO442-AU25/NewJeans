@@ -15,7 +15,7 @@
   align-items: flex-start;
 }
 
-.employer-main-content{
+.employer-main-content {
   height: 100%;
 }
 
@@ -35,6 +35,12 @@
   scrollbar-gutter: stable both-edges;
   box-sizing: border-box;
   min-height: 0;
+}
+
+/* Ensure the sidebar (and its compact mobile bar) sits above the scrolling content so the toggle is clickable */
+.employer-sidebar {
+  position: relative;
+  z-index: 5;
 }
 
 /* Collapsible filter styles */
@@ -179,11 +185,17 @@
     border-right: none;
     border-bottom: 1px solid #B7B7B7;
     padding: 24px 16px;
-    height: auto;
+    /* make sidebar height fit the contained filters on mobile */
+    height: fit-content;
+    position: relative;
+    z-index: 30; /* sit above the scrolling content */
   }
 
+  /* Ensure the content area grows correctly on mobile instead of collapsing to 0px */
   .employer-content-area {
-    height: auto;
+    flex: 1 1 auto;
+    min-height: 0; /* allow internal scrolling when used with overflow */
+    z-index: 1;
   }
 
   .employer-header {
@@ -193,6 +205,61 @@
   .employer-search-bar {
     width: 100%;
   }
+}
+
+/* Mobile behavior: hide full filter section by default and show when .mobile-open is present */
+@media (max-width: 991px) {
+  .employer-sidebar .filter-section {
+    display: none;
+  }
+
+  .employer-sidebar.mobile-open .filter-section {
+    display: block;
+  }
+
+  .mobile-filter-toggle {
+    display: inline-block !important;
+    background: transparent;
+    border: 1px solid #D0D8DC;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  /* compact mobile behavior: show only the mobile bar when closed */
+  .employer-sidebar .mobile-filter-bar {
+    display: block;
+    padding: 8px 0;
+  }
+
+  .employer-sidebar .mobile-filter-bar,
+  .employer-sidebar .mobile-filter-toggle {
+    position: relative;
+    z-index: 10; /* keep toggle above content */
+  }
+
+  .employer-sidebar .filter-header {
+    display: none;
+  }
+
+  .employer-sidebar.mobile-open .filter-header {
+    display: block;
+  }
+
+  .employer-sidebar:not(.mobile-open) {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  /* Remove scrolling inside sidebar on mobile; allow content area to handle scrolling */
+  .employer-sidebar {
+    overflow-y: visible;
+  }
+}
+
+/* Ensure the toggle is hidden outside of mobile */
+.mobile-filter-toggle {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -225,9 +292,6 @@
 }
 
 @media (max-width: 480px) {
-  .employer-board-container {
-    padding: 16px;
-  }
 
   .employer-header-title {
     font-size: 26px;
@@ -255,6 +319,14 @@
     padding: 20px 16px;
   }
 
+  /* Match mobile sidebar padding with JobBoard's mobile filters for consistency */
+  .employer-sidebar {
+    padding: 12px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
   .section-title {
     font-size: 20px;
   }

@@ -36,6 +36,23 @@
   min-height: 0; /* allow flex children to scroll */
 }
 
+/* Mobile toggle: hide by default (desktop) and only show in mobile media queries */
+.mobile-filter-toggle {
+  display: none;
+}
+
+/* Keep the sidebar and its compact mobile bar above the content so the toggle remains clickable */
+.sidebar {
+  position: relative;
+  z-index: 5;
+}
+
+.sidebar .mobile-filter-bar,
+.sidebar .mobile-filter-toggle {
+  position: relative;
+  z-index: 10;
+}
+
 .filter-header {
   display: flex;
   width: 100%;
@@ -558,6 +575,48 @@
     border-right: none;
     border-bottom: 1px solid #B7B7B7;
     padding: 24px 16px;
+  }
+
+  /* Hide the full filter section by default on mobile; it opens when .mobile-open is present */
+  .sidebar .filter-section {
+    display: none;
+  }
+
+  .sidebar.mobile-open .filter-section {
+    display: block;
+  }
+
+  /* Show the mobile filter toggle button */
+  .mobile-filter-toggle {
+    display: inline-block !important;
+    background: transparent;
+    border: 1px solid #D0D8DC;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* When closed, hide the full header and show only the compact mobile bar */
+  .sidebar .mobile-filter-bar {
+    display: block;
+    padding: 8px 0;
+  }
+
+  .sidebar .filter-header {
+    display: none;
+  }
+
+  .sidebar.mobile-open .filter-header {
+    display: block;
+  }
+
+  /* Make the closed sidebar compact so it doesn't push content out of view */
+  .sidebar:not(.mobile-open) {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    height: fit-content;
+
   }
 
   .filter-header {
