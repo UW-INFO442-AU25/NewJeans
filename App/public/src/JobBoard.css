@@ -6,10 +6,8 @@
   /* Use viewport-based height minus nav so the page doesn't grow taller than the viewport
      (body already has padding-top for the fixed nav). This prevents the outer page from
      scrolling and lets internal areas scroll independently. */
-  /* Allow page to grow and scroll normally; keep a minimum viewport height */
-  min-height: calc(100vh - 80px);
-  height: auto;
-  overflow: visible;
+  height: calc(100vh - 80px);
+  overflow: hidden;
 }
 
 .main-content {
@@ -192,8 +190,9 @@
   width: 100%;
   height: 10px;
   border-radius: 24px;
-  /* primary track color */
-  background: #5384A4;
+  /* use a neutral stroke for the track */
+  background: transparent;
+  border: 1px solid #B7B7B7;
   position: absolute;
   left: 0;
   top: 50%;
@@ -204,8 +203,8 @@
 .salary-slider-range {
   height: 10px;
   border-radius: 24px;
-  /* slight overlay to indicate selected segment on top of the track */
-  background: rgba(255,255,255,0.12);
+  /* selected range stroke color */
+  background: #5384A4;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -241,10 +240,9 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  /* circle sliders should be gray */
-  background: #B7B7B7;
-  /* thin white ring for contrast */
-  border: 2px solid #fff;
+  background: #FFF;
+  /* stroke around thumb set to neutral gray */
+  border: 3px solid #B7B7B7;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.06) inset;
   /* center the thumb vertically on the track */
   margin-top: 9px;
@@ -253,8 +251,8 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #B7B7B7;
-  border: 2px solid #fff;
+  background: #FFF;
+  border: 3px solid #B7B7B7;
 }
 
 /* make the active handle be on top */
@@ -276,17 +274,10 @@
   background: #FFF;
   border-left: 1px solid #B7B7B7;
 
-  /* Let the page itself handle scrolling to enable longer scroll distances */
-  height: auto;
-  overflow: visible;
+  /* Allow the main content column to scroll independently of the sidebar */
+  height: 100%;
+  overflow-y: auto;
   min-height: 0; /* allow content to scroll internally */
-  padding-bottom: 24px;
-
-  /* Remove centered max-width so it sits flush against the sidebar */
-  max-width: none;
-  margin: 0;
-  padding-left: 16px;
-  padding-right: 16px;
 }
 
 .sidebar * {
@@ -350,9 +341,8 @@
 }
 
 .jobs-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .job-card {
@@ -360,8 +350,7 @@
   padding: 24px 32px;
   justify-content: space-between;
   align-items: flex-start;
-  border: 1px solid #B7B7B7;
-  border-radius: 8px;
+  border-bottom: 1px solid #B7B7B7;
   background: #FEFEFE;
 }
 
@@ -566,11 +555,8 @@
     width: 100%;
   }
 
-  .jobs-list {
-    grid-template-columns: 1fr;
-  }
   .job-card {
-    padding: 16px;
+    padding: 20px 24px;
   }
 }
 
@@ -727,41 +713,4 @@
   .checkbox-label {
     font-size: 11px;
   }
-}
-
-/* Compact layout overrides to reduce perceived zoom */
-.search-section {
-  padding: 20px 24px 8px 24px;
-}
-
-.main-search-bar {
-  height: 48px;
-}
-
-.content-area {
-  max-width: none;
-  margin: 0;
-}
-
-.job-card {
-  padding: 12px 16px;
-}
-
-.job-logo {
-  width: 60px;
-  height: 60px;
-  min-width: 60px;
-  min-height: 60px;
-}
-
-.job-role {
-  font-size: 22px;
-}
-
-.job-company {
-  font-size: 13px;
-}
-
-.job-detail-text {
-  font-size: 12px;
 }
