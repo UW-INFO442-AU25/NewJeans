@@ -11,6 +11,7 @@ import OnCampusEmployment from "./OnCampusEmployment";
 import OffCampusEmployment from "./OffCampusEmployment";
 import InternationalOrganization from "./InternationalOrganization";
 import F1ToH1BGuide from "./F1ToH1BGuide";
+import CompanyDetail from "./CompanyDetail";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from './components/Login';
@@ -22,6 +23,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [user, setUser] = useState(null);
   const [selectedJobId, setSelectedJobId] = useState(null);
+  const [selectedCompanyName, setSelectedCompanyName] = useState(null);
   const [initialSearchQuery, setInitialSearchQuery] = useState('');
   // persisted saved jobs (array of job ids)
   const [savedJobIds, setSavedJobIds] = useState(() => {
@@ -110,6 +112,11 @@ function App() {
     setCurrentPage('h1b-guide');
   };
 
+  const navigateToCompanyDetail = (companyName) => {
+    setSelectedCompanyName(companyName);
+    setCurrentPage('company-detail');
+  };
+
   const handleLogin = (userObj) => {
     setUser(userObj);
     setCurrentPage('home');
@@ -138,7 +145,11 @@ function App() {
   }
 
   if (currentPage === 'employer-board') {
-    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} onNavigateLogin={navigateToLogin} user={user} onSignOut={handleSignOut} />;
+    return <EmployerBoard onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateProfile={navigateToProfile} onNavigateStudentResources={() => setCurrentPage('student-resources')} onNavigateLogin={navigateToLogin} onNavigateToCompanyDetail={navigateToCompanyDetail} user={user} onSignOut={handleSignOut} />;
+  }
+
+  if (currentPage === 'company-detail') {
+    return <CompanyDetail companyName={selectedCompanyName} onNavigateHome={navigateToHome} onNavigateJobBoard={navigateToJobBoard} onNavigateEmployerBoard={navigateToEmployerBoard} onNavigateProfile={navigateToProfile} onNavigateLogin={navigateToLogin} onNavigateStudentResources={navigateToStudentResources} onNavigateToJobDescription={navigateToJobDescription} savedJobIds={savedJobIds} onToggleSave={toggleSavedJob} user={user} onSignOut={handleSignOut} />;
   }
 
   if (currentPage === 'login') {
@@ -147,6 +158,7 @@ function App() {
         <NavBar
           onNavigateHome={navigateToHome}
           onNavigateJobBoard={navigateToJobBoard}
+          onNavigateEmployerBoard={navigateToEmployerBoard}
           onNavigateProfile={navigateToProfile}
           onNavigateLogin={navigateToLogin}
           onNavigateStudentResources={navigateToStudentResources}
@@ -193,6 +205,7 @@ function App() {
         <NavBar
           onNavigateHome={navigateToHome}
           onNavigateJobBoard={navigateToJobBoard}
+          onNavigateEmployerBoard={navigateToEmployerBoard}
           onNavigateProfile={navigateToProfile}
           onNavigateLogin={navigateToLogin}
           onNavigateStudentResources={navigateToStudentResources}
@@ -258,7 +271,7 @@ function App() {
               const top3 = employers.slice(0, 3);
 
               return top3.map((employer) => (
-                <CompanyCard key={employer.name} employer={employer} />
+                <CompanyCard key={employer.name} employer={employer} onClick={() => navigateToCompanyDetail(employer.name)} />
               ));
             })()}
           </div>

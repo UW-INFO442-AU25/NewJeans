@@ -1,0 +1,435 @@
+.company-detail-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FEFEFE;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.company-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.company-detail-content {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  padding: 32px 16px 0 16px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.back-to-jobs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 24px;
+  transition: transform 0.2s ease;
+  align-self: flex-start;
+}
+
+.back-to-jobs:hover {
+  transform: translateX(-4px);
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.back-text {
+  color: #5384A4;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.company-header {
+  display: flex;
+  padding: 24px 0;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+  background: #FEFEFE;
+}
+
+.company-main-info {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.job-logo {
+  width: 95px;
+  height: 95px;
+  min-width: 95px;
+  min-height: 95px;
+  border: 1px solid #B7B7B7;
+}
+
+.company-info-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1 0 0;
+}
+
+.company-title-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1 0 0;
+}
+
+.company-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.company-name {
+  align-self: stretch;
+  color: #191919;
+  font-family: 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0;
+}
+
+.company-industry {
+  align-self: stretch;
+  color: #767676;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.company-visa-badges {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.visa-badge {
+  display: flex;
+  padding: 4px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  background: #5384A4;
+  color: #FEFEFE;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.company-meta-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.meta-item {
+  display: flex;
+  max-width: 250px;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+}
+
+.meta-icon-wrapper {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.meta-text {
+  color: #767676;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.company-about-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.section-heading {
+  color: #191919;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  margin: 0;
+}
+
+.company-description {
+  align-self: stretch;
+  color: #191919;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+}
+
+.jobs-section {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  padding: 32px 16px 128px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  margin: 0 auto;
+}
+
+.positions-title {
+  align-self: stretch;
+  color: #191919;
+  font-family: 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 34px;
+  margin: 0;
+}
+
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.job-container {
+  display: flex;
+  padding: 24px 32px;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 16px;
+  align-self: stretch;
+  flex-wrap: wrap;
+  border-radius: 4px;
+  border: 1px solid #B7B7B7;
+  background: #FEFEFE;
+  transition: all 0.3s ease;
+}
+
+.job-container:hover {
+  background: #F7F7F7;
+}
+
+.job-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1 0 0;
+}
+
+.job-left-section {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.job-company-logo {
+  width: 95px;
+  height: 95px;
+  min-width: 95px;
+  max-width: 95px;
+  min-height: 95px;
+  max-height: 95px;
+  border: 1px solid #767676;
+}
+
+.job-details-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.job-title-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.job-role {
+  color: #191919;
+  font-family: 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0;
+}
+
+.job-company-name {
+  color: #767676;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.job-visa-types {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.job-visa-badge {
+  display: flex;
+  padding: 4px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 4px;
+  background: #5384A4;
+  color: #FEFEFE;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.job-meta-grid {
+  display: grid;
+  gap: 8px;
+  flex: 1 0 0;
+  align-self: stretch;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.job-meta-item {
+  display: flex;
+  max-width: 250px;
+  align-items: center;
+  gap: 4px;
+  justify-self: stretch;
+}
+
+.job-meta-icon-wrapper {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.job-meta-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.job-meta-text {
+  color: #767676;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.job-actions-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  min-height: 173px;
+}
+
+.bookmark-icon-button {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 99px;
+  border: 1px solid #1D3A4D;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.bookmark-icon-button:hover {
+  background: #5384A4;
+  border: 1px solid #5384A4;
+}
+
+.bookmark-icon-button.active {
+  background: #5384A4;
+  border: 1px solid #5384A4;
+}
+
+/* Ensure icon contrasts on hover/active */
+.bookmark-icon-button:hover svg path,
+.bookmark-icon-button.active svg path {
+  fill: #FEFEFE;
+  stroke: #FEFEFE;
+}
+
+.apply-button {
+  display: flex;
+  height: 40px;
+  padding: 6px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  background: #30546C;
+  border: none;
+  cursor: pointer;
+  color: #FFF;
+  font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  transition: background 0.2s;
+}
+
+.apply-button:hover {
+  background: #1D3A4D;
+}

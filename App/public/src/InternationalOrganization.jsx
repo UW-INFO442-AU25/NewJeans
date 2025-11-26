@@ -33,6 +33,7 @@ function InternationalOrganization({ onNavigateHome, onNavigateJobBoard, onNavig
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateLogin={onNavigateLogin}
         onNavigateStudentResources={onNavigateStudentResources}
       />

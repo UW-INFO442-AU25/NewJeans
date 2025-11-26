@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './JobDescription.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -32,12 +32,25 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () 
       </div>
     );
   }
+  // ensure page starts at top when this component mounts or job changes
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined' && window.scrollTo) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      }
+      const el = document.querySelector('.job-description-page');
+      if (el) el.scrollTop = 0;
+    } catch (e) {
+      // ignore environments without DOM
+    }
+  }, [job]);
 
   return (
     <div className="job-description-page">
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateStudentResources={onNavigateStudentResources}
         role={user ? 'student' : 'guest'}
         onSignOut={onSignOut}

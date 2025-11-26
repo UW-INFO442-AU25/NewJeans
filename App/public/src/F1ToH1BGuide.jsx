@@ -18,6 +18,7 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateLogin={onNavigateLogin}
         onNavigateStudentResources={onNavigateStudentResources}
       />

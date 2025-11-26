@@ -33,6 +33,7 @@ function OffCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmp
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateLogin={onNavigateLogin}
         onNavigateStudentResources={onNavigateStudentResources}
       />

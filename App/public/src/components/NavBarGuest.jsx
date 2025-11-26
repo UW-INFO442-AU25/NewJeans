@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-function NavBarGuest({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, className = '' }) {
+function NavBarGuest({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, className = '' }) {
   return (
     <nav className={("navigation-bar " + className).trim()}>
       <div className="nav-inner">
@@ -15,7 +15,10 @@ function NavBarGuest({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, on
               <div className="link-text" onClick={onNavigateStudentResources} style={{ cursor: 'pointer' }}>Student Resources</div>
             </div>
             <div className="nav-link">
-              <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
+              <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Jobs</div>
+            </div>
+            <div className="nav-link">
+              <div className="link-text" onClick={onNavigateEmployerBoard} style={{ cursor: 'pointer' }}>Employers</div>
             </div>
           </div>
         </div>

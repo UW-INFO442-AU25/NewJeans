@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import CompanyCard from './components/CompanyCard';
 import jobs from './data/jobs.json';
 
-function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, onNavigateStudentResources, onNavigateLogin = () => {}, user = null, onSignOut = () => {} }) {
+function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard = () => {}, onNavigateProfile, onNavigateStudentResources, onNavigateLogin = () => {}, onNavigateToCompanyDetail = () => {}, user = null, onSignOut = () => {} }) {
   const [visaFilters, setVisaFilters] = useState([]);
   const [locationQuery, setLocationQuery] = useState('');
   const [locationTypeFilters, setLocationTypeFilters] = useState([]);
@@ -108,6 +108,7 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, 
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateProfile={onNavigateProfile}
         onNavigateStudentResources={onNavigateStudentResources}
         onNavigateLogin={onNavigateLogin}
@@ -286,7 +287,7 @@ function EmployerBoard({ onNavigateHome, onNavigateJobBoard, onNavigateProfile, 
               <div style={{ padding: 24, color: '#767676' }}>No employers match your filters.</div>
             ) : (
               displayedEmployers.map((employer, index) => (
-                <CompanyCard key={`${employer.name}-${index}`} employer={employer} />
+                <CompanyCard key={`${employer.name}-${index}`} employer={employer} onClick={() => onNavigateToCompanyDetail(employer.name)} />
               ))
             )}
           </div>

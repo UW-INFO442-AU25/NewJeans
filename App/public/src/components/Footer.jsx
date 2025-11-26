@@ -18,13 +18,13 @@ function Footer({ onNavigateJobBoard = () => {}, onNavigateHome = () => {}, onNa
             </div>
             <div className="footer-list">
               <div className="footer-list-item">
+                <div className="footer-link" onClick={onNavigateStudentResources} style={{ cursor: 'pointer' }}>Visa Resources</div>
+              </div>
+              <div className="footer-list-item">
                 <div className="footer-link" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Job Board</div>
               </div>
               <div className="footer-list-item">
                 <div className="footer-link" onClick={onNavigateEmployerBoard} style={{ cursor: 'pointer' }}>Employer Board</div>
-              </div>
-              <div className="footer-list-item">
-                <div className="footer-link" onClick={onNavigateStudentResources} style={{ cursor: 'pointer' }}>Visa Resources</div>
               </div>
             </div>
           </div>

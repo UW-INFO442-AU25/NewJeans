@@ -150,7 +150,7 @@ body {
   border: 2px solid #30546C;
   background-color: #FEFEFE;
   color: #30546C;
-  font: 400 16px/18px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font: 500 16px/18px Inter, -apple-system, Roboto, Helvetica, sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
 }

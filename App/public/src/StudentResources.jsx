@@ -9,6 +9,7 @@ function StudentResources({ onNavigateHome, onNavigateJobBoard, onNavigateEmploy
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateLogin={onNavigateLogin}
         role={user ? 'student' : 'guest'}
         onSignOut={onSignOut}

@@ -1,9 +1,9 @@
 import React from 'react';
 import './CompanyCard.css';
 
-function CompanyCard({ employer }) {
+function CompanyCard({ employer, onClick }) {
   return (
-    <div className="company-card-employer">
+    <div className="company-card-employer" onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
       <div className="company-card-header">
         <img 
           className="company-card-logo" 

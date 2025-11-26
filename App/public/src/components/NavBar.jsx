@@ -16,6 +16,7 @@ function NavBar({
   role = 'guest',
   onNavigateHome,
   onNavigateJobBoard,
+  onNavigateEmployerBoard,
   onNavigateProfile,
   onNavigateDashboard,
   onSignOut,
@@ -40,8 +41,11 @@ function NavBar({
               leftChildren
             ) : (
               <div className="nav-links-desktop">
-                <div className="nav-link" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>
-                  <div className="link-text">Job Board</div>
+                <div className="nav-link">
+                  <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Jobs</div>
+                </div>
+                <div className="nav-link">
+                  <div className="link-text" onClick={onNavigateEmployerBoard} style={{ cursor: 'pointer' }}>Employers</div>
                 </div>
               </div>
             )}
@@ -72,6 +76,7 @@ function NavBar({
       <NavBarStudent
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateProfile={onNavigateProfile}
         onNavigateStudentResources={onNavigateStudentResources}
         onSignOut={onSignOut}
@@ -86,6 +91,7 @@ function NavBar({
     <NavBarGuest
       onNavigateHome={onNavigateHome}
       onNavigateJobBoard={onNavigateJobBoard}
+      onNavigateEmployerBoard={onNavigateEmployerBoard}
       onNavigateProfile={onNavigateProfile}
       onNavigateLogin={onNavigateLogin}
       onNavigateStudentResources={onNavigateStudentResources}

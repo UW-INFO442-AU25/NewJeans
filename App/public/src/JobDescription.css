@@ -178,7 +178,7 @@
 .job-actions-section {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-end;
   flex: 0 0 auto;
   margin-left: 24px;
@@ -214,6 +214,37 @@
 .bookmark-button-large.active svg path {
   stroke: #FEFEFE;
   fill: #FEFEFE;
+}
+
+/* Standard (small) bookmark button used on job description header */
+.bookmark-button {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+  border: 1px solid #1D3A4D;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bookmark-button:hover {
+  background: #5384A4;
+  border: 1px solid #5384A4;
+}
+
+.bookmark-button.active {
+  background: #5384A4;
+  border: 1px solid #5384A4;
+}
+
+/* Ensure icon contrasts on hover/active */
+.bookmark-button:hover svg path,
+.bookmark-button.active svg path {
+  fill: #FEFEFE;
+  stroke: #FEFEFE;
 }
 
 .apply-button-top {

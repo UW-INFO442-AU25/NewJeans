@@ -496,7 +496,7 @@ const CHECKLIST_BY_VISA = {
   }
 };
 
-import JobCard from './components/JobCard';
+import JobCardStyle2 from './components/JobCardStyle2';
 import jobs from './data/jobs.json';
 
 function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateStudentResources = () => {}, savedJobIds = [], onToggleSave = () => {}, onSignOut = () => {}, user = null }) {
@@ -547,6 +547,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateProfile={onNavigateProfile}
         onNavigateStudentResources={onNavigateStudentResources}
         role={user ? 'student' : 'guest'}
@@ -565,7 +566,6 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
                 <div className="profile-user-email">johndoe@gmail.com</div>
               </div>
             </div>
-            <button className="btn-primary profile-edit-btn">Edit</button>
           </div>
 
           <div className="profile-section">
@@ -764,7 +764,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
                 const job = jobs.find((j) => j.id === jobId);
                 if (!job) return null;
                 return (
-                  <JobCard
+                  <JobCardStyle2
                     key={job.id}
                     job={job}
                     onClick={() => onNavigateToJobDescription && onNavigateToJobDescription(job.id)}

@@ -18,6 +18,7 @@ function OPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNa
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateLogin={onNavigateLogin}
         onNavigateStudentResources={onNavigateStudentResources}
         role={user ? 'student' : 'guest'}

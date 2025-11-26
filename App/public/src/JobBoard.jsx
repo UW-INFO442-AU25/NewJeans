@@ -270,6 +270,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
       <NavBar
         onNavigateHome={onNavigateHome}
         onNavigateJobBoard={onNavigateJobBoard}
+        onNavigateEmployerBoard={onNavigateEmployerBoard}
         onNavigateProfile={onNavigateProfile}
         onNavigateLogin={onNavigateLogin}
         onNavigateStudentResources={onNavigateStudentResources}

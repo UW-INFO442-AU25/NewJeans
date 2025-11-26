@@ -345,6 +345,7 @@
 .job-card {
   display: flex;
   padding: 24px 32px;
+  width: 100%;
   justify-content: space-between;
   align-items: flex-start;
   border-bottom: 1px solid #B7B7B7;
@@ -465,13 +466,13 @@
 }
 
 .bookmark-button:hover {
-  background: #1D3A4D;
-  border: 1px solid #1D3A4D;
+  background: #5384A4;
+  border: 1px solid #5384A4
 }
 
 .bookmark-button.active {
-  background: #1D3A4D;
-  border: 1px solid #1D3A4D;
+  background: #5384A4;
+  border: 1px solid #5384A4;
 }
   
 /* Ensure icon contrasts on hover/active */
