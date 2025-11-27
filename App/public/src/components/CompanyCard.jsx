@@ -2,14 +2,29 @@ import React from 'react';
 import './CompanyCard.css';
 
 function CompanyCard({ employer, onClick }) {
+  const emojiMap = {
+    'Aster Labs': '🧪',
+    'BluePeak': '🎨',
+    'Cortex Analytics': '📊',
+    'DeltaWorks': '💻',
+    'Evergreen Media': '📰',
+    'Flux Infrastructure': '⚙️',
+    'Greenfield Apps': '📱',
+    'Halo Systems': '🛟',
+    'Ionix QA': '✅',
+    'Kite Insights': '🧠',
+    'LambdaWorks': '🔁',
+    'Nova HR': '🧬',
+    'Orbit Docs': '📄',
+    'Pioneer Data': '🗄️',
+    'Quanta Labs': '🔍'
+  };
+  const emoji = emojiMap[employer.name] || '🏢';
+
   return (
     <div className="company-card-employer" onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
       <div className="company-card-header">
-        <img 
-          className="company-card-logo" 
-          src="https://api.builder.io/api/v1/image/assets/TEMP/45b0d603fecab53706615f58736f4f5015f8b88e?width=128" 
-          alt={employer.name} 
-        />
+        <div className="company-card-logo company-card-emoji" aria-hidden="true">{emoji}</div>
         <div className="company-card-info">
           <div className="company-card-name">{employer.name}</div>
           <div className="company-card-industry">{employer.industry}</div>

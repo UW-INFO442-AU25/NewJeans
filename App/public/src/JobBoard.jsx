@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import jobs from './data/jobs.json';
 import JobCard from './components/JobCard';
+import RealtimeJobList from './components/RealtimeJobList';
 import SearchBar from './components/SearchBar';
 
 function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {}, user = null, onSignOut = () => {} }) {
@@ -522,6 +523,14 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
               ))
             )}
           </div>
+
+          {/* Realtime Database backed jobs below static dataset */}
+          <RealtimeJobList
+            onNavigateToJobDescription={onNavigateToJobDescription}
+            savedJobIds={savedJobIds}
+            onToggleSave={onToggleSave}
+            user={user}
+          />
 
           <div className="view-more">
             {hasMore ? (

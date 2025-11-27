@@ -47,10 +47,15 @@ function InternationalOrganization({ onNavigateHome, onNavigateJobBoard, onNavig
         <h2 className="intl-org-section-title">What is Internship with an International Organization?</h2>
         <div className="intl-org-what-content">
           <div className="intl-org-video-placeholder">
-            <img 
-              src="https://api.builder.io/api/v1/image/assets/TEMP/b3c3fd1cd00e0aa42c2a2b552dc17d05ea9b9013?width=892" 
-              alt="Video Placeholder" 
-              className="intl-org-video-img"
+            <iframe 
+              width="100%" 
+              height="315" 
+              src="https://www.youtube.com/embed/zDNb1CP6Piw" 
+              title="International Organization Internship Explained" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+              className="intl-org-video-iframe"
             />
           </div>
           <div className="intl-org-what-description">

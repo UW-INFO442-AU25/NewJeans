@@ -35,10 +35,15 @@ function CPT({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNa
         <h2 className="cpt-section-title">What is CPT?</h2>
         <div className="cpt-what-content">
           <div className="cpt-video-placeholder">
-            <img 
-              src="https://api.builder.io/api/v1/image/assets/TEMP/b3c3fd1cd00e0aa42c2a2b552dc17d05ea9b9013?width=892" 
-              alt="CPT Video Placeholder" 
-              className="cpt-video-img"
+            <iframe 
+              width="100%" 
+              height="315" 
+              src="https://www.youtube.com/embed/s0aCEI1CM5c" 
+              title="CPT Explained" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+              className="cpt-video-iframe"
             />
           </div>
           <div className="cpt-what-description">

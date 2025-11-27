@@ -497,6 +497,7 @@ const CHECKLIST_BY_VISA = {
 };
 
 import JobCardStyle2 from './components/JobCardStyle2';
+import PassportUpload from './components/PassportUpload';
 import jobs from './data/jobs.json';
 
 function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateStudentResources = () => {}, savedJobIds = [], onToggleSave = () => {}, onSignOut = () => {}, user = null }) {
@@ -686,10 +687,26 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
             <div className="cpt-document-section">
               <h2 className="cpt-section-title">{currentVisaData.documentTitle}</h2>
               
-              <div className="upload-progress-bar">
-                <div className="upload-progress-fill"></div>
-                <div className="upload-progress-label">25%</div>
+              {/* Dynamic combined progress (passport + checklist) */}
+              <div className="upload-progress-bar combined">
+                {/* We'll compute simple percentage from checked tasks + subtasks */}
+                {(() => {
+                  const totalTasks = currentChecklist.length;
+                  const totalSubtasks = currentChecklist.reduce((acc, t) => acc + t.subtasks.length, 0);
+                  const completedTasks = Object.values(checkedTasks).filter(Boolean).length;
+                  const completedSubtasks = Object.values(checkedSubtasks).filter(Boolean).length;
+                  const rawPercent = totalTasks + totalSubtasks === 0 ? 0 : Math.round(((completedTasks + completedSubtasks) / (totalTasks + totalSubtasks)) * 100);
+                  return (
+                    <>
+                      <div className="upload-progress-fill" style={{ width: rawPercent + '%' }} />
+                      <div className="upload-progress-label">{rawPercent}% Checklist</div>
+                    </>
+                  );
+                })()}
               </div>
+
+              {/* Passport Upload with manual override to 100% */}
+              <PassportUpload progressPath={`passportProgress/${selectedVisa}/${selectedWorkAuth}`} />
 
               <div className="document-cards">
                 {currentVisaData.documents.map((doc, index) => {

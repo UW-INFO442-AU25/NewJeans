@@ -82,12 +82,21 @@
 }
 
 .company-logo-large {
-  width: 95px;
-  height: 95px;
-  min-width: 95px;
-  min-height: 95px;
+  width: 140px; /* keep box size smaller */
+  height: 140px;
+  min-width: 140px;
+  min-height: 140px;
   border: 1px solid #B7B7B7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 96px; /* enlarge emoji without growing box */
+  line-height: 1;
+  border-radius: 16px;
+  background: #FFFFFF;
+  overflow: hidden; /* prevent spill */
 }
+.emoji-large { font-size: inherit; }
 
 .job-title-section {
   display: flex;
@@ -350,8 +359,9 @@
   }
 
   .company-logo-large {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
+    font-size: 82px; /* proportionally larger emoji */
   }
 
   .job-position-title {
@@ -394,8 +404,9 @@
   }
 
   .company-logo-large {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
+    font-size: 70px;
   }
 
   .job-position-title {

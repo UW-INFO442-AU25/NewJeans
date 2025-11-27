@@ -428,6 +428,15 @@
   min-width: 95px;
   min-height: 95px;
   border: 1px solid #B7B7B7;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.emoji-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  background: #FFFFFF;
 }
 
 .job-info {
@@ -675,7 +684,10 @@
     height: 80px;
     min-width: 80px;
     min-height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
   }
+  .emoji-logo { font-size: 36px; }
 
   .job-role {
     font-size: 24px;
@@ -729,7 +741,10 @@
     height: 70px;
     min-width: 70px;
     min-height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
   }
+  .emoji-logo { font-size: 32px; }
 
   .job-role {
     font-size: 20px;
@@ -776,7 +791,10 @@
     height: 60px;
     min-width: 60px;
     min-height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
   }
+  .emoji-logo { font-size: 28px; }
 
   .job-role {
     font-size: 18px;

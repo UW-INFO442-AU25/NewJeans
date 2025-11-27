@@ -6,11 +6,31 @@ function JobCard({ job, onClick, isSaved = false, onToggleSave = () => {} }) {
     onToggleSave(job.id);
   };
 
+  // Map each company to an emoji instead of an image.
+  const companyEmojiMap = {
+    'Aster Labs': '🧪',
+    'BluePeak': '🎨',
+    'Cortex Analytics': '📊',
+    'DeltaWorks': '💻',
+    'Evergreen Media': '📰',
+    'Flux Infrastructure': '⚙️',
+    'Greenfield Apps': '📱',
+    'Halo Systems': '🛟',
+    'Ionix QA': '✅',
+    'Kite Insights': '🧠',
+    'LambdaWorks': '🔁',
+    'Nova HR': '🧬',
+    'Orbit Docs': '📄',
+    'Pioneer Data': '🗄️',
+    'Quanta Labs': '🔍',
+  };
+  const emoji = companyEmojiMap[job.company] || '🏢';
+
   return (
     <div className="job-card">
       <div className="job-card-content" onClick={onClick} style={{ cursor: 'pointer' }}>
         <div className="job-header">
-          <img className="job-logo" src={`https://via.placeholder.com/190?text=${encodeURIComponent(job.company)}`} alt="" />
+          <div className="job-logo emoji-logo" aria-hidden="true">{emoji}</div>
           <div className="job-info">
             <div className="job-info-text">
               <div className="job-role">{job.title}</div>

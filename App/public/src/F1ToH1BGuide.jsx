@@ -25,7 +25,6 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
 
       <div className="guide-hero-section">
         <div className="hero-content-wrapper">
-          <h1 className="hero-title">F-1 to H-1B Transition Guide</h1>
         </div>
       </div>
 
@@ -33,21 +32,30 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
         <div className="process-overview-section">
           <h2 className="section-heading">The F-1 to H-1B Process Overview</h2>
           <div className="overview-grid">
-            <img className="video-placeholder" src="https://api.builder.io/api/v1/image/assets/TEMP/b3c3fd1cd00e0aa42c2a2b552dc17d05ea9b9013?width=892" alt="" />
+            <iframe 
+              className="video-placeholder" 
+              width="100%" 
+              height="315" 
+              src="https://www.youtube.com/embed/ixmZOpuiTzE" 
+              title="F-1 to H-1B Transition Guide" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+            />
             <div className="overview-text-content">
               <p>Changing from an F-1 student visa to an H-1B work visa involves several key steps:</p>
               
-              <p><strong>Find H-1B Sponsorship</strong>: Secure a job offer from a U.S. employer willing to sponsor you for an H-1B visa. The position should qualify as a <span className="underlined-text">specialty occupation</span>, typically requiring at least a bachelor's degree.</p>
+              <p><strong>1. Find H-1B Sponsorship</strong>: Secure a job offer from a U.S. employer willing to sponsor you for an H-1B visa. The position should qualify as a <span className="underlined-text">specialty occupation</span>, typically requiring at least a bachelor's degree.</p>
               
-              <p><strong>H-1B Registration and Selection</strong>: Employers register candidates for the annual H-1B lottery, usually in March. If selected, they can proceed with filing a petition.</p>
+              <p><strong>2. H-1B Registration and Selection</strong>: Employers register candidates for the annual H-1B lottery, usually in March. If selected, they can proceed with filing a petition.</p>
               
-              <p><strong>Labor Condition Application (LCA)</strong>: The employer <span className="underlined-text">files an LCA with the Department of Labor</span>, agreeing to pay the prevailing wage for both the occupation and location.</p>
+              <p><strong>3. Labor Condition Application (LCA)</strong>: The employer <span className="underlined-text">files an LCA with the Department of Labor</span>, agreeing to pay the prevailing wage for both the occupation and location.</p>
               
-              <p><strong>H-1B Petition Filing</strong>: After LCA approval, the employer files  <span className="underlined-text">Form I-129, Petition for a Nonimmigrant Worker</span> with USCIS requesting a change of status from F-1 to H-1B.</p>
+              <p><strong>4. H-1B Petition Filing</strong>: After LCA approval, the employer files  <span className="underlined-text">Form I-129, Petition for a Nonimmigrant Worker</span> with USCIS requesting a change of status from F-1 to H-1B.</p>
               
-              <p><strong>Cap Gap Period</strong>: If the applicant's F-1 status expires before their H-1B begins, they may qualify for the cap gap extension (detailed below).</p>
+              <p><strong>5. Cap Gap Period</strong>: If the applicant's F-1 status expires before their H-1B begins, they may qualify for the cap gap extension (detailed below).</p>
               
-              <p><strong>Transition to H-1B Status</strong>: If approved, the foreign national's status automatically changes to <span className="underlined-text">H-1B</span> on the start date (typically October 1).</p>
+              <p><strong>6. Transition to H-1B Status</strong>: If approved, the foreign national's status automatically changes to <span className="underlined-text">H-1B</span> on the start date (typically October 1).</p>
             </div>
           </div>
         </div>
@@ -71,7 +79,7 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
               <div className="timeline-item-content">
                 <div className="timeline-checkbox"></div>
                 <p className="timeline-item-text">
-                  <strong>Late March/Early April: </strong>Lottery selections announced
+                  <strong>Late March/Early April:</strong> Lottery selections announced
                 </p>
               </div>
             </div>
@@ -80,7 +88,7 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
               <div className="timeline-item-content">
                 <div className="timeline-checkbox"></div>
                 <p className="timeline-item-text">
-                  <strong>April 1 to June 30: </strong>Filing period for selected H-1B petitions
+                  <strong>April 1 to June 30:</strong> Filing period for selected H-1B petitions
                 </p>
               </div>
             </div>
@@ -89,7 +97,7 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
               <div className="timeline-item-content">
                 <div className="timeline-checkbox"></div>
                 <p className="timeline-item-text">
-                  <strong>April to September: </strong>USCIS processing of H-1B petitions
+                  <strong>April to September:</strong> USCIS processing of H-1B petitions
                 </p>
               </div>
             </div>
@@ -98,7 +106,7 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
               <div className="timeline-item-content">
                 <div className="timeline-checkbox"></div>
                 <p className="timeline-item-text">
-                  <strong>October 1: </strong>H-1B employment start date (beginning of fiscal year)
+                  <strong>October 1:</strong> H-1B employment start date (beginning of fiscal year)
                 </p>
               </div>
             </div>
@@ -107,7 +115,7 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
               <div className="timeline-item-content">
                 <div className="timeline-checkbox"></div>
                 <p className="timeline-item-text">
-                  <strong>Until April 1 (following year): </strong>Cap gap extension period under new regulations
+                  <strong>Until April 1 (following year):</strong> Cap gap extension period under new regulations
                 </p>
               </div>
             </div>
@@ -118,7 +126,7 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
       <div className="guide-main-content">
         <div className="cap-gap-intro-section">
           <h2 className="section-heading">Understanding the H-1B Cap Gap Extension</h2>
-          <p className="section-description">The "cap gap" refers to the time between when the employee's F-1 Optional Practical Training (OPT) expires and their H-1B status begins on October 1. Without special provisions, many students would face a lapse in legal status during this transition. We've included specific guidance for both international students and HR professionals to help ensure a smooth transition.</p>
+          <p className="section-description cap-gap-description">The "cap gap" refers to the time between when the employee's F-1 Optional Practical Training (OPT) expires and their H-1B status begins on October 1. Without special provisions, many students would face a lapse in legal status during this transition. We've included specific guidance for both international students and HR professionals to help ensure a smooth transition.</p>
         </div>
       </div>
 
@@ -126,14 +134,7 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
         <div className="eligibility-section-content">
           <h2 className="section-heading">Eligibility for Cap Gap Extension</h2>
           <div className="eligibility-text-content">
-            <p>To qualify for a cap gap extension, your H-1B petition must meet these requirements:</p>
-            <p>Be properly and timely filed for a cap-subject position</p>
-            <p>Request a change of status (not consular processing)</p>
-            <p>Be filed during the H-1B filing period (beginning April 1)</p>
-            <p>Be filed while you're still in F-1 status, including:</p>
-            <p>During your academic program</p>
-            <p>During authorized post-completion OPT</p>
-            <p>During your 60-day grace period after completing studies or OPT</p>
+            <p>To qualify for a cap gap extension, your H-1B petition must meet these requirements: Be properly and timely filed for a cap-subject position, request a change of status (not consular processing), be filed during the H-1B filing period (beginning April 1), and be filed while you're still in F-1 status—including during your academic program, during authorized post-completion OPT, or during your 60-day grace period after completing studies or OPT.</p>
             
             <p>Your H-1B petition must be based on a valid, selected registration for the same fiscal year.</p>
             <p>Simply being selected in the lottery is not enough. Your employer must file the complete H-1B petition for you to qualify.</p>

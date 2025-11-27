@@ -16,11 +16,27 @@ function JobCardStyle2({ job, onClick = () => {}, isSaved = false, onToggleSave 
     <div className="job-container" onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
       <div className="job-content">
         <div className="job-left-section">
-          <img
-            className="job-company-logo"
-            src={`https://via.placeholder.com/95?text=${encodeURIComponent(job.company)}`}
-            alt={job.company}
-          />
+          {(() => {
+            const emojiMap = {
+              'Aster Labs': '🧪',
+              'BluePeak': '🎨',
+              'Cortex Analytics': '📊',
+              'DeltaWorks': '💻',
+              'Evergreen Media': '📰',
+              'Flux Infrastructure': '⚙️',
+              'Greenfield Apps': '📱',
+              'Halo Systems': '🛟',
+              'Ionix QA': '✅',
+              'Kite Insights': '🧠',
+              'LambdaWorks': '🔁',
+              'Nova HR': '🧬',
+              'Orbit Docs': '📄',
+              'Pioneer Data': '🗄️',
+              'Quanta Labs': '🔍'
+            };
+            const emoji = emojiMap[job.company] || '🏢';
+            return <div className="job-company-logo job-company-emoji" aria-hidden="true">{emoji}</div>;
+          })()}
 
           <div className="job-details-section">
             <div className="job-title-info">

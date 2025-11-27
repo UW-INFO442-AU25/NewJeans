@@ -69,7 +69,27 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () 
           <div className="job-header-section">
             <div className="job-main-info">
                   <div className="job-header-details">
-                <img className="company-logo-large" src={`https://via.placeholder.com/202?text=${encodeURIComponent(job.company)}`} alt="Company logo" />
+                {(() => {
+                  const emojiMap = {
+                    'Aster Labs': '🧪',
+                    'BluePeak': '🎨',
+                    'Cortex Analytics': '📊',
+                    'DeltaWorks': '💻',
+                    'Evergreen Media': '📰',
+                    'Flux Infrastructure': '⚙️',
+                    'Greenfield Apps': '📱',
+                    'Halo Systems': '🛟',
+                    'Ionix QA': '✅',
+                    'Kite Insights': '🧠',
+                    'LambdaWorks': '🔁',
+                    'Nova HR': '🧬',
+                    'Orbit Docs': '📄',
+                    'Pioneer Data': '🗄️',
+                    'Quanta Labs': '🔍'
+                  };
+                  const emoji = emojiMap[job.company] || '🏢';
+                  return <div className="company-logo-large emoji-large" aria-hidden="true">{emoji}</div>;
+                })()}
                 <div className="job-title-section">
                   <div className="job-title-text">
                     <h1 className="job-position-title">{job.title}</h1>

@@ -63,12 +63,19 @@
   width: 446px;
   height: 251px;
   flex-shrink: 0;
+  position: relative;
 }
 
 .cpt-video-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.cpt-video-iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
 }
 
 .cpt-what-description {
@@ -119,6 +126,21 @@
   font-size: 32px;
   font-weight: 700;
   line-height: normal;
+}
+
+.cpt-timeline-image-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cpt-timeline-image {
+  width: 100%;
+  height: auto;
+  max-width: 1170px;
+  object-fit: contain;
 }
 
 .cpt-timeline-container {

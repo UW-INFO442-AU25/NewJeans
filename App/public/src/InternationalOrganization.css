@@ -63,12 +63,19 @@
   width: 446px;
   height: 251px;
   flex-shrink: 0;
+  position: relative;
 }
 
 .intl-org-video-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.intl-org-video-iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
 }
 
 .intl-org-what-description {
