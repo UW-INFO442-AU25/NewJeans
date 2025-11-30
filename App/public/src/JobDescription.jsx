@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { getCompanyEmoji } from './components/companyEmojis';
 import './JobDescription.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -69,27 +70,7 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () 
           <div className="job-header-section">
             <div className="job-main-info">
                   <div className="job-header-details">
-                {(() => {
-                  const emojiMap = {
-                    'Aster Labs': '🧪',
-                    'BluePeak': '🎨',
-                    'Cortex Analytics': '📊',
-                    'DeltaWorks': '💻',
-                    'Evergreen Media': '📰',
-                    'Flux Infrastructure': '⚙️',
-                    'Greenfield Apps': '📱',
-                    'Halo Systems': '🛟',
-                    'Ionix QA': '✅',
-                    'Kite Insights': '🧠',
-                    'LambdaWorks': '🔁',
-                    'Nova HR': '🧬',
-                    'Orbit Docs': '📄',
-                    'Pioneer Data': '🗄️',
-                    'Quanta Labs': '🔍'
-                  };
-                  const emoji = emojiMap[job.company] || '🏢';
-                  return <div className="company-logo-large emoji-large" aria-hidden="true">{emoji}</div>;
-                })()}
+                <div className="company-logo-large emoji-large" aria-hidden="true">{getCompanyEmoji(job.company)}</div>
                 <div className="job-title-section">
                   <div className="job-title-text">
                     <h1 className="job-position-title">{job.title}</h1>
@@ -178,22 +159,22 @@ function JobDescription({ job, onNavigateJobBoard, onNavigateEmployerBoard = () 
 
           <div className="job-sections">
             <div className="job-info-card">
-              <h2 className="section-heading">About the Role</h2>
+              <h2 className="section-heading">{getCompanyEmoji(job.company)} About the Role</h2>
               <p className="section-description">{job.description}</p>
             </div>
 
             <div className="job-info-card">
-              <h2 className="section-heading">Responsibilities</h2>
+              <h2 className="section-heading">{getCompanyEmoji(job.company)} Responsibilities</h2>
               <p className="section-description">{job.responsibilities || job.description}</p>
             </div>
 
             <div className="job-info-card">
-              <h2 className="section-heading">Qualifications</h2>
+              <h2 className="section-heading">{getCompanyEmoji(job.company)} Qualifications</h2>
               <p className="section-description">{job.qualifications || 'Qualifications will be provided by the employer.'}</p>
             </div>
 
             <div className="job-info-card">
-              <h2 className="section-heading">Additional Information</h2>
+              <h2 className="section-heading">{getCompanyEmoji(job.company)} Additional Information</h2>
               <p className="section-description">{job.additionalInfo || ''}</p>
             </div>
           </div>

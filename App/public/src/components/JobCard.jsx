@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCompanyEmoji } from './companyEmojis';
 
 function JobCard({ job, onClick, isSaved = false, onToggleSave = () => {} }) {
   const handleBookmark = (e) => {
@@ -6,25 +7,7 @@ function JobCard({ job, onClick, isSaved = false, onToggleSave = () => {} }) {
     onToggleSave(job.id);
   };
 
-  // Map each company to an emoji instead of an image.
-  const companyEmojiMap = {
-    'Aster Labs': '🧪',
-    'BluePeak': '🎨',
-    'Cortex Analytics': '📊',
-    'DeltaWorks': '💻',
-    'Evergreen Media': '📰',
-    'Flux Infrastructure': '⚙️',
-    'Greenfield Apps': '📱',
-    'Halo Systems': '🛟',
-    'Ionix QA': '✅',
-    'Kite Insights': '🧠',
-    'LambdaWorks': '🔁',
-    'Nova HR': '🧬',
-    'Orbit Docs': '📄',
-    'Pioneer Data': '🗄️',
-    'Quanta Labs': '🔍',
-  };
-  const emoji = companyEmojiMap[job.company] || '🏢';
+  const emoji = getCompanyEmoji(job.company);
 
   return (
     <div className="job-card">
