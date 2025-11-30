@@ -507,6 +507,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
   const [workAuthDropdownOpen, setWorkAuthDropdownOpen] = useState(false);
   const [checkedTasks, setCheckedTasks] = useState({});
   const [checkedSubtasks, setCheckedSubtasks] = useState({});
+  const [passportAdded, setPassportAdded] = useState(false);
 
   const handleVisaSelect = (visaKey) => {
     setSelectedVisa(visaKey);
@@ -514,6 +515,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
     setVisaDropdownOpen(false);
     setCheckedTasks({});
     setCheckedSubtasks({});
+    setPassportAdded(false);
   };
 
   const handleWorkAuthSelect = (workAuth) => {
@@ -521,6 +523,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
     setWorkAuthDropdownOpen(false);
     setCheckedTasks({});
     setCheckedSubtasks({});
+    setPassportAdded(false);
   };
 
   const toggleTaskCheck = (taskIndex) => {
@@ -687,33 +690,39 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
             <div className="cpt-document-section">
               <h2 className="cpt-section-title">{currentVisaData.documentTitle}</h2>
               
-              {/* Dynamic combined progress (passport + checklist) */}
-              <div className="upload-progress-bar combined">
-                {/* We'll compute simple percentage from checked tasks + subtasks */}
-                {(() => {
-                  const totalTasks = currentChecklist.length;
-                  const totalSubtasks = currentChecklist.reduce((acc, t) => acc + t.subtasks.length, 0);
-                  const completedTasks = Object.values(checkedTasks).filter(Boolean).length;
-                  const completedSubtasks = Object.values(checkedSubtasks).filter(Boolean).length;
-                  const rawPercent = totalTasks + totalSubtasks === 0 ? 0 : Math.round(((completedTasks + completedSubtasks) / (totalTasks + totalSubtasks)) * 100);
-                  return (
-                    <>
-                      <div className="upload-progress-fill" style={{ width: rawPercent + '%' }} />
-                      <div className="upload-progress-label">{rawPercent}% Checklist</div>
-                    </>
-                  );
-                })()}
-              </div>
+              {/* Overall progress blends checklist completion and passport status */}
+              {(() => {
+                const totalTasks = currentChecklist.length;
+                const totalSubtasks = currentChecklist.reduce((acc, t) => acc + t.subtasks.length, 0);
+                const completedTasks = Object.values(checkedTasks).filter(Boolean).length;
+                const completedSubtasks = Object.values(checkedSubtasks).filter(Boolean).length;
+                const checklistPercent = totalTasks + totalSubtasks === 0 ? 0 : Math.round(((completedTasks + completedSubtasks) / (totalTasks + totalSubtasks)) * 100);
+                const passportPercent = passportAdded ? 100 : 0;
+                // Simple weighted average: passport counts as one segment equal to checklist.
+                const overall = Math.round((checklistPercent + passportPercent) / 2);
+                return (
+                  <div className="upload-progress-bar combined" aria-label="Overall progress including passport upload">
+                    <div className="upload-progress-fill" style={{ width: overall + '%' }} />
+                    <div className="upload-progress-label">Overall Progress: {overall}% (Checklist {checklistPercent}%, Passport {passportPercent}%)</div>
+                  </div>
+                );
+              })()}
 
-              {/* Passport Upload with manual override to 100% */}
-              <PassportUpload progressPath={`passportProgress/${selectedVisa}/${selectedWorkAuth}`} />
+              {/* Passport Upload: when uploaded, mark the Passport card as Added */}
+              <PassportUpload onUploaded={(has) => setPassportAdded(!!has)} />
 
               <div className="document-cards">
                 {currentVisaData.documents.map((doc, index) => {
                   const statuses = ['missing', 'needs-update', 'verified', 'not-accepted'];
                   const statusLabels = ['Upload', 'Needs Update', 'Verified', 'Not Accepted'];
-                  const status = statuses[index % statuses.length];
-                  const statusLabel = statusLabels[index % statusLabels.length];
+                  // Default placeholder behavior for non-passport docs
+                  let status = statuses[index % statuses.length];
+                  let statusLabel = statusLabels[index % statusLabels.length];
+                  // Passport reflects upload state: show Added once uploaded
+                  if (doc === 'Passport') {
+                    status = passportAdded ? 'verified' : 'missing';
+                    statusLabel = passportAdded ? 'Added' : 'Upload';
+                  }
                   
                   return (
                     <div key={doc} className={`document-card ${status}`}>

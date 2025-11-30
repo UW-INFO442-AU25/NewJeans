@@ -888,20 +888,23 @@
 }
 
 @media (max-width: 480px) {
-  .h1b-guide-hero {
+  /* Use the same class names as larger breakpoints for consistency */
+  .guide-hero-section {
     padding: 32px 16px;
     min-height: 200px;
   }
 
-  .h1b-guide-hero-title {
+  .hero-title {
     font-size: 28px;
   }
 
-  .h1b-timeline-section, .h1b-checklist-section {
+  .timeline-section-wrapper,
+  .checklist-section-wrapper {
     padding: 32px 16px;
   }
 
-  .h1b-timeline-title, .h1b-checklist-title {
+  .timeline-title,
+  .checklist-section-title {
     font-size: 24px;
   }
 
