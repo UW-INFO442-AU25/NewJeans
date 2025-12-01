@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import { auth, storage, rtdb } from './firebase';
+import { ref as storageRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref as dbRef, set, get } from 'firebase/database';
 
 const VISA_TYPES = {
   'F-1': {
@@ -508,6 +511,187 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
   const [checkedTasks, setCheckedTasks] = useState({});
   const [checkedSubtasks, setCheckedSubtasks] = useState({});
   const [passportAdded, setPassportAdded] = useState(false);
+  
+  // Profile picture state
+  const [profilePictureURL, setProfilePictureURL] = useState('');
+  const [uploadingPicture, setUploadingPicture] = useState(false);
+  const [pictureUploadProgress, setPictureUploadProgress] = useState(0);
+  const [pictureError, setPictureError] = useState('');
+  
+  // Name fields state
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [savingNames, setSavingNames] = useState(false);
+  const [namesSaved, setNamesSaved] = useState(false);
+
+  // Load existing profile picture and name data on mount
+  useEffect(() => {
+    const loadUserData = async () => {
+      if (auth.currentUser) {
+        try {
+          // Load profile picture
+          const pictureSnapshot = await get(dbRef(rtdb, `profilePictures/${auth.currentUser.uid}`));
+          if (pictureSnapshot.exists()) {
+            setProfilePictureURL(pictureSnapshot.val().downloadURL);
+          }
+          
+          // Load saved names
+          const namesSnapshot = await get(dbRef(rtdb, `users/${auth.currentUser.uid}/personalInfo`));
+          if (namesSnapshot.exists()) {
+            const data = namesSnapshot.val();
+            setFirstName(data.firstName || '');
+            setLastName(data.lastName || '');
+          }
+        } catch (error) {
+          console.error('Error loading user data:', error);
+        }
+      }
+    };
+    loadUserData();
+  }, []);
+
+  // Profile picture upload handler with compression and immediate preview
+  const handleProfilePictureUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if (!allowedTypes.includes(file.type)) {
+      setPictureError('Please upload a JPG or PNG image');
+      return;
+    }
+
+    if (!auth.currentUser) {
+      setPictureError('You must be logged in to upload a profile picture');
+      return;
+    }
+
+    setPictureError('');
+    setUploadingPicture(true);
+    setPictureUploadProgress(0);
+
+    // Show immediate preview using local object URL
+    const localPreviewURL = URL.createObjectURL(file);
+    setProfilePictureURL(localPreviewURL);
+
+    try {
+      // Compress image if it's too large
+      let fileToUpload = file;
+      if (file.size > 300000) { // If larger than 300KB, compress
+        fileToUpload = await compressImage(file);
+      }
+
+      const ext = fileToUpload.name.split('.').pop();
+      const sRef = storageRef(storage, `profilePictures/${auth.currentUser.uid}/avatar.${ext}`);
+      
+      const uploadTask = uploadBytesResumable(sRef, fileToUpload, {
+        contentType: fileToUpload.type
+      });
+
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setPictureUploadProgress(progress);
+        },
+        (error) => {
+          console.error('Upload error:', error);
+          setPictureError('Upload failed. Please try again.');
+          setUploadingPicture(false);
+          URL.revokeObjectURL(localPreviewURL);
+          setProfilePictureURL('');
+        },
+        async () => {
+          const url = await getDownloadURL(uploadTask.snapshot.ref);
+          await set(dbRef(rtdb, `profilePictures/${auth.currentUser.uid}`), {
+            downloadURL: url,
+            uploadedAt: Date.now()
+          });
+          URL.revokeObjectURL(localPreviewURL);
+          setProfilePictureURL(url);
+          setUploadingPicture(false);
+          setPictureUploadProgress(0);
+        }
+      );
+    } catch (error) {
+      console.error('Error uploading profile picture:', error);
+      setPictureError('Upload failed. Please try again.');
+      setUploadingPicture(false);
+      URL.revokeObjectURL(localPreviewURL);
+      setProfilePictureURL('');
+    }
+  };
+
+  // Compress image function
+  const compressImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          
+          // Resize if too large
+          const maxDimension = 600;
+          if (width > maxDimension || height > maxDimension) {
+            if (width > height) {
+              height = (height / width) * maxDimension;
+              width = maxDimension;
+            } else {
+              width = (width / height) * maxDimension;
+              height = maxDimension;
+            }
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          canvas.toBlob((blob) => {
+            resolve(new File([blob], file.name, {
+              type: 'image/jpeg',
+              lastModified: Date.now()
+            }));
+          }, 'image/jpeg', 0.8);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  // Handle saving names to Firebase
+  const handleSaveNames = async () => {
+    if (!auth.currentUser) {
+      alert('You must be logged in to save changes');
+      return;
+    }
+    
+    if (!firstName.trim() || !lastName.trim()) {
+      alert('Please enter both first and last name');
+      return;
+    }
+    
+    setSavingNames(true);
+    setNamesSaved(false);
+    
+    try {
+      await set(dbRef(rtdb, `users/${auth.currentUser.uid}/personalInfo`), {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        updatedAt: Date.now()
+      });
+      setNamesSaved(true);
+      setTimeout(() => setNamesSaved(false), 3000);
+    } catch (error) {
+      console.error('Error saving names:', error);
+      alert('Failed to save names. Please try again.');
+    } finally {
+      setSavingNames(false);
+    }
+  };
 
   const handleVisaSelect = (visaKey) => {
     setSelectedVisa(visaKey);
@@ -564,10 +748,50 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
         <div className="profile-header-section">
           <div className="profile-header">
             <div className="profile-user-info">
-              <div className="profile-avatar"></div>
+              <div className="profile-avatar-container">
+                <div 
+                  className="profile-avatar" 
+                  style={profilePictureURL ? {
+                    backgroundImage: `url(${profilePictureURL})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  } : {}}
+                >
+                  {!profilePictureURL && <span style={{fontSize: '48px'}}>👤</span>}
+                </div>
+                <div className="profile-picture-upload">
+                  <input
+                    type="file"
+                    id="profile-picture-input"
+                    accept="image/jpeg,image/jpg,image/png"
+                    onChange={handleProfilePictureUpload}
+                    style={{ display: 'none' }}
+                    disabled={uploadingPicture}
+                  />
+                  <label 
+                    htmlFor="profile-picture-input" 
+                    className="profile-picture-upload-btn"
+                    style={{
+                      cursor: uploadingPicture ? 'not-allowed' : 'pointer',
+                      opacity: uploadingPicture ? 0.6 : 1
+                    }}
+                  >
+                    {uploadingPicture 
+                      ? `Uploading ${Math.round(pictureUploadProgress)}%` 
+                      : (profilePictureURL ? 'Change Picture' : 'Upload Picture')
+                    }
+                  </label>
+                  {pictureError && <div className="profile-picture-error">{pictureError}</div>}
+                </div>
+              </div>
               <div className="profile-user-details">
-                <div className="profile-user-name">John Doe</div>
-                <div className="profile-user-email">johndoe@gmail.com</div>
+                <div className="profile-user-name">
+                  {(firstName && lastName) 
+                    ? `${firstName} ${lastName}` 
+                    : (user?.displayName || user?.name || 'Guest User')
+                  }
+                </div>
+                <div className="profile-user-email">{user?.email || 'Not logged in'}</div>
               </div>
             </div>
           </div>
@@ -580,15 +804,41 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
                   <label className="form-label">First Name</label>
                   <span className="required-asterisk">*</span>
                 </div>
-                <input type="text" className="form-input" placeholder="First Name" />
+                <input 
+                  type="text" 
+                  className="form-input" 
+                  placeholder="First Name" 
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
               </div>
               <div className="form-field">
                 <div className="form-label-row">
                   <label className="form-label">Last Name</label>
                   <span className="required-asterisk">*</span>
                 </div>
-                <input type="text" className="form-input" placeholder="Last Name" />
+                <input 
+                  type="text" 
+                  className="form-input" 
+                  placeholder="Last Name" 
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
               </div>
+            </div>
+            <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
+              <button 
+                onClick={handleSaveNames}
+                disabled={savingNames}
+                className="profile-update-btn"
+              >
+                {savingNames ? 'Saving...' : 'Update Names'}
+              </button>
+              {namesSaved && (
+                <span style={{ color: '#4caf50', fontSize: 14, fontWeight: 500 }}>
+                  ✓ Names saved successfully!
+                </span>
+              )}
             </div>
           </div>
 
@@ -738,6 +988,7 @@ function Profile({ onNavigateHome, onNavigateJobBoard, onNavigateProfile = () =>
                           </div>
                         )}
                         {status === 'missing' && <div className="document-status">missing</div>}
+                        {status === 'verified' && <div className="document-status">verified</div>}
                       </div>
                       <button className={`document-action-btn ${status}-btn`}>{statusLabel}</button>
                     </div>

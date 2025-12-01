@@ -45,7 +45,7 @@ function NavBar({
                   <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Jobs</div>
                 </div>
                 <div className="nav-link">
-                  <div className="link-text" onClick={onNavigateEmployerBoard} style={{ cursor: 'pointer' }}>Employers</div>
+                  <div className="link-text" onClick={onNavigateEmployerBoard} style={{ cursor: 'pointer' }}>Companies</div>
                 </div>
               </div>
             )}

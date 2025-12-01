@@ -20,7 +20,7 @@ function NavBarStudent({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
               <div className="link-text" onClick={onNavigateJobBoard} style={{ cursor: 'pointer' }}>Jobs</div>
             </div>
             <div className="nav-link">
-              <div className="link-text" onClick={onNavigateEmployerBoard} style={{ cursor: 'pointer' }}>Employers</div>
+              <div className="link-text" onClick={onNavigateEmployerBoard} style={{ cursor: 'pointer' }}>Companies</div>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@ function NavBarStudent({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerB
               <div className="mobile-links">
                 <div className="mobile-link" onClick={() => { onNavigateStudentResources(); closeMenu(); }}>Student Resources</div>
                 <div className="mobile-link" onClick={() => { onNavigateJobBoard(); closeMenu(); }}>Jobs</div>
-                <div className="mobile-link" onClick={() => { onNavigateEmployerBoard(); closeMenu(); }}>Employers</div>
+                <div className="mobile-link" onClick={() => { onNavigateEmployerBoard(); closeMenu(); }}>Companies</div>
                 <div className="mobile-link" onClick={() => { onNavigateProfile(); closeMenu(); }}>Profile</div>
                 <div className="mobile-link" onClick={() => { onSignOut(); closeMenu(); }} style={{ marginTop: 16 }}>
                   <div className="btn-secondary">Sign Out</div>

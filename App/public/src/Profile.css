@@ -68,12 +68,53 @@
   gap: 12px;
 }
 
+.profile-avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .profile-avatar {
   width: 97.209px;
   height: 100px;
   border-radius: 100px;
-  background: url('https://api.builder.io/api/v1/image/assets/TEMP/8d232d503ca9f91c851f2d9166d5ef7f82f03a8b?width=194') no-repeat center;
-  background-size: cover;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.profile-picture-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-picture-upload-btn {
+  padding: 6px 12px;
+  background-color: #5384A4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+
+.profile-picture-upload-btn:hover {
+  background-color: #30546C;
+}
+
+.profile-picture-error {
+  color: #d32f2f;
+  font-size: 11px;
+  text-align: center;
+  max-width: 150px;
 }
 
 .profile-user-details {
@@ -102,6 +143,27 @@
   width: 68px;
   height: 40px;
   padding: 6px 12px;
+}
+
+.profile-update-btn {
+  padding: 8px 16px;
+  background-color: #5384A4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-update-btn:hover:not(:disabled) {
+  background-color: #30546C;
+}
+
+.profile-update-btn:disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
 }
 
 .profile-section {
@@ -338,6 +400,10 @@
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.45px;
+}
+
+.document-card.verified .document-status {
+  color: #268E4F;
 }
 
 .document-file {
