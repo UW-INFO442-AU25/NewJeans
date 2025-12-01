@@ -62,11 +62,10 @@
 }
 
 .job-main-info {
+  /* Mirror CompanyDetail `.company-main-info` for consistent layout across pages */
   display: flex;
   width: 100%;
-  max-width: 1000px;
   height: auto;
-  flex-direction: column;
   align-items: flex-start;
   gap: 16px;
   flex: 0 1 auto;
@@ -267,22 +266,25 @@
 }
 
 .job-sections {
+  /* match CompanyDetail `.jobs-section` for consistency */
   display: flex;
-  padding: 32px 0;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  align-self: center;
   width: 100%;
+  max-width: 1000px;
+  padding: 32px 16px 128px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  margin: 0 auto;
 }
 
 .job-info-card {
+  /* match CompanyDetail info card styling */
   display: flex;
   padding: 32px;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  align-self: center;
+  align-self: stretch;
   width: 100%;
   max-width: 1000px;
   border-radius: 8px;
@@ -292,7 +294,7 @@
 
 .section-heading {
   color: #191919;
-  font: 700 24px/26px Inter, -apple-system, Roboto, Helvetica, sans-serif;
+  font: 700 18px/26px Inter, -apple-system, Roboto, Helvetica, sans-serif;
 }
 
 .section-description {
@@ -318,6 +320,9 @@
   .job-description-content {
     max-width: 100%;
     padding: 24px 32px 96px 32px;
+    /* left-align content on mobile so main info lines up like CompanyDetail */
+    align-items: flex-start;
+    align-self: stretch;
   }
 
   .job-header-section {
@@ -327,6 +332,13 @@
 
   .job-main-info {
     height: auto;
+    /* mirror CompanyDetail `.company-main-info` mobile layout */
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    flex-direction: column;
   }
 
   .job-actions-section {
@@ -356,6 +368,7 @@
 
   .job-header-details {
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .company-logo-large {
@@ -392,7 +405,7 @@
 
 @media (max-width: 640px) {
   .job-description-content {
-    padding: 16px 16px 48px 16px;
+    padding: 0px 0px 48px 0px;
   }
 
   .back-to-jobs {

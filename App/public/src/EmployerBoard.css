@@ -130,6 +130,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
+  width: 100%;
 }
 
 .employer-search-bar {
@@ -196,6 +197,7 @@
     flex: 1 1 auto;
     min-height: 0; /* allow internal scrolling when used with overflow */
     z-index: 1;
+    width: 100%;
   }
 
   .employer-header {

@@ -655,6 +655,73 @@
   .job-card {
     padding: 20px 24px;
   }
+
+  /* Make job cards stack and align like the job-main-info on smaller viewports */
+  .job-card {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .job-card-content {
+    align-items: flex-start;
+    gap: 16px;
+    height: auto;
+    align-self: stretch;
+  }
+
+  .job-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* increase logo on small screens to match CompanyDetail sizing and visual weight */
+  .job-logo {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: 12px;
+  }
+
+  .emoji-logo { font-size: 48px; }
+
+  .job-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .job-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .job-details-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    width: 100%;
+  }
+
+  .job-detail {
+    max-width: 100%;
+  }
+
+  .job-actions {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+  }
+
+  /* add horizontal padding to the job list on mobile so cards don't touch the viewport edge */
+  .jobs-list {
+    padding: 16px;
+    box-sizing: border-box;
+  }
 }
 
 @media (max-width: 768px) {

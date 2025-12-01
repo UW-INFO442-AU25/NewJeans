@@ -63,6 +63,55 @@
   background: #FEFEFE;
 }
 
+@media (max-width: 991px) {
+  .company-detail-content {
+    max-width: 100%;
+    padding: 24px 32px 0 32px;
+  }
+
+  /* Stack header content similar to JobDescription on mobile */
+  .company-header {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .company-main-info {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  /* Make logo larger and allow the details to stack below it */
+  .job-logo {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: 12px;
+  }
+
+  .company-info-details {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .company-meta-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .jobs-section {
+    padding-top: 24px;
+  }
+
+  .positions-title {
+    font-size: 28px;
+  }
+}
+
 .company-main-info {
   display: flex;
   width: 100%;
@@ -104,7 +153,7 @@
 .company-name {
   align-self: stretch;
   color: #191919;
-  font-family: 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 32px;
   font-weight: 700;
   line-height: normal;
@@ -295,7 +344,7 @@
 
 .job-role {
   color: #191919;
-  font-family: 'Playfair Display', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 28px;
   font-weight: 700;
   line-height: normal;
@@ -376,7 +425,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  min-height: 173px;
+  /* min-height: 173px; */
 }
 
 .bookmark-icon-button {

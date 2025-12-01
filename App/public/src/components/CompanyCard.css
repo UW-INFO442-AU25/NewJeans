@@ -132,7 +132,7 @@
 @media (max-width: 1200px) {
   .company-card-employer {
     width: 100%;
-    max-width: 342.667px;
+    /* max-width: 342.667px; */
   }
 }
 

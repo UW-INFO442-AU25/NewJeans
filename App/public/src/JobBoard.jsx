@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import jobs from './data/jobs.json';
 import JobCard from './components/JobCard';
+import JobCardStyle2 from './components/JobCardStyle2';
 import SearchBar from './components/SearchBar';
 
 function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateEmployerBoard = () => {}, onNavigateToJobDescription, onNavigateProfile, onNavigateLogin = () => {}, onNavigateStudentResources = () => {}, initialSearchQuery = '', savedJobIds = [], onToggleSave = () => {}, user = null, onSignOut = () => {} }) {
@@ -281,6 +282,16 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
 
   const hasMore = (filteredJobs.length > displayedJobs.length);
 
+  // Track mobile breakpoint so we can render an alternate card component on small screens
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 991 : false);
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 991);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const CardComponent = isMobile ? JobCardStyle2 : JobCard;
+
   return (
     <div className="job-board-container">
       <NavBar
@@ -512,7 +523,7 @@ function JobBoard({ onNavigateHome, onNavigateToJobBoard = () => {}, onNavigateE
               <div style={{ padding: 24, color: '#767676' }}>No jobs match your filters.</div>
             ) : (
               displayedJobs.map((job) => (
-                <JobCard
+                <CardComponent
                   key={job.id}
                   job={job}
                   onClick={() => onNavigateToJobDescription(job.id)}
