@@ -5,6 +5,18 @@ import Footer from './components/Footer';
 
 function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBoard, onNavigateLogin, onNavigateStudentResources }) {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [checkedItems, setCheckedItems] = useState(() => {
+    const saved = localStorage.getItem('onCampusChecklist');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const toggleCheck = (id) => {
+    setCheckedItems(prev => {
+      const updated = { ...prev, [id]: !prev[id] };
+      localStorage.setItem('onCampusChecklist', JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   useEffect(() => {
     if (videoOpen) {
@@ -95,22 +107,40 @@ function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmpl
         <h2 className="on-campus-checklist-title">On-Campus Employment Document Checklist</h2>
 
         <div className="on-campus-task-group">
-          <div className="on-campus-task-header">
-            <div className="on-campus-task-checkbox"></div>
+          <div className="on-campus-task-header" onClick={() => toggleCheck('task-1')} style={{ cursor: 'pointer' }}>
+            <div className={`on-campus-task-checkbox ${checkedItems['task-1'] ? 'checked' : ''}`}>
+              {checkedItems['task-1'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="on-campus-task-title">Confirm Eligibility</h3>
           </div>
-          <div className="on-campus-subtask">
+          <div className="on-campus-subtask" onClick={() => toggleCheck('task-1-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="on-campus-subtask-connector">
               <div className="on-campus-subtask-line-top"></div>
-              <div className="on-campus-subtask-checkbox"></div>
+              <div className={`on-campus-subtask-checkbox ${checkedItems['task-1-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['task-1-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="on-campus-subtask-line-bottom"></div>
             </div>
             <p className="on-campus-subtask-text">You must hold valid F-1 student status and be enrolled full-time during the academic term</p>
           </div>
-          <div className="on-campus-subtask">
+          <div className="on-campus-subtask" onClick={() => toggleCheck('task-1-sub-2')} style={{ cursor: 'pointer' }}>
             <div className="on-campus-subtask-connector">
               <div className="on-campus-subtask-line-top"></div>
-              <div className="on-campus-subtask-checkbox"></div>
+              <div className={`on-campus-subtask-checkbox ${checkedItems['task-1-sub-2'] ? 'checked' : ''}`}>
+                {checkedItems['task-1-sub-2'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="on-campus-subtask-line-bottom"></div>
             </div>
             <p className="on-campus-subtask-text">Employment must be on your school's campus or at an affiliated location</p>
@@ -118,22 +148,40 @@ function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmpl
         </div>
 
         <div className="on-campus-task-group">
-          <div className="on-campus-task-header">
-            <div className="on-campus-task-checkbox"></div>
+          <div className="on-campus-task-header" onClick={() => toggleCheck('task-2')} style={{ cursor: 'pointer' }}>
+            <div className={`on-campus-task-checkbox ${checkedItems['task-2'] ? 'checked' : ''}`}>
+              {checkedItems['task-2'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="on-campus-task-title">Receive an Offer Letter</h3>
           </div>
-          <div className="on-campus-subtask">
+          <div className="on-campus-subtask" onClick={() => toggleCheck('task-2-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="on-campus-subtask-connector">
               <div className="on-campus-subtask-line-top"></div>
-              <div className="on-campus-subtask-checkbox"></div>
+              <div className={`on-campus-subtask-checkbox ${checkedItems['task-2-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['task-2-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="on-campus-subtask-line-bottom"></div>
             </div>
             <p className="on-campus-subtask-text">Get a written job offer from your on-campus department or employer</p>
           </div>
-          <div className="on-campus-subtask">
+          <div className="on-campus-subtask" onClick={() => toggleCheck('task-2-sub-2')} style={{ cursor: 'pointer' }}>
             <div className="on-campus-subtask-connector">
               <div className="on-campus-subtask-line-top"></div>
-              <div className="on-campus-subtask-checkbox"></div>
+              <div className={`on-campus-subtask-checkbox ${checkedItems['task-2-sub-2'] ? 'checked' : ''}`}>
+                {checkedItems['task-2-sub-2'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="on-campus-subtask-line-bottom"></div>
             </div>
             <p className="on-campus-subtask-text">Check that the position is designated as "on-campus" and not offsite</p>
@@ -141,22 +189,40 @@ function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmpl
         </div>
 
         <div className="on-campus-task-group">
-          <div className="on-campus-task-header">
-            <div className="on-campus-task-checkbox"></div>
+          <div className="on-campus-task-header" onClick={() => toggleCheck('task-3')} style={{ cursor: 'pointer' }}>
+            <div className={`on-campus-task-checkbox ${checkedItems['task-3'] ? 'checked' : ''}`}>
+              {checkedItems['task-3'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="on-campus-task-title">Complete Form I-9 (Employment Eligibility Verification)</h3>
           </div>
-          <div className="on-campus-subtask">
+          <div className="on-campus-subtask" onClick={() => toggleCheck('task-3-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="on-campus-subtask-connector">
               <div className="on-campus-subtask-line-top"></div>
-              <div className="on-campus-subtask-checkbox"></div>
+              <div className={`on-campus-subtask-checkbox ${checkedItems['task-3-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['task-3-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="on-campus-subtask-line-bottom"></div>
             </div>
             <p className="on-campus-subtask-text">Contact your Designated School Official (DSO) to confirm eligibility for on-campus work</p>
           </div>
-          <div className="on-campus-subtask">
+          <div className="on-campus-subtask" onClick={() => toggleCheck('task-3-sub-2')} style={{ cursor: 'pointer' }}>
             <div className="on-campus-subtask-connector">
               <div className="on-campus-subtask-line-top"></div>
-              <div className="on-campus-subtask-checkbox"></div>
+              <div className={`on-campus-subtask-checkbox ${checkedItems['task-3-sub-2'] ? 'checked' : ''}`}>
+                {checkedItems['task-3-sub-2'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="on-campus-subtask-line-bottom"></div>
             </div>
             <p className="on-campus-subtask-text">Submit I-9 documents to your campus HR or hiring department</p>
@@ -164,14 +230,26 @@ function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmpl
         </div>
 
         <div className="on-campus-task-group">
-          <div className="on-campus-task-header">
-            <div className="on-campus-task-checkbox"></div>
+          <div className="on-campus-task-header" onClick={() => toggleCheck('task-4')} style={{ cursor: 'pointer' }}>
+            <div className={`on-campus-task-checkbox ${checkedItems['task-4'] ? 'checked' : ''}`}>
+              {checkedItems['task-4'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="on-campus-task-title">Apply for a Social Security Number (SSN)</h3>
           </div>
-          <div className="on-campus-subtask on-campus-subtask-multiline">
+          <div className="on-campus-subtask on-campus-subtask-multiline" onClick={() => toggleCheck('task-4-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="on-campus-subtask-connector">
               <div className="on-campus-subtask-line-top"></div>
-              <div className="on-campus-subtask-checkbox"></div>
+              <div className={`on-campus-subtask-checkbox ${checkedItems['task-4-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['task-4-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="on-campus-subtask-line-bottom"></div>
             </div>
             <p className="on-campus-subtask-text">Bring the following to the Social Security Administration:
@@ -183,14 +261,26 @@ function OnCampusEmployment({ onNavigateHome, onNavigateJobBoard, onNavigateEmpl
         </div>
 
         <div className="on-campus-task-group">
-          <div className="on-campus-task-header">
-            <div className="on-campus-task-checkbox"></div>
+          <div className="on-campus-task-header" onClick={() => toggleCheck('task-5')} style={{ cursor: 'pointer' }}>
+            <div className={`on-campus-task-checkbox ${checkedItems['task-5'] ? 'checked' : ''}`}>
+              {checkedItems['task-5'] && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="#FEFEFE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
             <h3 className="on-campus-task-title">Fill Out Form W-4 (Tax Withholding Form)</h3>
           </div>
-          <div className="on-campus-subtask">
+          <div className="on-campus-subtask" onClick={() => toggleCheck('task-5-sub-1')} style={{ cursor: 'pointer' }}>
             <div className="on-campus-subtask-connector">
               <div className="on-campus-subtask-line-top"></div>
-              <div className="on-campus-subtask-checkbox"></div>
+              <div className={`on-campus-subtask-checkbox ${checkedItems['task-5-sub-1'] ? 'checked' : ''}`}>
+                {checkedItems['task-5-sub-1'] && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
               <div className="on-campus-subtask-line-bottom"></div>
             </div>
             <p className="on-campus-subtask-text">Complete your W-4 form to determine how much tax is withheld from your paycheck</p>

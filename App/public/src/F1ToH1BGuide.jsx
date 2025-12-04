@@ -66,54 +66,90 @@ function F1ToH1BGuide({ onNavigateHome, onNavigateJobBoard, onNavigateEmployerBo
           <h2 className="timeline-title">H-1B Fiscal Year Timeline</h2>
 
           <div className="timeline-items-container">
-            <div className="timeline-item">
+            <div className="timeline-item" onClick={() => toggleCheckbox('timeline-1')} style={{ cursor: 'pointer' }}>
               <div className="timeline-item-content">
-                <div className="timeline-checkbox"></div>
+                <div className={`timeline-checkbox ${checkedItems['timeline-1'] ? 'checked' : ''}`}>
+                  {checkedItems['timeline-1'] && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="#5384A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </div>
                 <p className="timeline-item-text">
                   <strong>March:</strong> H-1B registration period (exact dates announced annually by USCIS)
                 </p>
               </div>
             </div>
 
-            <div className="timeline-item">
+            <div className="timeline-item" onClick={() => toggleCheckbox('timeline-2')} style={{ cursor: 'pointer' }}>
               <div className="timeline-item-content">
-                <div className="timeline-checkbox"></div>
+                <div className={`timeline-checkbox ${checkedItems['timeline-2'] ? 'checked' : ''}`}>
+                  {checkedItems['timeline-2'] && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="#5384A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </div>
                 <p className="timeline-item-text">
                   <strong>Late March/Early April:</strong> Lottery selections announced
                 </p>
               </div>
             </div>
 
-            <div className="timeline-item">
+            <div className="timeline-item" onClick={() => toggleCheckbox('timeline-3')} style={{ cursor: 'pointer' }}>
               <div className="timeline-item-content">
-                <div className="timeline-checkbox"></div>
+                <div className={`timeline-checkbox ${checkedItems['timeline-3'] ? 'checked' : ''}`}>
+                  {checkedItems['timeline-3'] && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="#5384A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </div>
                 <p className="timeline-item-text">
                   <strong>April 1 to June 30:</strong> Filing period for selected H-1B petitions
                 </p>
               </div>
             </div>
 
-            <div className="timeline-item">
+            <div className="timeline-item" onClick={() => toggleCheckbox('timeline-4')} style={{ cursor: 'pointer' }}>
               <div className="timeline-item-content">
-                <div className="timeline-checkbox"></div>
+                <div className={`timeline-checkbox ${checkedItems['timeline-4'] ? 'checked' : ''}`}>
+                  {checkedItems['timeline-4'] && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="#5384A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </div>
                 <p className="timeline-item-text">
                   <strong>April to September:</strong> USCIS processing of H-1B petitions
                 </p>
               </div>
             </div>
 
-            <div className="timeline-item">
+            <div className="timeline-item" onClick={() => toggleCheckbox('timeline-5')} style={{ cursor: 'pointer' }}>
               <div className="timeline-item-content">
-                <div className="timeline-checkbox"></div>
+                <div className={`timeline-checkbox ${checkedItems['timeline-5'] ? 'checked' : ''}`}>
+                  {checkedItems['timeline-5'] && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="#5384A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </div>
                 <p className="timeline-item-text">
                   <strong>October 1:</strong> H-1B employment start date (beginning of fiscal year)
                 </p>
               </div>
             </div>
 
-            <div className="timeline-item">
+            <div className="timeline-item" onClick={() => toggleCheckbox('timeline-6')} style={{ cursor: 'pointer' }}>
               <div className="timeline-item-content">
-                <div className="timeline-checkbox"></div>
+                <div className={`timeline-checkbox ${checkedItems['timeline-6'] ? 'checked' : ''}`}>
+                  {checkedItems['timeline-6'] && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="#5384A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </div>
                 <p className="timeline-item-text">
                   <strong>Until April 1 (following year):</strong> Cap gap extension period under new regulations
                 </p>
